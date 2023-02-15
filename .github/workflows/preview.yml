@@ -1,0 +1,35 @@
+name: Create preview
+on: [pull_request]
+jobs:
+  preview:
+    name: Create preview
+    runs-on: ubuntu-latest
+    steps:
+      
+      - name: Set up repository
+        uses: actions/checkout@v2
+      
+      - name: Setup Node.js environment
+        uses: actions/setup-node@v3.6.0
+        with:
+          node-version: latest
+      
+      - name: Set up Expo
+        uses: expo/expo-github-action@v7
+        with:
+          expo-version: latest
+          token: ${{ secrets.EXPO_TOKEN }}
+      
+      - name: Install dependencies
+        run: yarn install
+      
+      - name: Publish to Expo & create a QR code
+        uses: expo/expo-preview-action@v1
+        with:
+          channel: pr-${{ github.event.number }}
+        id: preview
+      
+      - name: 💬 Comment in preview
+        uses: expo/expo-github-action/preview-comment@v7
+        with:
+          channel: pr-${{ github.event.number }}

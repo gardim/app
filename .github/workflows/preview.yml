@@ -1,10 +1,13 @@
-name: Create preview
+name: Preview
 on: [pull_request]
 jobs:
   preview:
-    name: Create preview
     runs-on: ubuntu-latest
     steps:
+      - uses: actions/checkout@v2
+        with:
+          fetch-depth: 0
+          token: ${{ secrets.GITHUB_TOKEN }}
 
       - name: ⚙️ Set up repository
         uses: actions/checkout@v2
@@ -12,7 +15,7 @@ jobs:
       - name: ❇️ Setup Node.js environment
         uses: actions/setup-node@v3.6.0
         with:
-          node-version: latest
+          node-version: 16.x
 
       - name: 🔷 Set up Expo
         uses: expo/expo-github-action@v7

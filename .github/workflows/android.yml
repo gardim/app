@@ -1,0 +1,42 @@
+name: Android
+on:
+  workflow_dispatch:
+
+jobs:
+  build-android:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v2
+        with:
+          fetch-depth: 0
+          token: ${{ secrets.GITHUB_TOKEN }}
+
+      - name: ⚙️ Set up repository
+        uses: actions/checkout@v2
+        
+      - name: ❇️ Setup Node.js environment
+        uses: actions/setup-node@v3.6.0
+        with:
+          node-version: 16.x
+
+      - name: 🔷 Set up Expo
+        uses: expo/expo-github-action@v7
+        with:
+          expo-version: latest
+          eas-version: latest
+          token: ${{ secrets.EXPO_TOKEN }}
+      
+      - name: 🤖 Setup Android SDK Tools
+        uses: android-actions/setup-android@v2.0.2
+      
+      - name: 📦 Install dependencies
+        run: yarn install
+      
+      - name: 🔨 Build app
+        run: eas build --platform android --profile preview --local --non-interactive
+      
+      - name: 💾 Save build result
+        uses: actions/upload-artifact@v3
+        with:
+          name: GardimApp
+          path: ${{ github.workspace }}/*.apk

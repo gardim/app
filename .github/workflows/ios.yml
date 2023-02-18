@@ -40,6 +40,16 @@ jobs:
         run: |
           echo -n "${{ secrets.MOBILE_PROVISION }}" | base64 -d > ios/certs/profile.mobileprovision
         
+      - name: 📦 Install dependencies
+        run: yarn install
+
+      - name: ℹ️ Run Expo Env Info
+        run: npx expo-env-info
+      
+      - name: 🩺  Run Expo Doctor
+        run: expo doctor
+        
+        
       - name: 🔨 Build app
         run: eas build --platform ios --profile preview --local --non-interactive
         

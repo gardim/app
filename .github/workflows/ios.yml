@@ -1,0 +1,50 @@
+name: iOS
+on:
+  workflow_dispatch:
+  pull_request:
+    types: [opened, synchronize, reopened]
+
+jobs:
+  build-ios:
+    runs-on: macos-latest
+    steps:
+      - uses: actions/checkout@v2
+        with:
+          fetch-depth: 0
+          token: ${{ secrets.GITHUB_TOKEN }}
+
+      - name: ⚙️ Set up repository
+        uses: actions/checkout@v2
+        
+      - name: ❇️ Setup Node.js environment
+        uses: actions/setup-node@v3.6.0
+        with:
+          node-version: 16.x
+    
+      - name: 🔷 Set up Expo
+        uses: expo/expo-github-action@v7
+        with:
+          expo-version: latest
+          eas-version: latest
+          token: ${{ secrets.EXPO_TOKEN }}
+
+      - name: ✴️ Install fastlane
+        run: brew install fastlane
+    
+      - name: 🔐 Create Cert File
+        run: |
+          mkdir -p ios/certs
+          echo -n "${{ secrets.P12_CERT }}" | base64 -d > ios/certs/dist-cert.p12
+      
+      - name: 📱 Create mobile provision
+        run: |
+          echo -n "${{ secrets.MOBILE_PROVISION }}" | base64 -d > ios/certs/profile.mobileprovision
+        
+      - name: 🔨 Build app
+        run: eas build --platform ios --profile preview --local --non-interactive
+        
+      - name: 💾 Save build result
+        uses: actions/upload-artifact@v3
+        with:
+          name: GardimApp
+          path:  ${{ github.workspace }}/*.ipa

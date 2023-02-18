@@ -1,8 +1,6 @@
 name: Android
 on:
   workflow_dispatch:
-  pull_request:
-    types: [opened, synchronize, reopened]
 
 jobs:
   build-android:
@@ -35,7 +33,7 @@ jobs:
         run: yarn install
       
       - name: 🔨 Build app
-        run: eas build --platform android --profile release --local --non-interactive
+        run: eas build --platform android --profile preview --local --non-interactive
       
       - name: 💾 Save build result
         uses: actions/upload-artifact@v3

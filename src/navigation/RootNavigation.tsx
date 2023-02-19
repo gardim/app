@@ -11,7 +11,7 @@ const Drawer = createDrawerNavigator();
 export default function RootNavigation({ theme }) {
 	return (
 		<NavigationContainer theme={theme}>
-			<Drawer.Navigator initialRouteName="Home" drawerContent={() => <DrawerContent />}>
+			<Drawer.Navigator initialRouteName="Home" drawerContent={DrawerContent}>
 				<Drawer.Screen
 					name="Root"
 					component={RootStackNavigator}

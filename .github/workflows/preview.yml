@@ -2,6 +2,7 @@ name: Preview
 on: [pull_request]
 jobs:
   preview:
+    if: github.event.pull_request.labels[0].name != 'dependencies'
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v2

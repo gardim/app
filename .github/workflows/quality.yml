@@ -1,7 +1,13 @@
-name: Preview
-on: [pull_request]
+name: Quality
+on:
+  push:
+    branches:
+      - main
+  pull_request:
+    types: [opened, synchronize, reopened]
+
 jobs:
-  preview:
+  quality:
     if: ${{ github.event.label.name != 'dependencies' }}
     runs-on: ubuntu-latest
     steps:
@@ -27,13 +33,13 @@ jobs:
       - name: 📦 Install dependencies
         run: yarn install
 
-      - name: 🚀 Publish to Expo & create a QR code
-        uses: expo/expo-preview-action@v1
-        with:
-          channel: pr-${{ github.event.number }}
-        id: preview
+      - name: 💅🏽 Analysing code linter
+        run: |
+          yarn eslint
+          yarn prettier
 
-      - name: 💬 Comment in preview
-        uses: expo/expo-github-action/preview-comment@v7
-        with:
-          channel: pr-${{ github.event.number }}
+      - name: 🔍 SonarCloud Scan
+        uses: SonarSource/sonarcloud-github-action@master
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}

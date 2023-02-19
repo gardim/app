@@ -11,7 +11,7 @@ export default function RootStackNavigator() {
 		<Stack.Navigator
 			initialRouteName="Home"
 			screenOptions={{
-				header: (props) => <Header {...props} />,
+				header: Header,
 			}}>
 			<Stack.Screen name="Home" component={Home} />
 		</Stack.Navigator>

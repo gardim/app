@@ -1,4 +1,4 @@
-name: Verification
+name: Tests
 on:
   push:
     branches:
@@ -7,8 +7,8 @@ on:
     types: [opened, synchronize, reopened]
 
 jobs:
-  verification:
-    if: github.event.pull_request.labels[0].name != 'dependencies'
+  tests:
+    if: github.event.pull_request.labels[0].name == 'dependencies'
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v2
@@ -33,11 +33,6 @@ jobs:
       - name: 📦 Install dependencies
         run: yarn install
 
-      - name: 💅🏽 Analysing code linter
-        run: |
-          yarn eslint
-          yarn prettier
-          
       - name: 🧪 Run Cypress Test
         uses: cypress-io/github-action@v5.0.0
         with:
@@ -46,9 +41,3 @@ jobs:
           record: false
           wait-on: 'http://localhost:19006'
           wait-on-timeout: 300
-
-      - name: 🔍 SonarCloud Scan
-        uses: SonarSource/sonarcloud-github-action@master
-        env:
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-          SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}

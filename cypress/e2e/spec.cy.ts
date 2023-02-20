@@ -10,17 +10,28 @@ sizes.forEach((size) => {
 
 		
 		it('works', () => {
+
+
 			cy.viewport(size); 
-			cy.visit('/');
-			cy.contains('Open up App.js to start working on your app!')
+			cy.visit('/', {
+				onBeforeLoad(win) {
+					cy.stub(win.console, 'log').as('consoleLog');
+				}});
+
+			cy.contains('Adicione sua primeira planta')
 				.should('be.visible');
+
+			cy.get('div[data-testid="fab-content"]').click({force: true});
+
+			cy.get('@consoleLog').should('be.calledWith', 'click');
+
 		});
 	
 		it('changes theme', () => {
 			cy.viewport(size); 
 			cy.visit('/');
 			
-			cy.contains('Open up App.js to start working on your app!')
+			cy.contains('Adicione sua primeira planta')
 				.should('be.visible')
 				.should('have.css', 'color', lightGreenColors.colors.onBackground);
 	
@@ -30,7 +41,7 @@ sizes.forEach((size) => {
 				.should('be.visible')
 				.click();
 	
-			cy.contains('Open up App.js to start working on your app!')
+			cy.contains('Adicione sua primeira planta')
 				.should('have.css', 'color', darkGreenColors.colors.onBackground);
 	
 		});

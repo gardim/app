@@ -3,6 +3,7 @@ import 'react-native-gesture-handler';
 import React from 'react';
 import { Home } from '../screens/Home';
 import { Header } from '../components/Header';
+import IdentificationMethod from '../screens/IdentificationMethod';
 
 const Stack = createStackNavigator();
 
@@ -14,6 +15,7 @@ export default function RootStackNavigator() {
 				header: Header,
 			}}>
 			<Stack.Screen name="Home" component={Home} />
+			<Stack.Screen name="IdentificationMethod" component={IdentificationMethod} />
 		</Stack.Navigator>
 	);
 }

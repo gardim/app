@@ -9,7 +9,7 @@ export function Home({ navigation }: HomeProps) {
 			<View style={styles.row}>
 				<FAB
 					icon="plus"
-					onPress={() => console.log('click')}
+					onPress={() => navigation.navigate('IdentificationMethod')}
 					visible
 					style={[styles.fabStyle]}
 				/>

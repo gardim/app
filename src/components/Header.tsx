@@ -10,7 +10,7 @@ export type RootStackParamList = {
 
 const MORE_ICON = Platform.OS === 'ios' ? 'dots-horizontal' : 'dots-vertical';
 
-export const Header = ({ navigation, route }: StackHeaderProps) => {
+export const Header = ({ navigation, options }: StackHeaderProps) => {
 	const theme = useTheme();
 	const [menuVisible, setMenuVisible] = React.useState(false);
 
@@ -21,7 +21,7 @@ export const Header = ({ navigation, route }: StackHeaderProps) => {
 					primary: theme?.colors.surface,
 				},
 			}}>
-			<Appbar.Content title={route.name} />
+			<Appbar.Content title={options.title} />
 			<Menu
 				visible={menuVisible}
 				onDismiss={() => setMenuVisible(false)}

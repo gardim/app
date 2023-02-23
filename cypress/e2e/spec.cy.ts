@@ -9,7 +9,7 @@ sizes.forEach((size) => {
 	describe(`basic behavior on ${size} screen`, () => {
 
 		
-		it('works', () => {
+		it('interacts with screen', () => {
 
 
 			cy.viewport(size); 
@@ -23,7 +23,20 @@ sizes.forEach((size) => {
 
 			cy.get('div[data-testid="fab-content"]').click({force: true});
 
-			cy.get('@consoleLog').should('be.calledWith', 'click');
+			cy.contains('Método de Identificação')
+				.should('be.visible');
+
+			cy.contains('Identificar por imagem')
+				.should('be.visible')
+				.click({force: true});
+
+			cy.get('@consoleLog').should('be.calledWith', 'image');
+
+			cy.contains('Buscar manualmente')
+				.should('be.visible')
+				.click({force: true});
+
+			cy.get('@consoleLog').should('be.calledWith', 'search');
 
 		});
 	

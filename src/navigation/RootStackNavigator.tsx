@@ -14,8 +14,12 @@ export default function RootStackNavigator() {
 			screenOptions={{
 				header: Header,
 			}}>
-			<Stack.Screen name="Home" component={Home} />
-			<Stack.Screen name="IdentificationMethod" component={IdentificationMethod} />
+			<Stack.Screen name="Home" component={Home} options={{ title: 'Suas Plantas' }} />
+			<Stack.Screen
+				name="IdentificationMethod"
+				component={IdentificationMethod}
+				options={{ title: 'Método de Identificação' }}
+			/>
 		</Stack.Navigator>
 	);
 }

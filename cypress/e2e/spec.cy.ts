@@ -2,8 +2,7 @@
 
 import { lightGreenColors, darkGreenColors } from '../../src/utils/colors';
 
-
-const sizes = ['macbook-16', 'macbook-13' , 'ipad-2' , 'iphone-x' , 'samsung-s10' , 'samsung-note9'];
+const sizes = ['macbook-16', 'macbook-13', 'ipad-2', 'iphone-x', 'samsung-s10', 'samsung-note9'];
 sizes.forEach((size) => {
 	describe(`basic behavior on ${size} screen`, () => {
 		it('verifies home screen', () => {
@@ -58,7 +57,7 @@ sizes.forEach((size) => {
 				});
 			});
 
-			cy.get('div[data-testid="iconIcon"]').first().click({force: true});
+			cy.get('div[data-testid="iconIcon"]').first().click({ force: true });
 
 			cy.contains('Adicionar da galeria').click({ force: true });
 
@@ -72,8 +71,7 @@ sizes.forEach((size) => {
 
 			cy.get(
 				'[style="flex: 1 1 0%; place-content: center; flex-direction: column;"] > [data-testid="fab-container"] > [data-testid="fab"]'
-			)
-				.click({ force: true });
+			).click({ force: true });
 
 			cy.get('@consoleLog').should('be.calledWith', 'click');
 		});

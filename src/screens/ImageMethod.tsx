@@ -1,10 +1,9 @@
 import * as ImagePicker from 'expo-image-picker';
 import React, { useState } from 'react';
-import { StyleSheet, View, SafeAreaView } from 'react-native';
+import { StyleSheet, View, SafeAreaView, Dimensions } from 'react-native';
 import { ImageMethodProps, ImageType } from '../types/index';
 import { DeletableImage } from '../components/DeletableImage';
 import { FAB, Text } from 'react-native-paper';
-import { Dimensions } from 'react-native';
 import Carousel from 'react-native-reanimated-carousel';
 
 export function ImageMethod({ navigation }: ImageMethodProps) {

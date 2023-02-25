@@ -3,7 +3,7 @@ import React, { useState } from 'react';
 import { StyleSheet, View, SafeAreaView } from 'react-native';
 import { ImageMethodProps, ImageType } from '../types/index';
 import { DeletableImage } from '../components/DeletableImage';
-import { FAB } from 'react-native-paper';
+import { FAB, Text } from 'react-native-paper';
 import { Dimensions } from 'react-native';
 import Carousel from 'react-native-reanimated-carousel';
 
@@ -50,6 +50,9 @@ export function ImageMethod({ navigation }: ImageMethodProps) {
 
 	return (
 		<SafeAreaView style={styles.container}>
+			<Text variant="titleMedium" style={{ textAlign: 'center' }}>
+					Adicione algumas fotos para podermos identificar sua planta!
+			</Text>
 			<View style={styles.row}>
 				<FAB
 					icon="camera"
@@ -71,12 +74,11 @@ export function ImageMethod({ navigation }: ImageMethodProps) {
 					style={{
 						flex: 1,
 						justifyContent: 'center',
-						flexDirection: 'row',
+						flexDirection: 'column',
 						alignContent: 'center',
 					}}>
 					<Carousel
 						pagingEnabled={true}
-						style={{ marginLeft: '20%' }}
 						snapEnabled={true}
 						mode={'horizontal-stack'}
 						modeConfig={{
@@ -86,6 +88,14 @@ export function ImageMethod({ navigation }: ImageMethodProps) {
 						width={width}
 						data={images}
 						renderItem={({ item }) => <DeletableImage image={item} remove={removeImage} />}
+					/>
+					<FAB
+						icon="arrow-right"
+						label="Continuar"
+						onPress={() => console.log('click')}
+						visible
+						style={[styles.fabStyle]}
+						variant='tertiary'
 					/>
 				</View>
 			) : (
@@ -98,13 +108,14 @@ export function ImageMethod({ navigation }: ImageMethodProps) {
 const styles = StyleSheet.create({
 	container: {
 		flexGrow: 1,
-		padding: 8,
+		padding: 40,
 		justifyContent: 'center',
 	},
 	row: {
+		flex: 0.5,
 		flexDirection: 'column',
+		justifyContent: 'space-evenly',
 	},
 	fabStyle: {
-		margin: 10,
 	},
 });

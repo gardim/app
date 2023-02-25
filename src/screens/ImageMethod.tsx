@@ -27,15 +27,14 @@ export function ImageMethod({ navigation }: ImageMethodProps) {
 
 		if (!result.canceled) {
 			const newImage = {
-				id: result.assets[0].assetId,
+				id: result.assets[0].assetId ? result.assets[0].assetId : images.length.toString(),
 				uri: result.assets[0].uri,
 			};
 			if (!images.some((image) => image.id === newImage.id)) {
 				setImages([...images, newImage]);
 			}
-			console.log(images);
 		} else {
-			alert('You did not select any image.');
+			alert('Você não adicionou nenhuma imagem.');
 		}
 	};
 	const removeImage = (id: string) => {

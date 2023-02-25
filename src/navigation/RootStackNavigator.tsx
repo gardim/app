@@ -4,6 +4,7 @@ import React from 'react';
 import { Home } from '../screens/Home';
 import { Header } from '../components/Header';
 import IdentificationMethod from '../screens/IdentificationMethod';
+import { ImageMethod } from '../screens/ImageMethod';
 
 const Stack = createStackNavigator();
 
@@ -19,6 +20,11 @@ export default function RootStackNavigator() {
 				name="IdentificationMethod"
 				component={IdentificationMethod}
 				options={{ title: 'Método de Identificação' }}
+			/>
+			<Stack.Screen
+				name="ImageMethod"
+				component={ImageMethod}
+				options={{ title: 'Identificação por imagem' }}
 			/>
 		</Stack.Navigator>
 	);

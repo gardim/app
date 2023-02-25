@@ -1,41 +1,8 @@
 {
   "expo": {
-    "name": "gardim",
     "slug": "gardim",
-    "version": "1.0.0",
-    "entryPoint": "./src/App.tsx",
-    "orientation": "portrait",
-    "icon": "./assets/icon.png",
-    "userInterfaceStyle": "light",
-    "splash": {
-      "image": "./assets/splash.png",
-      "resizeMode": "contain",
-      "backgroundColor": "#ffffff"
-    },
-    "updates": {
-      "fallbackToCacheTimeout": 0
-    },
-    "assetBundlePatterns": [
-      "**/*"
-    ],
-    "ios": {
-      "supportsTablet": true,
-      "bundleIdentifier": "com.gardim"
-    },
-    "android": {
-      "adaptiveIcon": {
-        "foregroundImage": "./assets/adaptive-icon.png",
-        "backgroundColor": "#FFFFFF"
-      },
-      "package": "com.gardim"
-    },
-    "web": {
-      "favicon": "./assets/favicon.png"
-    },
-    "extra": {
-      "eas": {
-        "projectId": "8d0a02e6-116c-4f13-bc9b-b72a6b07fc14"
-      }
-    }
-  }
+    "name": "gardim",
+    "sdkVersion": "47.0.0"
+  },
+  "name": "gardim"
 }

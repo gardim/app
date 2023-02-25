@@ -9,6 +9,7 @@ import Carousel from 'react-native-reanimated-carousel';
 
 export function ImageMethod({ navigation }: ImageMethodProps) {
 	const [images, setImages] = useState<ImageType[]>([]);
+	const [visible, setVisible] = React.useState<boolean>(false);
 
 	const pickImage = async (method) => {
 		const options = {
@@ -51,7 +52,7 @@ export function ImageMethod({ navigation }: ImageMethodProps) {
 	return (
 		<SafeAreaView style={styles.container}>
 			<Text variant="titleMedium" style={{ textAlign: 'center' }}>
-					Adicione algumas fotos para podermos identificar sua planta!
+				Adicione algumas fotos para podermos identificar sua planta!
 			</Text>
 			<View style={styles.row}>
 				<FAB
@@ -60,6 +61,7 @@ export function ImageMethod({ navigation }: ImageMethodProps) {
 					onPress={() => pickImage('camera')}
 					visible
 					style={[styles.fabStyle]}
+					variant="secondary"
 				/>
 				<FAB
 					icon="image"
@@ -67,6 +69,7 @@ export function ImageMethod({ navigation }: ImageMethodProps) {
 					onPress={() => pickImage('gallery')}
 					visible
 					style={[styles.fabStyle]}
+					variant="secondary"
 				/>
 			</View>
 			{images.length > 0 ? (
@@ -91,11 +94,11 @@ export function ImageMethod({ navigation }: ImageMethodProps) {
 					/>
 					<FAB
 						icon="arrow-right"
-						label="Continuar"
+						label={visible ? 'Continuar' : ''}
 						onPress={() => console.log('click')}
-						visible
-						style={[styles.fabStyle]}
-						variant='tertiary'
+						style={[styles.compressedFabStyle]}
+						variant="primary"
+						onLongPress={() => setVisible(!visible)}
 					/>
 				</View>
 			) : (
@@ -116,6 +119,10 @@ const styles = StyleSheet.create({
 		flexDirection: 'column',
 		justifyContent: 'space-evenly',
 	},
-	fabStyle: {
+	fabStyle: {},
+	compressedFabStyle: {
+		position: 'absolute',
+		right: 0,
+		bottom: 0,
 	},
 });

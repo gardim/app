@@ -22,7 +22,7 @@ sizes.forEach((size) => {
 
 			cy.contains('Identificar por imagem').should('be.visible');
 
-			cy.contains('Buscar manualmente').should('be.visible');
+			cy.contains('Identificar por texto').should('be.visible');
 
 			cy.get('[data-testid="surface"] > :nth-child(1) > [data-testid="icon-button"]').click({
 				force: true,
@@ -44,8 +44,6 @@ sizes.forEach((size) => {
 			cy.contains('Método de Identificação').should('be.visible');
 
 			cy.contains('Identificar por imagem').should('be.visible').click({ force: true });
-
-			cy.contains('Tirar foto').click({ force: true });
 
 			cy.contains('Tirar foto').click({ force: true });
 
@@ -72,6 +70,31 @@ sizes.forEach((size) => {
 			cy.get(
 				'[style="flex: 1 1 0%; place-content: center; flex-direction: column; align-items: center;"] > [data-testid="fab-container"] > [data-testid="fab"]'
 			).click({ force: true });
+
+			cy.get('@consoleLog').should('be.calledWith', 'click');
+		});
+
+		it('verifies text method screen', () => {
+			cy.viewport(size);
+			cy.visit('/', {
+				onBeforeLoad(win) {
+					cy.stub(win.console, 'log').as('consoleLog');
+				},
+			});
+
+			cy.get('div[data-testid="fab-content"]').click({ force: true });
+
+			cy.contains('Método de Identificação').should('be.visible');
+
+			cy.contains('Identificar por texto').should('be.visible').click({ force: true });
+
+			cy.get('[data-testid="search-bar"]').click().type('planta ');
+
+			cy.get('[data-testid="chip-container"]').should('be.visible');
+
+			cy.get(':nth-child(2) > [data-testid="fab-container"] > [data-testid="fab"]').click({
+				force: true,
+			});
 
 			cy.get('@consoleLog').should('be.calledWith', 'click');
 		});

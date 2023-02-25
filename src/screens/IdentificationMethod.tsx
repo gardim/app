@@ -14,7 +14,7 @@ export default function IdentificationMethod({ navigation }: IdentificationMetho
 				<FAB
 					icon="camera"
 					label="Identificar por imagem"
-					onPress={() => console.log('image')}
+					onPress={() => navigation.navigate('ImageMethod')}
 					size="medium"
 					visible
 				/>

@@ -21,8 +21,8 @@ export default function IdentificationMethod({ navigation }: IdentificationMetho
 				<Text variant="titleMedium"> ou </Text>
 				<FAB
 					icon="clipboard-edit-outline"
-					label="Buscar manualmente"
-					onPress={() => console.log('search')}
+					label="Identificar por texto"
+					onPress={() => navigation.navigate('TextMethod')}
 					visible
 					size="medium"
 				/>

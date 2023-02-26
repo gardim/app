@@ -3,7 +3,6 @@ import { View, StyleSheet } from 'react-native';
 import { Text, Searchbar, Chip, FAB } from 'react-native-paper';
 import { TextMethodProps } from '../types/index';
 import { identifyPlant } from '../api/trefle';
-import Constants from 'expo-constants';
 
 export function TextMethod({ navigation }: TextMethodProps) {
 	const [searchQuery, setSearchQuery] = React.useState('');
@@ -38,9 +37,7 @@ export function TextMethod({ navigation }: TextMethodProps) {
 			})
 			.catch((error) => {
 				console.error(error);
-				alert(
-					`Oops! Algo deu errado.\n URL: ${Constants.manifest.extra.gardimApiUrl} \n${error}`
-				);
+				alert('Oops! Algo deu errado');
 			});
 	};
 

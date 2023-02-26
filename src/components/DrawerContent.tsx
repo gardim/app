@@ -18,6 +18,7 @@ export default function DrawerContent() {
 				flex: 1,
 				paddingTop: insets.top + 4,
 				backgroundColor: theme.colors.background,
+				marginBottom: 0,
 			}}>
 			<TouchableRipple onPress={toggleTheme}>
 				<View style={[styles.preference]}>

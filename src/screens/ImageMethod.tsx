@@ -49,10 +49,12 @@ export function ImageMethod({ navigation }: ImageMethodProps) {
 	const searchPlantImages = () => {
 		identifyPlant(images)
 			.then((result) => {
+				alert(result.is_plant ? 'É uma planta' : 'Não é uma planta');
 				console.log(result.is_plant);
 			})
 			.catch((error) => {
 				console.error(error);
+				alert('Oops! Algo deu errado');
 			});
 	};
 

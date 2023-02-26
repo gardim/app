@@ -29,9 +29,9 @@ jobs:
 
       - name: 🔓 Export environment variables
         run: |
-            export PLANT_ID_API_URL="${{ secrets.PLANT_ID_API_URL }}"
-            export PLANT_ID_API_KEY="${{ secrets.PLANT_ID_API_KEY }}"
-            expo publish --release-channel=pr-${{ github.event.number }} --non-interactive
+          echo "PLANT_ID_API_URL=${{ secrets.PLANT_ID_API_URL }}" >> $GITHUB_ENV
+          echo "PLANT_ID_API_KEY=${{ secrets.PLANT_ID_API_KEY }}" >> $GITHUB_ENV
+          echo "GARDIM_API_URL=${{ secrets.GARDIM_API_URL }}" >> $GITHUB_ENV
 
       - name: 🚀 Publish to Expo & create a QR code
         uses: expo/expo-preview-action@v1

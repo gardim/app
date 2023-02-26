@@ -2,6 +2,7 @@ import React from 'react';
 import { View, StyleSheet } from 'react-native';
 import { Text, Searchbar, Chip, FAB } from 'react-native-paper';
 import { TextMethodProps } from '../types/index';
+import { identifyPlant } from '../api/trefle';
 
 export function TextMethod({ navigation }: TextMethodProps) {
 	const [searchQuery, setSearchQuery] = React.useState('');
@@ -27,6 +28,19 @@ export function TextMethod({ navigation }: TextMethodProps) {
 			addChip();
 		}
 	};
+
+	const searchPlants = () => {
+		identifyPlant(chips)
+			.then((result) => {
+				alert(result.data.length ? result.data[0].common_name : 'Não é uma planta');
+				console.log(result.data[0].common_name);
+			})
+			.catch((error) => {
+				console.error(error);
+				alert('Oops! Algo deu errado');
+			});
+	};
+
 	return (
 		<View style={styles.container}>
 			<View style={styles.row}>
@@ -52,7 +66,7 @@ export function TextMethod({ navigation }: TextMethodProps) {
 					<FAB
 						icon="arrow-right"
 						label={visible ? 'Continuar' : ''}
-						onPress={() => console.log('click')}
+						onPress={() => searchPlants()}
 						style={[styles.compressedFabStyle]}
 						variant="primary"
 						onLongPress={() => setVisible(!visible)}

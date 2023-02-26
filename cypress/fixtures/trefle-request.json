@@ -1,0 +1,32 @@
+{
+    "data": [
+      {
+        "id": 263319,
+        "common_name": "Beach strawberry",
+        "slug": "fragaria-chiloensis",
+        "scientific_name": "Fragaria chiloensis",
+        "year": 1768,
+        "bibliography": "Gard. Dict. ed. 8 : n.° 4 (1768)",
+        "author": "(L.) Mill.",
+        "status": "accepted",
+        "rank": "species",
+        "family_common_name": "Rose family",
+        "genus_id": 12147,
+        "image_url": "https://bs.plantnet.org/image/o/8ee87e6f94833055db1c7df5fc07761852b7b1eb",
+        "synonyms": ["Fragaria vesca var. chiloensis", "Potentilla chiloensis"],
+        "genus": "Fragaria",
+        "family": "Rosaceae",
+        "links": {
+          "self": "/api/v1/species/fragaria-chiloensis",
+          "plant": "/api/v1/plants/fragaria-chiloensis",
+          "genus": "/api/v1/genus/fragaria"
+        }
+      }
+    ],
+    "links": {
+      "self": "/api/v1/plants?filter%5Bcommon_name%5D=beach+strawberry",
+      "first": "/api/v1/plants?filter%5Bcommon_name%5D=beach+strawberry&page=1",
+      "last": "/api/v1/plants?filter%5Bcommon_name%5D=beach+strawberry&page=1"
+    },
+    "meta": { "total": 1 }
+  }

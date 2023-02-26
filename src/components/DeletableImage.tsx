@@ -38,6 +38,7 @@ const styles = (theme) =>
 			shadowRadius: 3.84,
 			elevation: 5,
 			width: '70%',
+			alignSelf: 'center',
 			height: 200,
 			margin: 20,
 		},

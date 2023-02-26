@@ -1,6 +1,6 @@
 import * as ImagePicker from 'expo-image-picker';
 import React, { useState } from 'react';
-import { StyleSheet, View, SafeAreaView, Dimensions } from 'react-native';
+import { StyleSheet, View, Dimensions } from 'react-native';
 import { ImageMethodProps, ImageType } from '../types/index';
 import { DeletableImage } from '../components/DeletableImage';
 import { FAB, Text } from 'react-native-paper';
@@ -45,10 +45,10 @@ export function ImageMethod({ navigation }: ImageMethodProps) {
 		}
 	};
 
-	const width = Dimensions.get('window').width;
+	const width = Dimensions.get('screen').width;
 
 	return (
-		<SafeAreaView style={styles.container}>
+		<View style={styles.container}>
 			<Text variant="titleMedium" style={{ textAlign: 'center' }}>
 				Adicione algumas fotos para podermos identificar sua planta!
 			</Text>
@@ -77,6 +77,7 @@ export function ImageMethod({ navigation }: ImageMethodProps) {
 						justifyContent: 'center',
 						flexDirection: 'column',
 						alignContent: 'center',
+						alignItems: 'center',
 					}}>
 					<Carousel
 						pagingEnabled={true}
@@ -102,7 +103,7 @@ export function ImageMethod({ navigation }: ImageMethodProps) {
 			) : (
 				<></>
 			)}
-		</SafeAreaView>
+		</View>
 	);
 }
 

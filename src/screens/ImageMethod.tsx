@@ -56,7 +56,7 @@ export function ImageMethod({ navigation }: ImageMethodProps) {
 			});
 	};
 
-	const width = Dimensions.get('screen').width;
+	const width = Dimensions.get('window').width;
 
 	return (
 		<View style={styles.container}>

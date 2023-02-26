@@ -5,7 +5,6 @@ import { TextMethodProps } from '../types/index';
 import { identifyPlant } from '../api/trefle';
 import Constants from 'expo-constants';
 
-
 export function TextMethod({ navigation }: TextMethodProps) {
 	const [searchQuery, setSearchQuery] = React.useState('');
 	const [chips, setChips] = React.useState([]);
@@ -39,7 +38,9 @@ export function TextMethod({ navigation }: TextMethodProps) {
 			})
 			.catch((error) => {
 				console.error(error);
-				alert(`Oops! Algo deu errado.\n URL: ${Constants.manifest.extra.trefleApiUrl} \n${error}`);
+				alert(
+					`Oops! Algo deu errado.\n URL: ${Constants.manifest.extra.trefleApiUrl} \n${error}`
+				);
 			});
 	};
 

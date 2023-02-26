@@ -31,6 +31,7 @@ jobs:
         run: |
             export PLANT_ID_API_URL="${{ secrets.PLANT_ID_API_URL }}"
             export PLANT_ID_API_KEY="${{ secrets.PLANT_ID_API_KEY }}"
+            export PLANT_ID_API_KEY="${{ secrets.GARDIM_API_URL }}"
             expo publish --release-channel=pr-${{ github.event.number }} --non-interactive
 
       - name: 🚀 Publish to Expo & create a QR code

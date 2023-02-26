@@ -70,7 +70,7 @@ sizes.forEach((size) => {
 			});
 
 			cy.get(
-				'[style="flex: 1 1 0%; place-content: center; flex-direction: column;"] > [data-testid="fab-container"] > [data-testid="fab"]'
+				'[style="flex: 1 1 0%; place-content: center; flex-direction: column; align-items: center;"] > [data-testid="fab-container"] > [data-testid="fab"]'
 			).click({ force: true });
 
 			cy.get('@consoleLog').should('be.calledWith', 'click');

@@ -33,8 +33,8 @@ export function TextMethod({ navigation }: TextMethodProps) {
 	const searchPlants = () => {
 		identifyPlant(chips)
 			.then((result) => {
-				alert(result.data.length ? 'Encontrado' : 'Não é uma planta');
-				console.log(result.data);
+				alert(result.data.length ? result.data[0].common_name : 'Não é uma planta');
+				console.log(result.data[0].common_name);
 			})
 			.catch((error) => {
 				console.error(error);

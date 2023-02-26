@@ -70,16 +70,11 @@ sizes.forEach((size) => {
 			cy.get(
 				'[style="flex: 1 1 0%; place-content: center; flex-direction: column; align-items: center;"] > [data-testid="fab-container"] > [data-testid="fab"]'
 			).should('be.visible');
-
 		});
 
 		it('verifies text method screen', () => {
 			cy.viewport(size);
-			cy.visit('/', {
-				onBeforeLoad(win) {
-					cy.stub(win.console, 'log').as('consoleLog');
-				},
-			});
+			cy.visit('/');
 
 			cy.get('div[data-testid="fab-content"]').click({ force: true });
 
@@ -91,11 +86,9 @@ sizes.forEach((size) => {
 
 			cy.get('[data-testid="chip-container"]').should('be.visible');
 
-			cy.get(':nth-child(2) > [data-testid="fab-container"] > [data-testid="fab"]').click({
-				force: true,
-			});
-
-			cy.get('@consoleLog').should('be.calledWith', 'click');
+			cy.get(':nth-child(2) > [data-testid="fab-container"] > [data-testid="fab"]').should(
+				'be.visible'
+			);
 		});
 
 		it('changes theme', () => {

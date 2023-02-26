@@ -1,3 +1,4 @@
+/* eslint-disable no-mixed-spaces-and-tabs */
 interface Image {
 	file_name: string;
 	url: string;
@@ -53,7 +54,6 @@ interface PlantDetails {
 				| 'shoots'
 				| 'stems'
 				| 'tubers'
-// eslint-disable-next-line no-mixed-spaces-and-tabs
 		  )[]
 		| null;
 	gbif_id: string | null;
@@ -109,8 +109,8 @@ export interface PlantIDResponse {
 	modifiers: string[];
 	secret: string;
 	fail_cause: string | null;
-	countable: boolean,
+	countable: boolean;
 	feedback: string | null;
 	is_plant_probability: number;
-	is_plant: boolean
+	is_plant: boolean;
 }

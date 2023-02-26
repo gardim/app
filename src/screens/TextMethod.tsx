@@ -9,14 +9,16 @@ export function TextMethod({ navigation }: TextMethodProps) {
 	const [visible, setVisible] = React.useState<boolean>(false);
 
 	const addChip = () => {
-		if (searchQuery.trim()) {
-			setChips((prevChips) => [...prevChips, searchQuery.trim()]);
-			setSearchQuery('');
+		const queryString = searchQuery.trim();
+
+		if (!chips.includes(queryString) && queryString) {
+			setChips((prevChips) => [...new Set([...prevChips, queryString])]);
 		}
+		setSearchQuery('');
 	};
 
-	const removeChip = (chipIndex) => {
-		setChips((prevChips) => prevChips.filter((_, index) => index !== chipIndex));
+	const removeChip = (chipToDelete) => {
+		setChips((prevChips) => prevChips.filter((currentChip) => currentChip !== chipToDelete));
 	};
 
 	const onChangeSearch = (query) => {
@@ -38,8 +40,8 @@ export function TextMethod({ navigation }: TextMethodProps) {
 					style={styles.fabVariant}
 				/>
 				<View style={styles.chipsContainer}>
-					{chips.map((chip, index) => (
-						<Chip key={index} onClose={() => removeChip(index)} style={styles.chip}>
+					{chips.map((chip) => (
+						<Chip key={chip} onClose={() => removeChip(chip)} style={styles.chip}>
 							{chip}
 						</Chip>
 					))}

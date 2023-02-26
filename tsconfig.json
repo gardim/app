@@ -1,6 +1,6 @@
 {
     "compilerOptions": {
-        "types": ["cypress", "cypress-file-upload"]
+        "types": ["cypress", "cypress-file-upload", "node"]
       },
     "extends": "expo/tsconfig.base"
 }

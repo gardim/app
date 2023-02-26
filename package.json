@@ -20,6 +20,7 @@
     "@react-navigation/stack": "^6.3.14",
     "@types/react": "~18.0.24",
     "@types/react-native": "~0.70.6",
+    "dotenv": "^16.0.3",
     "expo": "~47.0.12",
     "expo-image-picker": "^14.1.0",
     "expo-status-bar": "~1.4.2",
@@ -39,6 +40,7 @@
   "devDependencies": {
     "@babel/core": "^7.12.9",
     "@cypress/code-coverage": "^3.10.0",
+    "@types/node": "^18.14.1",
     "@typescript-eslint/eslint-plugin": "^5.52.0",
     "@typescript-eslint/parser": "^5.52.0",
     "babel-plugin-istanbul": "^6.1.1",

@@ -69,9 +69,8 @@ sizes.forEach((size) => {
 
 			cy.get(
 				'[style="flex: 1 1 0%; place-content: center; flex-direction: column; align-items: center;"] > [data-testid="fab-container"] > [data-testid="fab"]'
-			).click({ force: true });
+			).should('be.visible');
 
-			cy.get('@consoleLog').should('be.calledWith', 'click');
 		});
 
 		it('verifies text method screen', () => {

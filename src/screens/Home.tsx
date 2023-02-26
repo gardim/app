@@ -1,11 +1,11 @@
 import React from 'react';
-import { SafeAreaView, View, StyleSheet } from 'react-native';
+import { View, StyleSheet } from 'react-native';
 import { Text, FAB } from 'react-native-paper';
 import { HomeProps } from '../types/index';
 
 export function Home({ navigation }: HomeProps) {
 	return (
-		<SafeAreaView style={styles.container}>
+		<View style={styles.container}>
 			<View style={styles.row}>
 				<FAB
 					icon="plus"
@@ -15,7 +15,7 @@ export function Home({ navigation }: HomeProps) {
 				/>
 				<Text variant="titleSmall">Adicione sua primeira planta</Text>
 			</View>
-		</SafeAreaView>
+		</View>
 	);
 }
 

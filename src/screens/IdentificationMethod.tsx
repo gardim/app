@@ -1,11 +1,11 @@
 import React from 'react';
-import { SafeAreaView, View, StyleSheet } from 'react-native';
+import { View, StyleSheet } from 'react-native';
 import { Text, FAB } from 'react-native-paper';
 import { IdentificationMethodProps } from '../types/index';
 
 export default function IdentificationMethod({ navigation }: IdentificationMethodProps) {
 	return (
-		<SafeAreaView style={styles.container}>
+		<View style={styles.container}>
 			<View style={styles.row}>
 				<Text variant="titleMedium" style={{ textAlign: 'center' }}>
 					{' '}
@@ -27,7 +27,7 @@ export default function IdentificationMethod({ navigation }: IdentificationMetho
 					size="medium"
 				/>
 			</View>
-		</SafeAreaView>
+		</View>
 	);
 }
 

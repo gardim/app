@@ -8,7 +8,7 @@ on:
 
 jobs:
   dependabot:
-    if: github.event.pull_request.labels[0].name == 'dependencies'
+    if: contains(github.actor, 'dependabot')
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v2

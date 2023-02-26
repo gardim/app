@@ -5,6 +5,7 @@ import { ImageMethodProps, ImageType } from '../types/index';
 import { DeletableImage } from '../components/DeletableImage';
 import { FAB, Text } from 'react-native-paper';
 import Carousel from 'react-native-reanimated-carousel';
+import { identifyPlant } from '../api/plant_id';
 
 export function ImageMethod({ navigation }: ImageMethodProps) {
 	const [images, setImages] = useState<ImageType[]>([]);
@@ -45,7 +46,19 @@ export function ImageMethod({ navigation }: ImageMethodProps) {
 		}
 	};
 
-	const width = Dimensions.get('screen').width;
+	const searchPlantImages = () => {
+		identifyPlant(images)
+			.then((result) => {
+				alert(result.is_plant ? 'É uma planta' : 'Não é uma planta');
+				console.log(result.is_plant);
+			})
+			.catch((error) => {
+				console.error(error);
+				alert('Oops! Algo deu errado');
+			});
+	};
+
+	const width = Dimensions.get('window').width;
 
 	return (
 		<View style={styles.container}>
@@ -94,7 +107,7 @@ export function ImageMethod({ navigation }: ImageMethodProps) {
 					<FAB
 						icon="arrow-right"
 						label={visible ? 'Continuar' : ''}
-						onPress={() => console.log('click')}
+						onPress={() => searchPlantImages()}
 						style={[styles.compressedFabStyle]}
 						variant="primary"
 						onLongPress={() => setVisible(!visible)}

@@ -27,11 +27,18 @@ jobs:
       - name: 📦 Install dependencies
         run: yarn install
 
+      - name: 🔓 Export environment variables
+        run: |
+            export PLANT_ID_API_URL="${{ secrets.PLANT_ID_API_URL }}"
+            export PLANT_ID_API_KEY="${{ secrets.PLANT_ID_API_KEY }}"
+            expo publish --release-channel=pr-${{ github.event.number }} --non-interactive
+
       - name: 🚀 Publish to Expo & create a QR code
         uses: expo/expo-preview-action@v1
         with:
           channel: pr-${{ github.event.number }}
         id: preview
+       
 
       - name: 💬 Comment in preview
         uses: expo/expo-github-action/preview-comment@v7

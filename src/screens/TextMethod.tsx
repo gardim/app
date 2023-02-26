@@ -1,5 +1,5 @@
 import React from 'react';
-import { SafeAreaView, View, StyleSheet } from 'react-native';
+import { View, StyleSheet } from 'react-native';
 import { Text, Searchbar, Chip, FAB } from 'react-native-paper';
 import { TextMethodProps } from '../types/index';
 
@@ -28,7 +28,7 @@ export function TextMethod({ navigation }: TextMethodProps) {
 		}
 	};
 	return (
-		<SafeAreaView style={styles.container}>
+		<View style={styles.container}>
 			<View style={styles.row}>
 				<Text variant="titleMedium" style={{ textAlign: 'center' }}>
 					Digite algumas palavras-chave que nos ajude a identificar sua planta!
@@ -61,7 +61,7 @@ export function TextMethod({ navigation }: TextMethodProps) {
 					<></>
 				)}
 			</View>
-		</SafeAreaView>
+		</View>
 	);
 }
 

@@ -39,7 +39,7 @@ export function TextMethod({ navigation }: TextMethodProps) {
 			.catch((error) => {
 				console.error(error);
 				alert(
-					`Oops! Algo deu errado.\n URL: ${Constants.manifest.extra.trefleApiUrl} \n${error}`
+					`Oops! Algo deu errado.\n URL: ${Constants.manifest.extra.gardimApiUrl} \n${error}`
 				);
 			});
 	};

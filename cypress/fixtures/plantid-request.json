@@ -1,0 +1,64 @@
+{
+	"id": 71342692,
+	"custom_id": null,
+	"meta_data": {
+		"latitude": null,
+		"longitude": null,
+		"date": "2023-02-26",
+		"datetime": "2023-02-26"
+	},
+	"uploaded_datetime": 1677416008.705494,
+	"finished_datetime": 1677416009.226328,
+	"images": [{
+		"file_name": "6dfdcd7b20984fd9a5bbf6738df0855c.jpg",
+		"url": "https://plant.id/media/images/6dfdcd7b20984fd9a5bbf6738df0855c.jpg"
+	}],
+	"suggestions": [{
+		"id": 399900325,
+		"plant_name": "Hydrangea",
+		"plant_details": {
+			"common_names": null,
+			"name_authority": "Hydrangea Gronov. ex L.",
+			"wiki_description": {
+				"value": "Hydrangea () common names hydrangea or hortensia, is a genus of 70\u201375 species of flowering plants native to Asia and the Americas. By far the greatest species diversity is in eastern Asia, notably Korea, China, and Japan. Most are shrubs 1 to 3 meters tall, but some are small trees, and others lianas reaching up to 30 m (98 ft) by climbing up trees. They can be either deciduous or evergreen, though the widely cultivated temperate species are all deciduous.\nHydrangea is derived from Greek and means \u2018water vessel\u2019, in reference to the shape of its seed capsules. The earlier name, Hortensia, is a Latinised version of the French given name Hortense, referring to French astronomer and mathematician Nicole-Reine Lepaute.",
+				"citation": "https://en.wikipedia.org/wiki/Hydrangea",
+				"license_name": "CC BY-SA 3.0",
+				"license_url": "https://creativecommons.org/licenses/by-sa/3.0/"
+			},
+			"taxonomy": {
+				"class": "Magnoliopsida",
+				"family": "Hydrangeaceae",
+				"genus": "Hydrangea",
+				"kingdom": "Plantae",
+				"order": "Cornales",
+				"phylum": "Magnoliophyta"
+			},
+			"edible_parts": null,
+			"propagation_methods": null,
+			"watering": {
+				"max": 2,
+				"min": 2
+			},
+			"language": "en",
+			"scientific_name": "Hydrangea",
+			"structured_name": {
+				"genus": "hydrangea"
+			}
+		},
+		"probability": 0.1501504276543291,
+		"confirmed": false,
+		"similar_images": [{
+			"id": "84441e7ad3e05c284266c51582d93efd",
+			"similarity": 0.14483078982244219,
+			"url": "https://plant-id.ams3.cdn.digitaloceanspaces.com/similar_images/images/844/41e7ad3e05c284266c51582d93efd.jpg",
+			"url_small": "https://plant-id.ams3.cdn.digitaloceanspaces.com/similar_images/images/844/41e7ad3e05c284266c51582d93efd.small.jpg"
+		}]
+	}],
+	"modifiers": ["similar_images"],
+	"secret": "wS7pGYIelBjOXrY",
+	"fail_cause": null,
+	"countable": true,
+	"feedback": null,
+	"is_plant_probability": 0.15874074336,
+	"is_plant": false
+}

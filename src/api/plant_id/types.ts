@@ -63,13 +63,13 @@ interface PlantDetails {
 	watering: Watering;
 	language: string;
 	scientific_name: string;
-	synonyms: string[];
-	url: string;
-	wiki_image: WikiImage;
+	synonyms: string[] | null;
+	url: string | null;
+	wiki_image: WikiImage | null;
 	structured_name: {
 		genus: string;
 		species: string;
-	};
+	} | null;
 }
 
 interface SimilarImage {
@@ -110,7 +110,7 @@ export interface PlantIDResponse {
 	secret: string;
 	fail_cause: string | null;
 	countable: boolean,
-	feedback: string |  null;
+	feedback: string | null;
 	is_plant_probability: number;
 	is_plant: boolean
 }

@@ -37,3 +37,5 @@ jobs:
           yarn deploy -- -u "github-actions-bot <support+actions@github.com>"
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          PLANT_ID_API_URL: ${{ secrets.PLANT_ID_API_URL }}
+          PLANT_ID_API_KEY: ${{ secrets.PLANT_ID_API_KEY }}

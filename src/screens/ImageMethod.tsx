@@ -10,6 +10,7 @@ import { identifyPlant } from '../api/plant_id';
 export function ImageMethod({ navigation }: ImageMethodProps) {
 	const [images, setImages] = useState<ImageType[]>([]);
 	const [visible, setVisible] = React.useState<boolean>(false);
+	const [buttonOnHold, setButtonOnHold] = React.useState<boolean>(false);
 
 	const pickImage = async (method) => {
 		const options = {
@@ -46,16 +47,20 @@ export function ImageMethod({ navigation }: ImageMethodProps) {
 		}
 	};
 
-	const searchPlantImages = () => {
-		identifyPlant(images)
-			.then((result) => {
+	const searchPlants = async () => {
+		if (!buttonOnHold) {
+			setButtonOnHold(true);
+			try {
+				const result = await identifyPlant(images);
 				alert(result.is_plant ? 'É uma planta' : 'Não é uma planta');
 				console.log(result.is_plant);
-			})
-			.catch((error) => {
+			} catch (error) {
 				console.error(error);
 				alert('Oops! Algo deu errado');
-			});
+			} finally {
+				setButtonOnHold(false);
+			}
+		}
 	};
 
 	const width = Dimensions.get('window').width;
@@ -107,10 +112,11 @@ export function ImageMethod({ navigation }: ImageMethodProps) {
 					<FAB
 						icon="arrow-right"
 						label={visible ? 'Continuar' : ''}
-						onPress={() => searchPlantImages()}
+						onPress={() => searchPlants()}
 						style={[styles.compressedFabStyle]}
 						variant="primary"
 						onLongPress={() => setVisible(!visible)}
+						disabled={buttonOnHold}
 					/>
 				</View>
 			) : (

@@ -8,6 +8,7 @@ export function TextMethod({ navigation }: TextMethodProps) {
 	const [searchQuery, setSearchQuery] = React.useState('');
 	const [chips, setChips] = React.useState([]);
 	const [visible, setVisible] = React.useState<boolean>(false);
+	const [buttonOnHold, setButtonOnHold] = React.useState<boolean>(false);
 
 	const addChip = () => {
 		const queryString = searchQuery.trim();
@@ -29,16 +30,20 @@ export function TextMethod({ navigation }: TextMethodProps) {
 		}
 	};
 
-	const searchPlants = () => {
-		identifyPlant(chips)
-			.then((result) => {
+	const searchPlants = async () => {
+		if (!buttonOnHold) {
+			setButtonOnHold(true);
+			try {
+				const result = await identifyPlant(chips);
 				alert(result.data.length ? result.data[0].common_name : 'Não é uma planta');
 				console.log(result.data[0].common_name);
-			})
-			.catch((error) => {
+			} catch (error) {
 				console.error(error);
 				alert('Oops! Algo deu errado');
-			});
+			} finally {
+				setButtonOnHold(false);
+			}
+		}
 	};
 
 	return (
@@ -70,6 +75,7 @@ export function TextMethod({ navigation }: TextMethodProps) {
 						style={[styles.compressedFabStyle]}
 						variant="primary"
 						onLongPress={() => setVisible(!visible)}
+						disabled={buttonOnHold}
 					/>
 				) : (
 					<></>

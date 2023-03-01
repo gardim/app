@@ -48,6 +48,113 @@ type Images = {
 	[key: string]: Image[];
 };
 
+type Source = {
+	last_update: string | null;
+	id: string | null;
+	name: string | null;
+	url: string | null;
+	citation: string | null;
+};
+
+type Synonym = {
+	id: string | null;
+	name: string | null;
+	author: string | null;
+	sources: string[] | null;
+};
+
+type Links = {
+	self: string | null;
+	plant: string | null;
+	genus: string | null;
+};
+
+type Cm = {
+	cm: number | null;
+};
+
+type Mm = {
+	mm: number | null;
+};
+
+type Temperature = {
+	deg_f: number | null;
+	deg_c: number | null;
+};
+
+type Growth = {
+	description: string | null;
+	sowing: string | null;
+	days_to_harvest: string | null;
+	row_spacing: Cm | null;
+	spread: Cm | null;
+	ph_maximum: number | null;
+	ph_minimum: number | null;
+	light: number | null;
+	atmospheric_humidity: number | null;
+	growth_months: number | null;
+	bloom_months: number | null;
+	fruit_months: number | null;
+	minimum_precipitation: Mm | null;
+	maximum_precipitation: Mm | null;
+	minimum_root_depth: Cm | null;
+	minimum_temperature: Temperature | null;
+	maximum_temperature: Temperature | null;
+	soil_nutriments: number | null;
+	soil_salinity: number | null;
+	soil_texture: number | null;
+	soil_humidity: number | null;
+};
+
+type Specifications = {
+	ligneous_type: string | null;
+	growth_form: string | null;
+	growth_habit: string | null;
+	growth_rate: string | null;
+	average_height: Cm | null;
+	maximum_height: Cm | null;
+	nitrogen_fixation: string | null;
+	shape_and_orientation: string | null;
+	toxicity: string | null;
+};
+
+type FruitOrSeed = {
+	conspicuous: boolean | null;
+	color: string | null;
+	shape: string | null;
+	seed_persistence: boolean | null;
+};
+
+type Foliage = {
+	texture: string | null;
+	color: string | null;
+	leaf_retention: boolean | null;
+};
+
+type Flower = {
+	color: string | null;
+	conspicuous: boolean | null;
+};
+
+type Distribution = {
+	native: Native[] | null;
+	introduced: [] | null;
+};
+
+type Native = {
+	id: number | null;
+	name: string | null;
+	slug: string | null;
+	tdwg_code: string | null;
+	tdwg_level: number | null;
+	species_count: number | null;
+	links: Links | null;
+};
+
+type Distributions = {
+	native: Native[] | null;
+};
+
 type Data = {
 	id: number;
 	common_name: string;
@@ -77,8 +184,26 @@ type Data = {
 		other: Images['other'];
 	};
 	common_names: CommonNames;
+	distribution: Distribution;
+	distributions: Distributions;
+	flower: Flower;
+	foliage: Foliage;
+	fruit_or_seed: FruitOrSeed;
+	specifications: Specifications;
+	growth: Growth;
+	links: Links;
+	synonyms: Synonym[];
+	sources: Source[];
+};
+
+type Meta = {
+	images_count: number;
+	sources_count: number;
+	synonyms_count: number;
+	last_modified: string;
 };
 
 export type TrefleSpeciesResponse = {
 	data: Data;
+	meta: Meta;
 };

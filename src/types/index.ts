@@ -1,10 +1,14 @@
 import { StackNavigationProp } from '@react-navigation/stack';
+import { TreflePlantSearchResponse } from '../api/trefle/types';
+import { PlantIDResponse } from '../api/plant_id/types';
+import { StackScreenProps } from '@react-navigation/stack';
 
 export type RootStackParamList = {
 	Home: undefined;
 	IdentificationMethod: undefined;
 	ImageMethod: undefined;
 	TextMethod: undefined;
+	Result: TreflePlantSearchResponse | PlantIDResponse;
 };
 
 type HomeScreenNavigationProps = StackNavigationProp<RootStackParamList, 'Home'>;
@@ -30,6 +34,8 @@ export type ImageMethodProps = {
 export type TextMethodProps = {
 	navigation: TextMethodScreenNavigationProps;
 };
+
+export type ResultProps = StackScreenProps<RootStackParamList, 'Result'>;
 
 export type ImageType = {
 	id: string;

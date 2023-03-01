@@ -1,6 +1,6 @@
 import React from 'react';
 import { View, StyleSheet } from 'react-native';
-import { Text, Searchbar, Chip, FAB } from 'react-native-paper';
+import { Text, Searchbar, Chip, FAB, HelperText } from 'react-native-paper';
 import { TextMethodProps } from '../types/index';
 import { identifyPlant } from '../api/trefle';
 
@@ -35,8 +35,7 @@ export function TextMethod({ navigation }: TextMethodProps) {
 			setButtonOnHold(true);
 			try {
 				const result = await identifyPlant(chips);
-				alert(result.data.length ? result.data[0].common_name : 'Não é uma planta');
-				console.log(result.data[0].common_name);
+				result.data && navigation.navigate('Result', result);
 			} catch (error) {
 				console.error(error);
 				alert('Oops! Algo deu errado');
@@ -52,12 +51,16 @@ export function TextMethod({ navigation }: TextMethodProps) {
 				<Text variant="titleMedium" style={{ textAlign: 'center' }}>
 					Digite algumas palavras-chave que nos ajude a identificar sua planta!
 				</Text>
+
 				<Searchbar
 					placeholder="Search"
 					value={searchQuery}
 					onChangeText={onChangeSearch}
 					style={styles.fabVariant}
 				/>
+				<HelperText type="info" visible>
+					Pressione espaço para dividir as palavras!
+				</HelperText>
 				<View style={styles.chipsContainer}>
 					{chips.map((chip) => (
 						<Chip key={chip} onClose={() => removeChip(chip)} style={styles.chip}>
@@ -67,7 +70,7 @@ export function TextMethod({ navigation }: TextMethodProps) {
 				</View>
 			</View>
 			<View style={styles.row}>
-				{chips.length > 0 ? (
+				{chips.length > 0 && (
 					<FAB
 						icon="arrow-right"
 						label={visible ? 'Continuar' : ''}
@@ -76,9 +79,8 @@ export function TextMethod({ navigation }: TextMethodProps) {
 						variant="primary"
 						onLongPress={() => setVisible(!visible)}
 						disabled={buttonOnHold}
+						testID="Continuar"
 					/>
-				) : (
-					<></>
 				)}
 			</View>
 		</View>

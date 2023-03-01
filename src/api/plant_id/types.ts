@@ -82,7 +82,7 @@ interface SimilarImage {
 	license_url: string | null;
 }
 
-interface Suggestion {
+export interface Suggestion {
 	id: number;
 	plant_name: string;
 	plant_details: PlantDetails;

@@ -52,8 +52,11 @@ export function ImageMethod({ navigation }: ImageMethodProps) {
 			setButtonOnHold(true);
 			try {
 				const result = await identifyPlant(images);
-				alert(result.is_plant ? 'É uma planta' : 'Não é uma planta');
-				console.log(result.is_plant);
+				if (result.is_plant) {
+					navigation.navigate('Result', result);
+				} else {
+					throw new Error('No plants were found');
+				}
 			} catch (error) {
 				console.error(error);
 				alert('Oops! Algo deu errado');
@@ -78,6 +81,7 @@ export function ImageMethod({ navigation }: ImageMethodProps) {
 					visible
 					style={[styles.fabStyle]}
 					variant="secondary"
+					testID="Tirar foto"
 				/>
 				<FAB
 					icon="image"
@@ -86,9 +90,10 @@ export function ImageMethod({ navigation }: ImageMethodProps) {
 					visible
 					style={[styles.fabStyle]}
 					variant="secondary"
+					testID="Adicionar da galeria"
 				/>
 			</View>
-			{images.length > 0 ? (
+			{images.length > 0 && (
 				<View
 					style={{
 						flex: 1,
@@ -117,10 +122,9 @@ export function ImageMethod({ navigation }: ImageMethodProps) {
 						variant="primary"
 						onLongPress={() => setVisible(!visible)}
 						disabled={buttonOnHold}
+						testID="Continuar"
 					/>
 				</View>
-			) : (
-				<></>
 			)}
 		</View>
 	);

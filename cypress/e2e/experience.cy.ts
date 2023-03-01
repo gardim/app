@@ -1,8 +1,28 @@
 /// <reference types="cypress" />
 
 import { lightGreenColors, darkGreenColors } from '../../src/utils/colors';
+type ViewportPreset =
+	| 'iphone-6'
+	| 'iphone-7'
+	| 'iphone-8'
+	| 'iphone-x'
+	| 'ipad-2'
+	| 'ipad-mini'
+	| 'macbook-11'
+	| 'macbook-13'
+	| 'macbook-15'
+	| 'macbook-16'
+	| 'samsung-note9'
+	| 'samsung-s10';
 
-const sizes = ['macbook-16', 'macbook-13', 'ipad-2', 'iphone-x', 'samsung-s10', 'samsung-note9'];
+const sizes: ViewportPreset[] = [
+	'macbook-16',
+	'macbook-13',
+	'ipad-2',
+	'iphone-x',
+	'samsung-s10',
+	'samsung-note9',
+];
 sizes.forEach((size) => {
 	describe(`basic behavior on ${size} screen`, () => {
 		it('verifies home screen', () => {
@@ -16,7 +36,7 @@ sizes.forEach((size) => {
 			cy.viewport(size);
 			cy.visit('/');
 
-			cy.get('div[data-testid="fab-content"]').click({ force: true });
+			cy.get('[data-testid="Adicione sua primeira planta"]').click({ force: true });
 
 			cy.contains('Método de Identificação').should('be.visible');
 
@@ -24,7 +44,7 @@ sizes.forEach((size) => {
 
 			cy.contains('Identificar por texto').should('be.visible');
 
-			cy.get('[data-testid="surface"] > :nth-child(1) > [data-testid="icon-button"]').click({
+			cy.get('[data-testid="back icon"]').click({
 				force: true,
 			});
 
@@ -39,7 +59,7 @@ sizes.forEach((size) => {
 				},
 			});
 
-			cy.get('div[data-testid="fab-content"]').click({ force: true });
+			cy.get('[data-testid="Adicione sua primeira planta"]').click({ force: true });
 
 			cy.contains('Método de Identificação').should('be.visible');
 
@@ -55,7 +75,7 @@ sizes.forEach((size) => {
 				});
 			});
 
-			cy.get('div[data-testid="iconIcon"]').first().click({ force: true });
+			cy.get('div[data-testid="close badge"]').first().click({ force: true });
 
 			cy.contains('Adicionar da galeria').click({ force: true });
 
@@ -67,16 +87,14 @@ sizes.forEach((size) => {
 				});
 			});
 
-			cy.get(
-				'[style="flex: 1 1 0%; place-content: center; flex-direction: column; align-items: center;"] > [data-testid="fab-container"] > [data-testid="fab"]'
-			).should('be.visible');
+			cy.get('[data-testid="Continuar"]').should('be.visible');
 		});
 
 		it('verifies text method screen', () => {
 			cy.viewport(size);
 			cy.visit('/');
 
-			cy.get('div[data-testid="fab-content"]').click({ force: true });
+			cy.get('[data-testid="Adicione sua primeira planta"]').click({ force: true });
 
 			cy.contains('Método de Identificação').should('be.visible');
 
@@ -86,9 +104,7 @@ sizes.forEach((size) => {
 
 			cy.get('[data-testid="chip-container"]').should('be.visible');
 
-			cy.get(':nth-child(2) > [data-testid="fab-container"] > [data-testid="fab"]').should(
-				'be.visible'
-			);
+			cy.get('[data-testid="Continuar"]').should('be.visible');
 		});
 
 		it('changes theme', () => {
@@ -99,7 +115,7 @@ sizes.forEach((size) => {
 				.should('be.visible')
 				.should('have.css', 'color', lightGreenColors.colors.onBackground);
 
-			cy.get('div[data-testid="icon-button"]').click();
+			cy.get('[data-testid="Appbar Menu"]').click();
 
 			cy.contains('Dark Theme').should('be.visible').click();
 
@@ -116,7 +132,7 @@ sizes.forEach((size) => {
 
 			cy.contains('Preferences').should('not.be.displayed');
 
-			cy.get('div[data-testid="icon-button"]').click();
+			cy.get('[data-testid="Appbar Menu"]').click();
 
 			cy.contains('Preferences').should('be.displayed');
 

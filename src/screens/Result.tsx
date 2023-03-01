@@ -1,12 +1,11 @@
 import React, { useState } from 'react';
-import { View, StyleSheet, ScrollView, Dimensions } from 'react-native';
+import { View, StyleSheet, ScrollView, Dimensions, Platform } from 'react-native';
 import { PlantOptionsList } from '../components/PlantOptionsList';
 import { ResultProps } from '../types/index';
 import { Text, FAB } from 'react-native-paper';
 import { PlantIDResponse } from '../api/plant_id/types';
 import { TreflePlantSearchResponse } from '../api/trefle/types';
 import { getPlant } from '../api/trefle';
-import { Platform } from 'react-native';
 
 export function Result({ navigation, route }: ResultProps) {
 	const [selectedOption, setSelectedOption] = useState(null);

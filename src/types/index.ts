@@ -1,7 +1,6 @@
-import { StackNavigationProp } from '@react-navigation/stack';
+import { StackNavigationProp, StackScreenProps } from '@react-navigation/stack';
 import { TreflePlantSearchResponse } from '../api/trefle/types';
 import { PlantIDResponse } from '../api/plant_id/types';
-import { StackScreenProps } from '@react-navigation/stack';
 
 export type RootStackParamList = {
 	Home: undefined;

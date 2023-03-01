@@ -35,11 +35,11 @@ export const PlantOptionsList = ({ info, onOptionSelect }: PlantOptionsListProps
 					testID="CardComponent">
 					<Card.Content>
 						<Text variant="titleMedium">{option.name}</Text>
-						{option.probability && (
+						{option.probability ? (
 							<Text style={styles.probability}>
 								Probabilidade de acerto: {option.probability.toFixed(2)}
 							</Text>
-						)}
+						) : null}
 					</Card.Content>
 				</Card>
 			))}

@@ -21,13 +21,14 @@ export const Header = ({ navigation, back, options }: StackHeaderProps) => {
 					primary: theme?.colors.surface,
 				},
 			}}>
-			{back ? <Appbar.BackAction onPress={navigation.goBack} /> : null}
+			{back ? <Appbar.BackAction onPress={navigation.goBack} testID="back icon" /> : null}
 			<Appbar.Content title={options.title} />
 			<Menu
 				visible={menuVisible}
 				onDismiss={() => setMenuVisible(false)}
 				anchor={
 					<Appbar.Action
+						testID="Appbar Menu"
 						icon={MORE_ICON}
 						onPress={() =>
 							(navigation as unknown as DrawerNavigationProp<{ any }>).openDrawer()

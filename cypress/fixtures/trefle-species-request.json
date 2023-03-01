@@ -1,0 +1,249 @@
+{
+	"data": {
+		"id": 183086,
+		"common_name": "Beach strawberry",
+		"slug": "sorbus-aucuparia",
+		"scientific_name": "Sorbus aucuparia",
+		"year": 1753,
+		"bibliography": "Sp. Pl.: 477 (1753)",
+		"author": "L.",
+		"status": "accepted",
+		"rank": "species",
+		"family_common_name": "Rose family",
+		"genus_id": 677,
+		"observations": "Europe to Iran",
+		"vegetable": false,
+		"image_url": "https://bs.floristic.org/image/o/63073d2fbf45b90701279405ecc2eec0272906ed",
+		"genus": "Sorbus",
+		"family": "Rosaceae",
+		"duration": null,
+		"edible_part": null,
+		"edible": false,
+		"images": {
+			"flower": [{
+				"id": 3224245,
+				"image_url": "https://bs.floristic.org/image/o/bc825c453a701cc910cc492fc224262e591df53f",
+				"copyright": "Taken May 1, 2019 by Philippe Beerschneider (cc-by-sa)"
+			}],
+			"leaf": [{
+					"id": 3224235,
+					"image_url": "https://bs.floristic.org/image/o/821411293fdd840080ed33ce10a62de582e9e54e",
+					"copyright": "Taken Nov 19, 2019 by Marcello Di Manno (cc-by-sa)"
+				},
+				{
+					"id": 3224239,
+					"image_url": "https://bs.floristic.org/image/o/b292f49fb05933d8cb1bcf6ecb392bddf3605d8e",
+					"copyright": "Taken Aug 2, 2019 by Waldemar Zeja (cc-by-sa)"
+				}
+			],
+			"habit": [{
+				"id": 3224240,
+				"image_url": "https://bs.floristic.org/image/o/85c09a11649f66821c2e38d2f344a5423349531f",
+				"copyright": "Taken Aug 17, 2015 by Tela Botanica − Liliane ROUBAUDI (cc-by-sa)"
+			}],
+			"fruit": [{
+					"id": 3224230,
+					"image_url": "https://bs.floristic.org/image/o/970da7122e862d5c3596b6db62bfb4f0c2a719a2",
+					"copyright": "Taken Oct 11, 2019 by miguel angel del viejo (cc-by-sa)"
+				}
+
+			],
+			"bark": [{
+					"id": 3224225,
+					"image_url": "https://bs.floristic.org/image/o/cf4b2bd8c6af15229006ae3012b971b7e625aa6a",
+					"copyright": "Taken Dec 22, 2019 by Renaud Brochiero (cc-by-sa)"
+				}
+
+			],
+			"other": [{
+					"id": 3224250,
+					"image_url": "https://bs.floristic.org/image/o/434f6c4cc020d0b483643c12ebe63e8226bc20fc",
+					"copyright": "Taken May 15, 2018 by Eliane Ollinger (cc-by-sa)"
+				}
+
+			]
+		},
+		"common_names": {
+			"en": [
+				"Quickbeam",
+				"Rowan",
+				"Rowan-berry",
+				"European mountain ash",
+				"European mountain-ash",
+				"European Rowan",
+				"Rowan,  moutain ash",
+				"Mountain ash",
+				"Dogberry",
+				"Rowan tree"
+			],
+			"ar": [],
+			"an": [],
+			"hy": [],
+			"az": [],
+			"eu": [],
+			"be": [],
+			"bg": [],
+			"ca": [],
+			"cv": [],
+			"hr": [],
+			"cs": [],
+			"da": [],
+			"nl": [],
+			"eo": [],
+			"et": [],
+			"fi": [],
+			"fr": [],
+			"gl": [],
+			"ka": [],
+			"de": [],
+			"he": [],
+			"hu": [],
+			"is": [],
+			"it": [],
+			"kk": [],
+			"lv": [],
+			"mk": [],
+			"gv": [],
+			"se": [],
+			"no": [],
+			"nb": [],
+			"nn": [],
+			"oc": [],
+			"fa": [],
+			"pl": [],
+			"pt": [],
+			"ru": [],
+			"sr": [],
+			"sk": [],
+			"sl": [],
+			"es": [],
+			"sv": [],
+			"tr": [],
+			"uk": [],
+			"wa": [],
+			"cy": [],
+			"fin": [],
+			"swe": [],
+			"dan": [],
+			"deu": [],
+			"eng": [],
+			"nno": [],
+			"nob": [],
+			"fra": [],
+			"por": [],
+			"nld": []
+		},
+		"distribution": {
+			"native": [],
+			"introduced": []
+		},
+		"distributions": {
+			"native": [{
+				"id": 93,
+				"name": "Albania",
+				"slug": "alb",
+				"tdwg_code": "ALB",
+				"tdwg_level": 3,
+				"species_count": 3,
+				"links": {
+					"self": "/api/v1/distributions/alb",
+					"plants": "/api/v1/distributions/alb/plants",
+					"species": "/api/v1/distributions/alb/species"
+				}
+			}]
+		},
+		"flower": {
+			"color": null,
+			"conspicuous": true
+		},
+		"foliage": {
+			"texture": "fine",
+			"color": null,
+			"leaf_retention": false
+		},
+		"fruit_or_seed": {
+			"conspicuous": true,
+			"color": null,
+			"shape": null,
+			"seed_persistence": true
+		},
+		"specifications": {
+			"ligneous_type": "tree",
+			"growth_form": "Single Stem",
+			"growth_habit": "Tree, Shrub",
+			"growth_rate": "Rapid",
+			"average_height": {
+				"cm": 1066
+			},
+			"maximum_height": {
+				"cm": 1066
+			},
+			"nitrogen_fixation": "None",
+			"shape_and_orientation": "Erect",
+			"toxicity": "none"
+		},
+		"growth": {
+			"description": null,
+			"sowing": null,
+			"days_to_harvest": null,
+			"row_spacing": {
+				"cm": null
+			},
+			"spread": {
+				"cm": null
+			},
+			"ph_maximum": 7.5,
+			"ph_minimum": 5.5,
+			"light": 7,
+			"atmospheric_humidity": 5,
+			"growth_months": null,
+			"bloom_months": null,
+			"fruit_months": null,
+			"minimum_precipitation": {
+				"mm": 711
+			},
+			"maximum_precipitation": {
+				"mm": 1524
+			},
+			"minimum_root_depth": {
+				"cm": 71
+			},
+			"minimum_temperature": {
+				"deg_f": -32,
+				"deg_c": -36
+			},
+			"maximum_temperature": {
+				"deg_f": null,
+				"deg_c": null
+			},
+			"soil_nutriments": 3,
+			"soil_salinity": 0,
+			"soil_texture": 4,
+			"soil_humidity": null
+		},
+		"links": {
+			"self": "/api/v1/species/sorbus-aucuparia",
+			"plant": "/api/v1/plants/sorbus-aucuparia",
+			"genus": "/api/v1/genus/sorbus"
+		},
+		"synonyms": [{
+			"id": 558334,
+			"name": "Pyrenia aucuparia",
+			"author": "(L.) Clairv.",
+			"sources": []
+		}],
+		"sources": [{
+			"last_update": "2020-06-21T20:44:49.000Z",
+			"id": "SOAU",
+			"name": "USDA",
+			"url": "https://plants.usda.gov/core/profile?symbol=SOAU",
+			"citation": "https://plants.sc.egov.usda.gov/core/profile?symbol=SOAU"
+		}]
+	},
+	"meta": {
+		"images_count": 37,
+		"sources_count": 5,
+		"synonyms_count": 13,
+		"last_modified": "2020-12-13T12:27:15.760Z"
+	}
+}

@@ -17,6 +17,7 @@ export default function IdentificationMethod({ navigation }: IdentificationMetho
 					onPress={() => navigation.navigate('ImageMethod')}
 					size="medium"
 					visible
+					testID="Identiricar por imagem"
 				/>
 				<Text variant="titleMedium"> ou </Text>
 				<FAB
@@ -25,6 +26,7 @@ export default function IdentificationMethod({ navigation }: IdentificationMetho
 					onPress={() => navigation.navigate('TextMethod')}
 					visible
 					size="medium"
+					testID="Identificar por texto"
 				/>
 			</View>
 		</View>

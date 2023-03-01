@@ -17,7 +17,7 @@ export function DeletableImage({ image, remove }: DeletableImageType) {
 			<Image source={{ uri: image.uri }} style={styles(theme).image} />
 			<View style={{ position: 'absolute', top: 0, right: 0 }}>
 				<Badge
-					value={<Icon name="close" size={18} color="white" />}
+					value={<Icon name="close" size={18} color="white" testID="close badge" />}
 					containerStyle={styles(theme).badgeContainer}
 					badgeStyle={styles(theme).badge}
 					onPress={() => remove(image.id)}

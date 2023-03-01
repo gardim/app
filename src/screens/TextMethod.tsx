@@ -1,6 +1,6 @@
 import React from 'react';
 import { View, StyleSheet } from 'react-native';
-import { Text, Searchbar, Chip, FAB } from 'react-native-paper';
+import { Text, Searchbar, Chip, FAB, HelperText, Snackbar } from 'react-native-paper';
 import { TextMethodProps } from '../types/index';
 import { identifyPlant } from '../api/trefle';
 
@@ -9,6 +9,8 @@ export function TextMethod({ navigation }: TextMethodProps) {
 	const [chips, setChips] = React.useState([]);
 	const [visible, setVisible] = React.useState<boolean>(false);
 	const [buttonOnHold, setButtonOnHold] = React.useState<boolean>(false);
+	const [visibleAlert, setVisiblAlert] = React.useState(false);
+	const [errorMessage, setErrorMessage] = React.useState('');
 
 	const addChip = () => {
 		const queryString = searchQuery.trim();
@@ -18,6 +20,8 @@ export function TextMethod({ navigation }: TextMethodProps) {
 		}
 		setSearchQuery('');
 	};
+
+	const onDismissSnackBar = () => setVisiblAlert(false);
 
 	const removeChip = (chipToDelete) => {
 		setChips((prevChips) => prevChips.filter((currentChip) => currentChip !== chipToDelete));
@@ -35,11 +39,16 @@ export function TextMethod({ navigation }: TextMethodProps) {
 			setButtonOnHold(true);
 			try {
 				const result = await identifyPlant(chips);
-				alert(result.data.length ? result.data[0].common_name : 'Não é uma planta');
-				console.log(result.data[0].common_name);
+				console.log(result.data);
+				if (result.data.length) {
+					navigation.navigate('Result', result);
+				} else {
+					throw new Error('Não é uma planta');
+				}
 			} catch (error) {
 				console.error(error);
-				alert('Oops! Algo deu errado');
+				setErrorMessage('Oops! Algo deu errado');
+				setVisiblAlert(true);
 			} finally {
 				setButtonOnHold(false);
 			}
@@ -47,41 +56,57 @@ export function TextMethod({ navigation }: TextMethodProps) {
 	};
 
 	return (
-		<View style={styles.container}>
-			<View style={styles.row}>
-				<Text variant="titleMedium" style={{ textAlign: 'center' }}>
-					Digite algumas palavras-chave que nos ajude a identificar sua planta!
-				</Text>
-				<Searchbar
-					placeholder="Search"
-					value={searchQuery}
-					onChangeText={onChangeSearch}
-					style={styles.fabVariant}
-				/>
-				<View style={styles.chipsContainer}>
-					{chips.map((chip) => (
-						<Chip key={chip} onClose={() => removeChip(chip)} style={styles.chip}>
-							{chip}
-						</Chip>
-					))}
+		<>
+			<View style={styles.container}>
+				<View style={styles.row}>
+					<Text variant="titleMedium" style={{ textAlign: 'center' }}>
+						Digite algumas palavras-chave que nos ajude a identificar sua planta!
+					</Text>
+
+					<Searchbar
+						placeholder="Search"
+						value={searchQuery}
+						onChangeText={onChangeSearch}
+						style={styles.fabVariant}
+					/>
+					<HelperText type="info" visible>
+						Pressione espaço para dividir as palavras!
+					</HelperText>
+					<View style={styles.chipsContainer}>
+						{chips.map((chip) => (
+							<Chip key={chip} onClose={() => removeChip(chip)} style={styles.chip}>
+								{chip}
+							</Chip>
+						))}
+					</View>
+				</View>
+				<View style={styles.row}>
+					{chips.length > 0 && (
+						<FAB
+							icon="arrow-right"
+							label={visible ? 'Continuar' : ''}
+							onPress={() => searchPlants()}
+							style={[styles.compressedFabStyle]}
+							variant="primary"
+							onLongPress={() => setVisible(!visible)}
+							disabled={buttonOnHold}
+							testID="Continuar"
+						/>
+					)}
 				</View>
 			</View>
-			<View style={styles.row}>
-				{chips.length > 0 ? (
-					<FAB
-						icon="arrow-right"
-						label={visible ? 'Continuar' : ''}
-						onPress={() => searchPlants()}
-						style={[styles.compressedFabStyle]}
-						variant="primary"
-						onLongPress={() => setVisible(!visible)}
-						disabled={buttonOnHold}
-					/>
-				) : (
-					<></>
-				)}
-			</View>
-		</View>
+			<Snackbar
+				visible={visibleAlert}
+				action={{
+					label: 'OK',
+				}}
+				onDismiss={onDismissSnackBar}
+				style={{
+					marginBottom: 30,
+				}}>
+				{errorMessage}
+			</Snackbar>
+		</>
 	);
 }
 

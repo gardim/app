@@ -8,7 +8,7 @@ describe('main functionalities', () => {
 			},
 		});
 
-		cy.get('div[data-testid="fab-content"]').click({ force: true });
+		cy.get('[data-testid="Adicione sua primeira planta"]').click({ force: true });
 
 		cy.contains('Método de Identificação').should('be.visible');
 
@@ -31,11 +31,11 @@ describe('main functionalities', () => {
 			});
 		});
 
-		cy.get(
-			'[style="flex: 1 1 0%; place-content: center; flex-direction: column; align-items: center;"] > [data-testid="fab-container"] > [data-testid="fab"]'
-		).click({ force: true });
+		cy.get('[data-testid="Continuar"]').click({ force: true });
 
-		cy.get('@consoleLog').should('be.calledWith', false);
+		cy.contains('Hydrangea').click({ force: true });
+
+		cy.get('[data-testid="Resultado Continuar"]').click({ force: true });
 	});
 
 	it('requests data from trefle api', () => {
@@ -45,16 +45,15 @@ describe('main functionalities', () => {
 			},
 		});
 
-		cy.get('div[data-testid="fab-content"]').click({ force: true });
+		cy.get('[data-testid="Adicione sua primeira planta"]').click({ force: true });
 
 		cy.contains('Método de Identificação').should('be.visible');
 
 		cy.contains('Identificar por texto').should('be.visible').click({ force: true });
 
-		cy.get('[data-testid="search-bar"]').click().type('beach ');
 		cy.get('[data-testid="search-bar"]').click().type('strawberry ');
+		cy.get('[data-testid="search-bar"]').click().type('beach ');
 
-		cy.get('[data-testid="chip-container"]').contains('beach').should('be.visible');
 		cy.get('[data-testid="chip-container"]').contains('strawberry').should('be.visible');
 
 		cy.fixture('trefle-request.json').then((json) => {
@@ -63,16 +62,28 @@ describe('main functionalities', () => {
 				body: json,
 			});
 		});
+
+		cy.get('[data-testid="Continuar"]').click({
+			force: true,
+		});
+
+		cy.contains('Beach strawberry').click({ force: true });
+
+		cy.fixture('trefle-species-request.json').then((json) => {
+			cy.intercept('*trefle?id=263319', {
+				statusCode: 200,
+				body: json,
+			});
+		});
+
 		const stub = cy.stub();
 		cy.on('window:alert', stub);
 
-		cy.get(':nth-child(2) > [data-testid="fab-container"] > [data-testid="fab"]')
+		cy.get('[data-testid="Resultado Continuar"]')
 			.click({
 				force: true,
 			})
 			.then(() => {
-				cy.get('@consoleLog').should('be.calledWith', 'Beach strawberry');
-
 				expect(stub.getCall(0)).to.be.calledWith('Beach strawberry');
 			});
 	});

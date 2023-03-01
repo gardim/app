@@ -6,6 +6,7 @@ import { Header } from '../components/Header';
 import IdentificationMethod from '../screens/IdentificationMethod';
 import { ImageMethod } from '../screens/ImageMethod';
 import { TextMethod } from '../screens/TextMethod';
+import { Result } from '../screens/Result';
 
 const Stack = createStackNavigator();
 
@@ -32,6 +33,7 @@ export default function RootStackNavigator() {
 				component={TextMethod}
 				options={{ title: 'Identificação por texto' }}
 			/>
+			<Stack.Screen name="Result" component={Result} options={{ title: 'Resultado' }} />
 		</Stack.Navigator>
 	);
 }

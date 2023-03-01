@@ -24,7 +24,7 @@ export default function DrawerContent() {
 				<View style={[styles.preference]}>
 					<Text variant="labelLarge">Dark Theme</Text>
 					<View pointerEvents="none">
-						<Switch value={isThemeDark} />
+						<Switch value={isThemeDark} testID="theme switch" />
 					</View>
 				</View>
 			</TouchableRipple>

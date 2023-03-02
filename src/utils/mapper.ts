@@ -15,6 +15,7 @@ import {
 export const mapToPlant = (info: TrefleSpeciesResponse | Suggestion): Plant => {
 	const isTrefle = (info as TrefleSpeciesResponse)?.data !== undefined;
 	const plantDetails: Plant = {
+		id: null,
 		name: null,
 		code: null,
 		common_name: null,
@@ -32,6 +33,7 @@ export const mapToPlant = (info: TrefleSpeciesResponse | Suggestion): Plant => {
 
 	if (isTrefle) {
 		const trefleData = (info as TrefleSpeciesResponse).data;
+		plantDetails.id = trefleData.id.toString();
 		plantDetails.common_name = trefleData.common_name ?? plantDetails.common_name;
 		plantDetails.scientific_name = trefleData.scientific_name ?? plantDetails.scientific_name;
 		plantDetails.edible_parts = trefleData.edible_part ?? plantDetails.edible_parts;
@@ -52,6 +54,7 @@ export const mapToPlant = (info: TrefleSpeciesResponse | Suggestion): Plant => {
 			: plantDetails.maximum_humidity;
 	} else {
 		const plantIdData = info as Suggestion;
+		plantDetails.id = plantIdData.plant_name;
 		plantDetails.common_name = plantIdData.plant_name ?? plantDetails.common_name;
 		plantDetails.scientific_name =
 			plantIdData.plant_details?.scientific_name ?? plantDetails.scientific_name;

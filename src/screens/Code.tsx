@@ -1,4 +1,4 @@
-import React, { useState, useContext } from 'react';
+import React, { useState, useContext, useEffect } from 'react';
 import { StyleSheet, View } from 'react-native';
 import {
 	CodeField,
@@ -10,6 +10,7 @@ import { Text, useTheme, FAB } from 'react-native-paper';
 import { CELL_COUNT } from '../utils/defaults';
 import { CodeProps } from '../types/index';
 import { PlantContext } from '../context';
+import { storeData } from '../storage/index';
 
 export function Code({ navigation }: CodeProps) {
 	const [value, setValue] = useState('');
@@ -23,8 +24,14 @@ export function Code({ navigation }: CodeProps) {
 	const theme = useTheme();
 	const plantContext = useContext(PlantContext);
 
+	useEffect(() => {
+		if (plantContext.plant && plantContext.plant.code) {
+			storeData(plantContext.plant);
+		}
+	}, [plantContext.plant]);
+
 	const onPress = () => {
-		plantContext.updatePlantCode(parseInt(value));
+		plantContext.updatePlantCode(value);
 		navigation.navigate('Home');
 	};
 
@@ -44,7 +51,7 @@ export function Code({ navigation }: CodeProps) {
 					rootStyle={styles.codeFieldRoot}
 					keyboardType="numeric"
 					textContentType="oneTimeCode"
-					onEndEditing={() => onPress()}
+					onEndEditing={onPress}
 					testID="code-field"
 					renderCell={({ index, symbol, isFocused }) => (
 						<Text
@@ -60,7 +67,7 @@ export function Code({ navigation }: CodeProps) {
 				<FAB
 					icon="arrow-right"
 					label={visible ? 'Continuar' : ''}
-					onPress={() => onPress()}
+					onPress={onPress}
 					style={[styles.compressedFabStyle]}
 					variant="primary"
 					onLongPress={() => setVisible(!visible)}

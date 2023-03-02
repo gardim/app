@@ -54,8 +54,9 @@ export type ImageType = {
 };
 
 export type Plant = {
+	id: string;
 	name: string | null;
-	code: number | null;
+	code: string | null;
 	common_name: string;
 	scientific_name: string;
 	edible_parts: string[] | null;
@@ -73,5 +74,5 @@ export interface PlantContextType {
 	plant: Plant;
 	updatePlant: (plant: Plant) => void;
 	updatePlantName: (name: string) => void;
-	updatePlantCode: (code: number) => void;
+	updatePlantCode: (code: string) => void;
 }

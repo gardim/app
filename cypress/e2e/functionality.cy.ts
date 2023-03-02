@@ -52,6 +52,10 @@ describe('main functionalities', () => {
 		cy.get('[data-testid="Code Continue"]').click({ force: true });
 
 		cy.contains('Suas Plantas').should('be.visible');
+
+		cy.contains('Blumenau').should('be.visible');
+
+		cy.contains('Sua planta foi salva com sucesso!').should('be.visible');
 	});
 
 	it('requests data from trefle api', () => {
@@ -111,5 +115,9 @@ describe('main functionalities', () => {
 		cy.get('[data-testid="Code Continue"]').click({ force: true });
 
 		cy.contains('Suas Plantas').should('be.visible');
+
+		cy.contains('Blumenau').should('be.visible');
+
+		cy.contains('Sua planta foi salva com sucesso!').should('be.visible');
 	});
 });

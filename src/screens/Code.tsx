@@ -32,7 +32,7 @@ export function Code({ navigation }: CodeProps) {
 
 	const onPress = () => {
 		plantContext.updatePlantCode(value);
-		navigation.navigate('Home');
+		navigation.navigate('Home', { success: true });
 	};
 
 	return (
@@ -108,6 +108,7 @@ const themedStyles = (theme) =>
 		cell: {
 			maxWidth: 40,
 			width: '15%',
+			marginHorizontal: 5,
 			height: 50,
 			lineHeight: 38,
 			fontSize: 24,

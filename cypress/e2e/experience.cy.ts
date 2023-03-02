@@ -36,7 +36,7 @@ sizes.forEach((size) => {
 			cy.viewport(size);
 			cy.visit('/');
 
-			cy.get('[data-testid="Adicione sua primeira planta"]').click({ force: true });
+			cy.get('[data-testid="Add Plant"]').click({ force: true });
 
 			cy.contains('Método de Identificação').should('be.visible');
 
@@ -59,7 +59,7 @@ sizes.forEach((size) => {
 				},
 			});
 
-			cy.get('[data-testid="Adicione sua primeira planta"]').click({ force: true });
+			cy.get('[data-testid="Add Plant"]').click({ force: true });
 
 			cy.contains('Método de Identificação').should('be.visible');
 
@@ -87,14 +87,14 @@ sizes.forEach((size) => {
 				});
 			});
 
-			cy.get('[data-testid="Continuar"]').should('be.visible');
+			cy.get('[data-testid="Method Continue"]').should('be.visible');
 		});
 
 		it('verifies text method screen', () => {
 			cy.viewport(size);
 			cy.visit('/');
 
-			cy.get('[data-testid="Adicione sua primeira planta"]').click({ force: true });
+			cy.get('[data-testid="Add Plant"]').click({ force: true });
 
 			cy.contains('Método de Identificação').should('be.visible');
 
@@ -104,7 +104,7 @@ sizes.forEach((size) => {
 
 			cy.get('[data-testid="chip-container"]').should('be.visible');
 
-			cy.get('[data-testid="Continuar"]').should('be.visible');
+			cy.get('[data-testid="Method Continue"]').should('be.visible');
 		});
 
 		it('changes theme', () => {

@@ -10,3 +10,5 @@ export const TEMPERATURE_MAXIMUM = 27;
 
 export const HUMIDITY_MINIMUM = 5;
 export const HUMIDITY_MAXIMUM = 5;
+
+export const CELL_COUNT = 6;

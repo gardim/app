@@ -88,7 +88,7 @@ export function TextMethod({ navigation }: TextMethodProps) {
 							variant="primary"
 							onLongPress={() => setVisible(!visible)}
 							disabled={buttonOnHold}
-							testID="Continuar"
+							testID="Method Continue"
 						/>
 					)}
 				</View>

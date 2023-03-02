@@ -21,9 +21,16 @@ export const PlantProvider = ({ children }: PlantProviderProps) => {
 		});
 	};
 
+	const updatePlantCode = (code: number) => {
+		setPlant({
+			...plant,
+			code: code,
+		});
+	};
+
 	const contextValue = useMemo(() => {
-		return { plant, updatePlant, updatePlantName };
-	}, [plant, updatePlantName]);
+		return { plant, updatePlant, updatePlantName, updatePlantCode };
+	}, [plant, updatePlantName, updatePlantCode]);
 
 	return <PlantContext.Provider value={contextValue}>{children}</PlantContext.Provider>;
 };

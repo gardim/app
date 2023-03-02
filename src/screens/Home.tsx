@@ -12,7 +12,7 @@ export function Home({ navigation }: HomeProps) {
 					onPress={() => navigation.navigate('IdentificationMethod')}
 					visible
 					style={[styles.fabStyle]}
-					testID="Adicione sua primeira planta"
+					testID="Add Plant"
 				/>
 				<Text variant="titleSmall">Adicione sua primeira planta</Text>
 			</View>

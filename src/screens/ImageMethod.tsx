@@ -128,7 +128,7 @@ export function ImageMethod({ navigation }: ImageMethodProps) {
 							variant="primary"
 							onLongPress={() => setVisible(!visible)}
 							disabled={buttonOnHold}
-							testID="Continuar"
+							testID="Method Continue"
 						/>
 					</View>
 				)}

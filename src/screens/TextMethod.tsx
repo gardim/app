@@ -39,11 +39,10 @@ export function TextMethod({ navigation }: TextMethodProps) {
 			setButtonOnHold(true);
 			try {
 				const result = await identifyPlant(chips);
-				console.log(result.data);
 				if (result.data.length) {
 					navigation.navigate('Result', result);
 				} else {
-					throw new Error('Não é uma planta');
+					throw new Error('It is not a plant');
 				}
 			} catch (error) {
 				console.error(error);

@@ -173,7 +173,7 @@ type Data = {
 	genus: string;
 	family: string;
 	duration: null | string;
-	edible_part: null | string;
+	edible_part: null | string[];
 	edible: boolean;
 	images: {
 		flower: Images['flower'];

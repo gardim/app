@@ -36,6 +36,18 @@ describe('main functionalities', () => {
 		cy.contains('Hydrangea').click({ force: true });
 
 		cy.get('[data-testid="Resultado Continuar"]').click({ force: true });
+
+		cy.contains('Nome').should('be.visible');
+
+		cy.get('[data-testid="input-nome"]').type('Blumenau');
+
+		cy.get('[data-testid="Nome Continuar"]')
+			.click({
+				force: true,
+			})
+			.then(() => {
+				cy.get('@consoleLog').should('be.calledWith', 'click');
+			});
 	});
 
 	it('requests data from trefle api', () => {
@@ -76,15 +88,20 @@ describe('main functionalities', () => {
 			});
 		});
 
-		const stub = cy.stub();
-		cy.on('window:alert', stub);
+		cy.get('[data-testid="Resultado Continuar"]').click({
+			force: true,
+		});
 
-		cy.get('[data-testid="Resultado Continuar"]')
+		cy.contains('Nome').should('be.visible');
+
+		cy.get('[data-testid="input-nome"]').type('Blumenau');
+
+		cy.get('[data-testid="Nome Continuar"]')
 			.click({
 				force: true,
 			})
 			.then(() => {
-				expect(stub.getCall(0)).to.be.calledWith('Beach strawberry');
+				cy.get('@consoleLog').should('be.calledWith', 'click');
 			});
 	});
 });

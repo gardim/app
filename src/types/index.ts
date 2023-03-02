@@ -8,6 +8,7 @@ export type RootStackParamList = {
 	ImageMethod: undefined;
 	TextMethod: undefined;
 	Result: TreflePlantSearchResponse | PlantIDResponse;
+	Name: undefined;
 };
 
 type HomeScreenNavigationProps = StackNavigationProp<RootStackParamList, 'Home'>;
@@ -17,6 +18,8 @@ type IdentificationMethodScreenNavigationProps = StackNavigationProp<
 >;
 type ImageMethodScreenNavigationProps = StackNavigationProp<RootStackParamList, 'ImageMethod'>;
 type TextMethodScreenNavigationProps = StackNavigationProp<RootStackParamList, 'TextMethod'>;
+
+type NameScreenNavigationProps = StackNavigationProp<RootStackParamList, 'Name'>;
 
 export type HomeProps = {
 	navigation: HomeScreenNavigationProps;
@@ -34,9 +37,35 @@ export type TextMethodProps = {
 	navigation: TextMethodScreenNavigationProps;
 };
 
+export type NameProps = {
+	navigation: NameScreenNavigationProps;
+};
+
 export type ResultProps = StackScreenProps<RootStackParamList, 'Result'>;
 
 export type ImageType = {
 	id: string;
 	uri: string;
 };
+
+export type Plant = {
+	name: string | null;
+	code: number | null;
+	common_name: string;
+	scientific_name: string;
+	edible_parts: string[] | null;
+	ph_maximum: number | null;
+	ph_minimum: number | null;
+	light: number | null;
+	atmospheric_humidity: number | null;
+	minimum_temperature: number | null;
+	maximum_temperature: number | null;
+	minimum_humidity: number | null;
+	maximum_humidity: number | null;
+};
+
+export interface PlantContextType {
+	plant: Plant;
+	updatePlant: (plant: Plant) => void;
+	updatePlantName: (name: string) => void;
+}

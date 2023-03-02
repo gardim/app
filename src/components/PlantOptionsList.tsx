@@ -15,7 +15,6 @@ export const PlantOptionsList = ({ info, onOptionSelect }: PlantOptionsListProps
 	const [selectedId, setSelectedId] = useState(null);
 
 	const handleOptionSelect = (optionId) => {
-		console.log(optionId);
 		onOptionSelect(optionId);
 		if (selectedId == optionId) {
 			setSelectedId(null);

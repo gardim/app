@@ -1,10 +1,13 @@
-import React, { createContext, useState } from 'react';
+import React, { createContext, useState, useMemo, ReactNode } from 'react';
 import { Plant, PlantContextType } from '../types/index';
 
 export const PlantContext = createContext<PlantContextType | null>(null);
 
-// eslint-disable-next-line react/prop-types
-export const PlantProvider = ({ children }) => {
+interface PlantProviderProps {
+	children: ReactNode;
+}
+
+export const PlantProvider = ({ children }: PlantProviderProps) => {
 	const [plant, setPlant] = useState(null);
 
 	const updatePlant = (plant: Plant) => {
@@ -18,7 +21,9 @@ export const PlantProvider = ({ children }) => {
 		});
 	};
 
-	const contextValue: PlantContextType = { plant, updatePlant, updatePlantName };
+	const contextValue = useMemo(() => {
+		return { plant, updatePlant, updatePlantName };
+	}, [plant, updatePlantName]);
 
 	return <PlantContext.Provider value={contextValue}>{children}</PlantContext.Provider>;
 };

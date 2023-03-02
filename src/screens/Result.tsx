@@ -104,7 +104,7 @@ export function Result({ navigation, route }: ResultProps) {
 					variant="primary"
 					onLongPress={() => setVisible(!visible)}
 					disabled={buttonOnHold}
-					testID="Resultado Continuar"
+					testID="Result Continue"
 				/>
 			)}
 		</View>

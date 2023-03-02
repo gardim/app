@@ -12,6 +12,7 @@ export function Name({ navigation }: NameProps) {
 
 	const handleSubmit = () => {
 		plantContext.updatePlantName(text);
+		navigation.navigate('Code');
 	};
 	return (
 		<View style={styles.container}>
@@ -33,11 +34,11 @@ export function Name({ navigation }: NameProps) {
 				<FAB
 					icon="arrow-right"
 					label={visible ? 'Continuar' : ''}
-					onPress={() => console.log('click')}
+					onPress={() => handleSubmit()}
 					style={[styles.compressedFabStyle]}
 					variant="primary"
 					onLongPress={() => setVisible(!visible)}
-					testID="Nome Continuar"
+					testID="Name Continue"
 				/>
 			)}
 		</View>

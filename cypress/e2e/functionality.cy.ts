@@ -8,7 +8,7 @@ describe('main functionalities', () => {
 			},
 		});
 
-		cy.get('[data-testid="Adicione sua primeira planta"]').click({ force: true });
+		cy.get('[data-testid="Add Plant"]').click({ force: true });
 
 		cy.contains('Método de Identificação').should('be.visible');
 
@@ -31,23 +31,27 @@ describe('main functionalities', () => {
 			});
 		});
 
-		cy.get('[data-testid="Continuar"]').click({ force: true });
+		cy.get('[data-testid="Method Continue"]').click({ force: true });
 
 		cy.contains('Hydrangea').click({ force: true });
 
-		cy.get('[data-testid="Resultado Continuar"]').click({ force: true });
+		cy.get('[data-testid="Result Continue"]').click({ force: true });
 
 		cy.contains('Nome').should('be.visible');
 
 		cy.get('[data-testid="input-nome"]').type('Blumenau');
 
-		cy.get('[data-testid="Nome Continuar"]')
-			.click({
-				force: true,
-			})
-			.then(() => {
-				cy.get('@consoleLog').should('be.calledWith', 'click');
-			});
+		cy.get('[data-testid="Name Continue"]').click({
+			force: true,
+		});
+
+		cy.contains('Código').should('be.visible');
+
+		cy.get('[data-testid="code-field"]').type('000000');
+
+		cy.get('[data-testid="Code Continue"]').click({ force: true });
+
+		cy.contains('Suas Plantas').should('be.visible');
 	});
 
 	it('requests data from trefle api', () => {
@@ -57,7 +61,7 @@ describe('main functionalities', () => {
 			},
 		});
 
-		cy.get('[data-testid="Adicione sua primeira planta"]').click({ force: true });
+		cy.get('[data-testid="Add Plant"]').click({ force: true });
 
 		cy.contains('Método de Identificação').should('be.visible');
 
@@ -75,7 +79,7 @@ describe('main functionalities', () => {
 			});
 		});
 
-		cy.get('[data-testid="Continuar"]').click({
+		cy.get('[data-testid="Method Continue"]').click({
 			force: true,
 		});
 
@@ -88,7 +92,7 @@ describe('main functionalities', () => {
 			});
 		});
 
-		cy.get('[data-testid="Resultado Continuar"]').click({
+		cy.get('[data-testid="Result Continue"]').click({
 			force: true,
 		});
 
@@ -96,12 +100,16 @@ describe('main functionalities', () => {
 
 		cy.get('[data-testid="input-nome"]').type('Blumenau');
 
-		cy.get('[data-testid="Nome Continuar"]')
-			.click({
-				force: true,
-			})
-			.then(() => {
-				cy.get('@consoleLog').should('be.calledWith', 'click');
-			});
+		cy.get('[data-testid="Name Continue"]').click({
+			force: true,
+		});
+
+		cy.contains('Código').should('be.visible');
+
+		cy.get('[data-testid="code-field"]').type('000000');
+
+		cy.get('[data-testid="Code Continue"]').click({ force: true });
+
+		cy.contains('Suas Plantas').should('be.visible');
 	});
 });

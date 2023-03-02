@@ -60,11 +60,10 @@ export function ImageMethod({ navigation }: ImageMethodProps) {
 				if (result.is_plant) {
 					navigation.navigate('Result', result);
 				} else {
-					throw new Error('No plants were found');
+					throw new Error('Nenhuma planta foi encontrada');
 				}
 			} catch (error) {
-				console.error(error);
-				setErrorMessage('Oops! Algo deu errado');
+				setErrorMessage(error.message);
 				setVisiblAlert(true);
 			} finally {
 				setButtonOnHold(false);

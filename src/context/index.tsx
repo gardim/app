@@ -8,7 +8,7 @@ interface PlantProviderProps {
 }
 
 export const PlantProvider = ({ children }: PlantProviderProps) => {
-	const [plant, setPlant] = useState(null);
+	const [plant, setPlant] = useState<Plant>(null);
 
 	const updatePlant = (plant: Plant) => {
 		setPlant(plant);
@@ -21,7 +21,7 @@ export const PlantProvider = ({ children }: PlantProviderProps) => {
 		});
 	};
 
-	const updatePlantCode = (code: number) => {
+	const updatePlantCode = (code: string) => {
 		setPlant({
 			...plant,
 			code: code,

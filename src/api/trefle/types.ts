@@ -13,11 +13,7 @@ interface Plant {
 	genus_id: number;
 	id: number;
 	image_url: string | null;
-	links: {
-		genus: string;
-		self: string;
-		species: string;
-	};
+	links: Links;
 	main_species_id: number;
 	observations: string;
 	scientific_name: string;
@@ -57,10 +53,10 @@ type Source = {
 };
 
 type Synonym = {
-	id: string | null;
+	id: number | null;
 	name: string | null;
 	author: string | null;
-	sources: string[] | null;
+	sources: Source[] | null;
 };
 
 type Links = {
@@ -85,29 +81,29 @@ type Temperature = {
 type Growth = {
 	description: string | null;
 	sowing: string | null;
-	days_to_harvest: string | null;
+	days_to_harvest: number | null;
 	row_spacing: Cm | null;
 	spread: Cm | null;
 	ph_maximum: number | null;
 	ph_minimum: number | null;
 	light: number | null;
-	atmospheric_humidity: number | null;
-	growth_months: number | null;
-	bloom_months: number | null;
-	fruit_months: number | null;
+	atmospheric_humidity: number | null; // 0 to 10
+	growth_months: string[] | null;
+	bloom_months: string[] | null;
+	fruit_months: string[] | null;
 	minimum_precipitation: Mm | null;
 	maximum_precipitation: Mm | null;
 	minimum_root_depth: Cm | null;
 	minimum_temperature: Temperature | null;
 	maximum_temperature: Temperature | null;
-	soil_nutriments: number | null;
-	soil_salinity: number | null;
-	soil_texture: number | null;
-	soil_humidity: number | null;
+	soil_nutriments: number | null; // 0 to 10
+	soil_salinity: number | null; // 0 to 10
+	soil_texture: number | null; // 0 to 10
+	soil_humidity: number | null; // 0 to 10
 };
 
 type Specifications = {
-	ligneous_type: string | null;
+	ligneous_type: ('liana' | 'subshrub' | 'shrub' | 'tree' | 'parasite') | null;
 	growth_form: string | null;
 	growth_habit: string | null;
 	growth_rate: string | null;
@@ -115,24 +111,24 @@ type Specifications = {
 	maximum_height: Cm | null;
 	nitrogen_fixation: string | null;
 	shape_and_orientation: string | null;
-	toxicity: string | null;
+	toxicity: ('none' | 'low' | 'medium' | 'high') | null;
 };
 
 type FruitOrSeed = {
 	conspicuous: boolean | null;
-	color: string | null;
+	color: string[] | null;
 	shape: string | null;
 	seed_persistence: boolean | null;
 };
 
 type Foliage = {
-	texture: string | null;
-	color: string | null;
+	texture: ('fine' | 'medium' | 'coarse') | null;
+	color: string[] | null;
 	leaf_retention: boolean | null;
 };
 
 type Flower = {
-	color: string | null;
+	color: string[] | null;
 	conspicuous: boolean | null;
 };
 
@@ -153,6 +149,10 @@ type Native = {
 
 type Distributions = {
 	native: Native[] | null;
+	introduced: [] | null;
+	doubtful: [] | null;
+	absent: [] | null;
+	extinct: [] | null;
 };
 
 type Data = {
@@ -164,7 +164,7 @@ type Data = {
 	bibliography: string;
 	author: string;
 	status: string;
-	rank: string;
+	rank: 'species' | 'ssp' | 'var' | 'form' | 'hybrid' | 'subvar';
 	family_common_name: string;
 	genus_id: number;
 	observations: string;
@@ -172,7 +172,7 @@ type Data = {
 	image_url: string;
 	genus: string;
 	family: string;
-	duration: null | string;
+	duration: null | string[];
 	edible_part: null | string[];
 	edible: boolean;
 	images: {

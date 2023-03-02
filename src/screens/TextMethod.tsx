@@ -42,11 +42,10 @@ export function TextMethod({ navigation }: TextMethodProps) {
 				if (result.data.length) {
 					navigation.navigate('Result', result);
 				} else {
-					throw new Error('It is not a plant');
+					throw new Error('Nenhuma planta foi encontrada');
 				}
 			} catch (error) {
-				console.error(error);
-				setErrorMessage('Oops! Algo deu errado');
+				setErrorMessage(error.message);
 				setVisiblAlert(true);
 			} finally {
 				setButtonOnHold(false);

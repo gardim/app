@@ -11,17 +11,14 @@ export const storeData = async (value: Plant) => {
 };
 
 export const getAllKeys = async () => {
-	let keys: readonly string[] = [''];
 	try {
-		keys = await AsyncStorage.getAllKeys();
+		return await AsyncStorage.getAllKeys();
 	} catch (e) {
 		throw new Error('Ocorreu um erro ao pegar as chaves dos objetos');
 	}
-
-	return keys;
 };
 
-export const getMultiple = async (keys: readonly string[]) => {
+export const getMultiple = async (keys: string[]) => {
 	let values;
 	try {
 		values = await AsyncStorage.multiGet(keys);

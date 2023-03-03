@@ -2,8 +2,8 @@ import React, { createContext, useEffect, useState, ReactNode, useMemo } from 'r
 import { Client, Message } from 'react-native-paho-mqtt';
 
 type MQTTResponse = {
-	soilValue: string;
-	luxValue: string;
+	soilValue: number;
+	luxValue: number;
 };
 
 const myStorage = {
@@ -60,8 +60,8 @@ export const MQTTProvider = ({ children }: MQTTProviderProps) => {
 
 	const contextValue = useMemo(() => {
 		return {
-			soilValue: soilValue,
-			luxValue: luxValue,
+			soilValue: parseInt(soilValue),
+			luxValue: parseInt(luxValue),
 		};
 	}, [soilValue, luxValue]);
 

@@ -1,4 +1,4 @@
-import React, { useContext } from 'react';
+import React, { useContext, useEffect } from 'react';
 import { View } from 'react-native';
 import { Text, Card, Avatar } from 'react-native-paper';
 import { LinearGaugeChart } from '../components/LinearGaugeChart';
@@ -21,11 +21,11 @@ export function Status() {
 					<LinearGaugeChart
 						min={plant.soil_humidity_minimum}
 						max={plant.soil_humidity_maximum}
-						value={10}
+						value={soilValue || 1}
 					/>
 				</Card.Content>
 				<Card.Actions>
-					<Text>40%</Text>
+					<Text>{soilValue || 1}</Text>
 				</Card.Actions>
 			</Card>
 			<Card style={{ marginVertical: 10, marginHorizontal: 20 }}>
@@ -34,10 +34,14 @@ export function Status() {
 					left={(props) => <Avatar.Icon {...props} icon="lightbulb-on-outline" />}
 				/>
 				<Card.Content>
-					<LinearGaugeChart min={plant.light_minimum} max={plant.light_maximum} value={10} />
+					<LinearGaugeChart
+						min={plant.light_minimum}
+						max={plant.light_maximum}
+						value={luxValue || 1}
+					/>
 				</Card.Content>
 				<Card.Actions>
-					<Text>40%</Text>
+					<Text>{luxValue || 1}</Text>
 				</Card.Actions>
 			</Card>
 		</View>

@@ -1,5 +1,5 @@
 import { Slider } from '@miblanchard/react-native-slider';
-import React, { useState, useRef } from 'react';
+import React, { useRef, useEffect, useState } from 'react';
 import { View, StyleSheet } from 'react-native';
 
 type LinearGaugeChartProps = {
@@ -10,7 +10,10 @@ type LinearGaugeChartProps = {
 
 export const LinearGaugeChart = ({ min, max, value }: LinearGaugeChartProps) => {
 	const [sliderValue, setSliderValue] = useState(value);
-	const [lineHeight, setLineHeight] = useState(0);
+
+	useEffect(() => {
+		setSliderValue(value);
+	}, [value]);
 
 	const sectionColors = Array.from({ length: 10 }, (_, i) => {
 		const value = i + 1;
@@ -27,14 +30,7 @@ export const LinearGaugeChart = ({ min, max, value }: LinearGaugeChartProps) => 
 
 	return (
 		<View style={{ position: 'relative' }}>
-			<View
-				style={[
-					styles.line,
-					{
-						height: lineHeight,
-						borderRadius: 100,
-					},
-				]}>
+			<View style={[styles.line]}>
 				{sectionColors.map((color, i) => (
 					<View key={i} style={[styles.section, { backgroundColor: color }]} />
 				))}
@@ -49,6 +45,7 @@ export const LinearGaugeChart = ({ min, max, value }: LinearGaugeChartProps) => 
 				maximumTrackTintColor="transparent"
 				thumbTintColor="white"
 				thumbStyle={styles.thumbStyle}
+				disabled={true}
 			/>
 		</View>
 	);

@@ -8,7 +8,7 @@ import {
 } from 'react-native-confirmation-code-field';
 import { Text, useTheme, FAB } from 'react-native-paper';
 import { CELL_COUNT } from '../utils/defaults';
-import { CodeProps } from '../types/index';
+import { CodeProps } from '../types/stack';
 import { PlantContext } from '../context';
 import { storeData } from '../storage/index';
 

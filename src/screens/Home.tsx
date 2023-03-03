@@ -1,9 +1,11 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useContext } from 'react';
 import { View, StyleSheet } from 'react-native';
 import { Text, FAB, List, Avatar, Snackbar } from 'react-native-paper';
-import { HomeProps, Plant } from '../types/index';
+import { Plant } from '../types';
+import { HomeProps } from '../types/stack';
 import { getAllKeys } from '../storage';
 import { getMultiple } from '../storage/index';
+import { PlantContext } from '../context';
 
 export function Home({ navigation, route }: HomeProps) {
 	const [visibleAlert, setVisiblAlert] = React.useState(route.params?.success ? true : false);
@@ -12,6 +14,8 @@ export function Home({ navigation, route }: HomeProps) {
 	const onDismissSnackBar = () => setVisiblAlert(false);
 
 	const [plants, setPlants] = useState([]);
+
+	const plantContext = useContext(PlantContext);
 
 	useEffect(() => {
 		setVisiblAlert(route.params?.success ? true : false);
@@ -27,6 +31,11 @@ export function Home({ navigation, route }: HomeProps) {
 		loadPlants();
 	}, [visibleAlert]);
 
+	const handleOnPress = (plant: Plant) => {
+		plantContext.updatePlant(plant);
+		navigation.navigate('RootTabNavigation');
+	};
+
 	return (
 		<>
 			<View style={styles.container}>
@@ -41,7 +50,7 @@ export function Home({ navigation, route }: HomeProps) {
 										title={plant.name}
 										titleStyle={{ fontSize: 18, fontWeight: 'bold' }}
 										description={plant.scientific_name}
-										onPress={() => console.log('click')}
+										onPress={() => handleOnPress(plant)}
 										left={() => <Avatar.Text label={plant.name[0]} size={40} />}
 									/>
 								);

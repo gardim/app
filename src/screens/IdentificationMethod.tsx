@@ -1,7 +1,7 @@
 import React from 'react';
 import { View, StyleSheet } from 'react-native';
 import { Text, FAB } from 'react-native-paper';
-import { IdentificationMethodProps } from '../types/index';
+import { IdentificationMethodProps } from '../types/stack';
 
 export default function IdentificationMethod({ navigation }: IdentificationMethodProps) {
 	return (

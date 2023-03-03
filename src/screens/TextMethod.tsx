@@ -1,7 +1,7 @@
 import React from 'react';
 import { View, StyleSheet } from 'react-native';
 import { Text, Searchbar, Chip, FAB, HelperText, Snackbar } from 'react-native-paper';
-import { TextMethodProps } from '../types/index';
+import { TextMethodProps } from '../types/stack';
 import { identifyPlant } from '../api/trefle';
 
 export function TextMethod({ navigation }: TextMethodProps) {

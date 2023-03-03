@@ -1,5 +1,5 @@
 import React, { createContext, useState, useMemo, ReactNode } from 'react';
-import { Plant, PlantContextType } from '../types/index';
+import { Plant, PlantContextType } from '../types/stack';
 
 export const PlantContext = createContext<PlantContextType | null>(null);
 

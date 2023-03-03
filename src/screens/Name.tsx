@@ -1,7 +1,7 @@
 import React, { useContext } from 'react';
 import { StyleSheet, View } from 'react-native';
 import { Text, TextInput, FAB } from 'react-native-paper';
-import { NameProps } from '../types/index';
+import { NameProps } from '../types/stack';
 import { PlantContext } from '../context';
 
 export function Name({ navigation }: NameProps) {

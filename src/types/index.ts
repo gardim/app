@@ -1,55 +1,3 @@
-import { StackNavigationProp, StackScreenProps } from '@react-navigation/stack';
-import { TreflePlantSearchResponse } from '../api/trefle/types';
-import { PlantIDResponse } from '../api/plant_id/types';
-
-export type RootStackParamList = {
-	Home: { success: boolean };
-	IdentificationMethod: undefined;
-	ImageMethod: undefined;
-	TextMethod: undefined;
-	Result: TreflePlantSearchResponse | PlantIDResponse;
-	Name: undefined;
-	Code: undefined;
-};
-
-type IdentificationMethodScreenNavigationProps = StackNavigationProp<
-	RootStackParamList,
-	'IdentificationMethod'
->;
-type ImageMethodScreenNavigationProps = StackNavigationProp<RootStackParamList, 'ImageMethod'>;
-type TextMethodScreenNavigationProps = StackNavigationProp<RootStackParamList, 'TextMethod'>;
-type NameScreenNavigationProps = StackNavigationProp<RootStackParamList, 'Name'>;
-type CodeScreenNavigationProps = StackNavigationProp<RootStackParamList, 'Code'>;
-
-export type HomeProps = StackScreenProps<RootStackParamList, 'Home'>;
-
-export type IdentificationMethodProps = {
-	navigation: IdentificationMethodScreenNavigationProps;
-};
-
-export type ImageMethodProps = {
-	navigation: ImageMethodScreenNavigationProps;
-};
-
-export type TextMethodProps = {
-	navigation: TextMethodScreenNavigationProps;
-};
-
-export type NameProps = {
-	navigation: NameScreenNavigationProps;
-};
-
-export type CodeProps = {
-	navigation: CodeScreenNavigationProps;
-};
-
-export type ResultProps = StackScreenProps<RootStackParamList, 'Result'>;
-
-export type ImageType = {
-	id: string;
-	uri: string;
-};
-
 export type Plant = {
 	id: string;
 	name: string | null;
@@ -59,12 +7,14 @@ export type Plant = {
 	edible_parts: string[] | null;
 	ph_maximum: number | null;
 	ph_minimum: number | null;
-	light: number | null;
-	atmospheric_humidity: number | null;
-	minimum_temperature: number | null;
-	maximum_temperature: number | null;
-	minimum_humidity: number | null;
-	maximum_humidity: number | null;
+	light_minimum: number | null;
+	light_maximum: number | null;
+	atmospheric_humidity_minimum: number | null;
+	atmospheric_humidity_maximum: number | null;
+	temperature_minimum: number | null;
+	temperature_maximum: number | null;
+	soil_humidity_minimum: number | null;
+	soil_humidity_maximum: number | null;
 };
 
 export interface PlantContextType {
@@ -73,3 +23,8 @@ export interface PlantContextType {
 	updatePlantName: (name: string) => void;
 	updatePlantCode: (code: string) => void;
 }
+
+export type ImageType = {
+	id: string;
+	uri: string;
+};

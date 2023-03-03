@@ -1,5 +1,5 @@
 import AsyncStorage from '@react-native-async-storage/async-storage';
-import { Plant } from '../types/index';
+import { Plant } from '../types';
 
 export const storeData = async (value: Plant) => {
 	try {

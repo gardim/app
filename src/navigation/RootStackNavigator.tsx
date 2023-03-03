@@ -9,6 +9,7 @@ import { TextMethod } from '../screens/TextMethod';
 import { Result } from '../screens/Result';
 import { Name } from '../screens/Name';
 import { Code } from '../screens/Code';
+import { RootTabNavigation } from './RootTabNavigation';
 
 const Stack = createStackNavigator();
 
@@ -38,6 +39,7 @@ export default function RootStackNavigator() {
 			<Stack.Screen name="Result" component={Result} options={{ title: 'Resultado' }} />
 			<Stack.Screen name="Name" component={Name} options={{ title: 'Nome' }} />
 			<Stack.Screen name="Code" component={Code} options={{ title: 'Código' }} />
+			<Stack.Screen name="RootTabNavigation" component={RootTabNavigation} />
 		</Stack.Navigator>
 	);
 }

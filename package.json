@@ -15,8 +15,10 @@
   },
   "dependencies": {
     "@expo/webpack-config": "^0.17.2",
+    "@miblanchard/react-native-slider": "^2.3.0",
     "@react-native-async-storage/async-storage": "~1.17.3",
     "@react-navigation/drawer": "^6.6.0",
+    "@react-navigation/material-bottom-tabs": "^6.2.15",
     "@react-navigation/native": "^6.1.4",
     "@react-navigation/stack": "^6.3.14",
     "@types/react": "~18.0.24",

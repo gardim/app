@@ -1,7 +1,7 @@
 import * as ImagePicker from 'expo-image-picker';
 import React, { useState } from 'react';
 import { StyleSheet, View, Dimensions } from 'react-native';
-import { ImageMethodProps, ImageType } from '../types/index';
+import { ImageMethodProps, ImageType } from '../types/stack';
 import { DeletableImage } from '../components/DeletableImage';
 import { FAB, Text, Snackbar } from 'react-native-paper';
 import Carousel from 'react-native-reanimated-carousel';

@@ -1,6 +1,6 @@
 import React from 'react';
 import { View, StyleSheet, Image } from 'react-native';
-import { ImageType } from '../types/index';
+import { ImageType } from '../types';
 import { Badge, Icon } from 'react-native-elements';
 import { useTheme } from 'react-native-paper';
 

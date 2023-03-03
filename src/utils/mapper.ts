@@ -1,16 +1,19 @@
 import { TrefleSpeciesResponse } from '../api/trefle/types';
 import { Suggestion } from '../api/plant_id/types';
-import { Plant } from '../types/index';
+import { Plant } from '../types';
 import {
-	PH_MAXIMUM,
 	PH_MINIMUM,
-	LIGHT,
-	ATMOSPHERIC_HUMIDITY,
+	PH_MAXIMUM,
+	LIGHT_MINIMUM,
+	LIGHT_MAXIMUM,
+	ATMOSPHERIC_HUMIDITY_MINIMUM,
+	ATMOSPHERIC_HUMIDITY_MAXIMUM,
 	TEMPERATURE_MINIMUM,
 	TEMPERATURE_MAXIMUM,
-	HUMIDITY_MINIMUM,
-	HUMIDITY_MAXIMUM,
+	SOIL_HUMIDITY_MINIMUM,
+	SOIL_HUMIDITY_MAXIMUM,
 } from './defaults';
+import { convertScale } from '.';
 
 export const mapToPlant = (info: TrefleSpeciesResponse | Suggestion): Plant => {
 	const isTrefle = (info as TrefleSpeciesResponse)?.data !== undefined;
@@ -23,12 +26,14 @@ export const mapToPlant = (info: TrefleSpeciesResponse | Suggestion): Plant => {
 		edible_parts: null,
 		ph_maximum: PH_MAXIMUM,
 		ph_minimum: PH_MINIMUM,
-		light: LIGHT,
-		atmospheric_humidity: ATMOSPHERIC_HUMIDITY,
-		minimum_temperature: TEMPERATURE_MINIMUM,
-		maximum_temperature: TEMPERATURE_MAXIMUM,
-		minimum_humidity: HUMIDITY_MINIMUM,
-		maximum_humidity: HUMIDITY_MAXIMUM,
+		light_minimum: LIGHT_MINIMUM,
+		light_maximum: LIGHT_MAXIMUM,
+		atmospheric_humidity_minimum: ATMOSPHERIC_HUMIDITY_MINIMUM,
+		atmospheric_humidity_maximum: ATMOSPHERIC_HUMIDITY_MAXIMUM,
+		temperature_minimum: TEMPERATURE_MINIMUM,
+		temperature_maximum: TEMPERATURE_MAXIMUM,
+		soil_humidity_minimum: SOIL_HUMIDITY_MINIMUM,
+		soil_humidity_maximum: SOIL_HUMIDITY_MAXIMUM,
 	};
 
 	if (isTrefle) {
@@ -39,19 +44,28 @@ export const mapToPlant = (info: TrefleSpeciesResponse | Suggestion): Plant => {
 		plantDetails.edible_parts = trefleData.edible_part ?? plantDetails.edible_parts;
 		plantDetails.ph_maximum = trefleData.growth?.ph_maximum ?? plantDetails.ph_maximum;
 		plantDetails.ph_minimum = trefleData.growth?.ph_minimum ?? plantDetails.ph_minimum;
-		plantDetails.light = trefleData.growth?.light ?? plantDetails.light;
-		plantDetails.atmospheric_humidity =
-			trefleData.growth?.atmospheric_humidity ?? plantDetails.atmospheric_humidity;
-		plantDetails.minimum_temperature =
-			trefleData.growth?.minimum_temperature?.deg_c ?? plantDetails.minimum_temperature;
-		plantDetails.maximum_temperature =
-			trefleData.growth?.maximum_temperature?.deg_c ?? plantDetails.maximum_temperature;
-		plantDetails.minimum_humidity = trefleData.growth?.soil_humidity
+		plantDetails.light_minimum = trefleData.growth?.light - 2 ?? plantDetails.light_minimum;
+		plantDetails.light_maximum = trefleData.growth?.light + 2 ?? plantDetails.light_maximum;
+
+		plantDetails.atmospheric_humidity_minimum =
+			trefleData.growth?.atmospheric_humidity - 10 ?? plantDetails.atmospheric_humidity_minimum;
+
+		plantDetails.atmospheric_humidity_maximum =
+			trefleData.growth?.atmospheric_humidity + 10 ?? plantDetails.atmospheric_humidity_maximum;
+
+		plantDetails.temperature_minimum =
+			trefleData.growth?.minimum_temperature?.deg_c ?? plantDetails.temperature_minimum;
+
+		plantDetails.temperature_maximum =
+			trefleData.growth?.maximum_temperature?.deg_c ?? plantDetails.temperature_maximum;
+
+		plantDetails.soil_humidity_minimum = trefleData.growth?.soil_humidity
 			? trefleData.growth.soil_humidity - 2
-			: plantDetails.minimum_humidity;
-		plantDetails.maximum_humidity = trefleData.growth?.soil_humidity
+			: plantDetails.soil_humidity_minimum;
+
+		plantDetails.soil_humidity_maximum = trefleData.growth?.soil_humidity
 			? trefleData.growth.soil_humidity + 2
-			: plantDetails.maximum_humidity;
+			: plantDetails.soil_humidity_maximum;
 	} else {
 		const plantIdData = info as Suggestion;
 		plantDetails.id = plantIdData.plant_name;
@@ -60,10 +74,12 @@ export const mapToPlant = (info: TrefleSpeciesResponse | Suggestion): Plant => {
 			plantIdData.plant_details?.scientific_name ?? plantDetails.scientific_name;
 		plantDetails.edible_parts =
 			plantIdData.plant_details?.edible_parts ?? plantDetails.edible_parts;
-		plantDetails.minimum_humidity =
-			plantIdData.plant_details?.watering?.min ?? plantDetails.minimum_humidity;
-		plantDetails.maximum_humidity =
-			plantIdData.plant_details?.watering?.max ?? plantDetails.maximum_humidity;
+		plantDetails.soil_humidity_minimum =
+			convertScale(plantIdData.plant_details?.watering?.min) ??
+			plantDetails.soil_humidity_minimum;
+		plantDetails.soil_humidity_maximum =
+			convertScale(plantIdData.plant_details?.watering?.max) ??
+			plantDetails.soil_humidity_maximum;
 	}
 
 	return plantDetails;

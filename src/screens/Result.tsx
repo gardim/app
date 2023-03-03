@@ -1,7 +1,7 @@
 import React, { useState, useContext } from 'react';
 import { View, StyleSheet, ScrollView, Dimensions, Platform } from 'react-native';
 import { PlantOptionsList } from '../components/PlantOptionsList';
-import { ResultProps } from '../types/index';
+import { ResultProps } from '../types/stack';
 import { Text, FAB } from 'react-native-paper';
 import { PlantIDResponse } from '../api/plant_id/types';
 import { TreflePlantSearchResponse } from '../api/trefle/types';

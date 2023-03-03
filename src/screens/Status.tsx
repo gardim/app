@@ -3,10 +3,12 @@ import { View } from 'react-native';
 import { Text, Card, Avatar } from 'react-native-paper';
 import { LinearGaugeChart } from '../components/LinearGaugeChart';
 import { PlantContext } from '../context';
+import { MQTTContext } from '../api/mqtt';
 
 export function Status() {
 	const plantContext = useContext(PlantContext);
 	const plant = plantContext.plant;
+	const { soilValue, luxValue } = useContext(MQTTContext);
 
 	return (
 		<View>

@@ -9,7 +9,7 @@ import RootNavigation from './navigation/RootNavigation';
 import { CombinedDarkTheme, CombinedDefaultTheme } from './utils/theme';
 import { StatusBar } from 'react-native';
 import { PlantProvider } from './context';
-import MQTTProvider from './api/mqtt';
+import { MQTTProvider } from './api/mqtt';
 
 function App() {
 	const [isThemeDark, setIsThemeDark] = React.useState(false);

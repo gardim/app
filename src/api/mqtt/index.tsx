@@ -1,4 +1,4 @@
-import React, { createContext, useEffect, useState, ReactNode } from 'react';
+import React, { createContext, useEffect, useState, ReactNode, useMemo } from 'react';
 import { Client, Message } from 'react-native-paho-mqtt';
 
 type MQTTResponse = {
@@ -22,7 +22,7 @@ interface MQTTProviderProps {
 	children: ReactNode;
 }
 
-const MQTTProvider = ({ children }: MQTTProviderProps) => {
+export const MQTTProvider = ({ children }: MQTTProviderProps) => {
 	const [soilValue, setSoilValue] = useState<string | null>(null);
 	const [luxValue, setLuxValue] = useState<string | null>(null);
 
@@ -58,12 +58,12 @@ const MQTTProvider = ({ children }: MQTTProviderProps) => {
 		};
 	}, []);
 
-	const contextValue = {
-		soilValue: soilValue,
-		luxValue: luxValue,
-	};
+	const contextValue = useMemo(() => {
+		return {
+			soilValue: soilValue,
+			luxValue: luxValue,
+		};
+	}, [soilValue, luxValue]);
 
 	return <MQTTContext.Provider value={contextValue}>{children}</MQTTContext.Provider>;
 };
-
-export default MQTTProvider;

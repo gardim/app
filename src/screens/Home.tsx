@@ -42,9 +42,7 @@ export function Home({ navigation, route }: HomeProps) {
 										titleStyle={{ fontSize: 18, fontWeight: 'bold' }}
 										description={plant.scientific_name}
 										onPress={() => console.log('click')}
-										left={(props) => (
-											<Avatar.Text style={props.style} label={plant.name[0]} size={40} />
-										)}
+										left={() => <Avatar.Text label={plant.name[0]} size={40} />}
 									/>
 								);
 							})}

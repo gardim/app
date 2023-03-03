@@ -8,7 +8,6 @@ import { getMultiple } from '../storage/index';
 export function Home({ navigation, route }: HomeProps) {
 	const [visibleAlert, setVisiblAlert] = React.useState(route.params?.success ? true : false);
 	const [visible, setVisible] = React.useState<boolean>(false);
-	const [buttonOnHold, setButtonOnHold] = React.useState<boolean>(false);
 
 	const onDismissSnackBar = () => setVisiblAlert(false);
 
@@ -57,7 +56,6 @@ export function Home({ navigation, route }: HomeProps) {
 							style={[styles.compressedFabStyle]}
 							variant="primary"
 							onLongPress={() => setVisible(!visible)}
-							disabled={buttonOnHold}
 							testID="Add Plant"
 						/>
 					</>

@@ -1,4 +1,5 @@
 /// <reference types="cypress" />
+import 'cypress-localstorage-commands';
 
 describe('main functionalities', () => {
 	it('requests data from plant api', () => {
@@ -119,5 +120,35 @@ describe('main functionalities', () => {
 		cy.contains('Blumenau').should('be.visible');
 
 		cy.contains('Sua planta foi salva com sucesso!').should('be.visible');
+	});
+
+	it('verifies saved plant', () => {
+		const plant =
+			'{' +
+			'"id":"183086",' +
+			'"name":"Blumenau",' +
+			'"code":"000000",' +
+			'"common_name":"Beach strawberry",' +
+			'"scientific_name":"Sorbus aucuparia",' +
+			'"edible_parts":null,' +
+			'"ph_maximum":7.5,' +
+			'"ph_minimum":5.5,' +
+			'"light_minimum":5,' +
+			'"light_maximum":9,' +
+			'"atmospheric_humidity_minimum":-5,' +
+			'"atmospheric_humidity_maximum":15,' +
+			'"temperature_minimum":-36,' +
+			'"temperature_maximum":27,' +
+			'"soil_humidity_minimum":5,' +
+			'"soil_humidity_maximum":5' +
+			'}';
+
+		cy.setLocalStorage('@183086', plant);
+
+		cy.visit('/');
+
+		cy.contains('Blumenau').should('be.visible').click({ force: true });
+
+		cy.contains('Umidade do Solo').should('be.visible');
 	});
 });

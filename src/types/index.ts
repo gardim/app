@@ -3,7 +3,7 @@ import { TreflePlantSearchResponse } from '../api/trefle/types';
 import { PlantIDResponse } from '../api/plant_id/types';
 
 export type RootStackParamList = {
-	Home: undefined;
+	Home: { success: boolean };
 	IdentificationMethod: undefined;
 	ImageMethod: undefined;
 	TextMethod: undefined;
@@ -12,7 +12,6 @@ export type RootStackParamList = {
 	Code: undefined;
 };
 
-type HomeScreenNavigationProps = StackNavigationProp<RootStackParamList, 'Home'>;
 type IdentificationMethodScreenNavigationProps = StackNavigationProp<
 	RootStackParamList,
 	'IdentificationMethod'
@@ -22,9 +21,7 @@ type TextMethodScreenNavigationProps = StackNavigationProp<RootStackParamList, '
 type NameScreenNavigationProps = StackNavigationProp<RootStackParamList, 'Name'>;
 type CodeScreenNavigationProps = StackNavigationProp<RootStackParamList, 'Code'>;
 
-export type HomeProps = {
-	navigation: HomeScreenNavigationProps;
-};
+export type HomeProps = StackScreenProps<RootStackParamList, 'Home'>;
 
 export type IdentificationMethodProps = {
 	navigation: IdentificationMethodScreenNavigationProps;

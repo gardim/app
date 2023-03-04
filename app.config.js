@@ -35,9 +35,9 @@ export default {
 			favicon: './assets/favicon.png'
 		},
 		extra: {
-			plantIdApiKey: process.env['PLANT_ID_API_KEY'],
-			plantIdApiUrl: process.env['PLANT_ID_API_URL'],
-			gardimApiUrl: process.env['GARDIM_API_URL'],
+			plantIdApiKey: process.env.PLANT_ID_API_KEY,
+			plantIdApiUrl: process.env.PLANT_ID_API_URL,
+			gardimApiUrl: process.env.GARDIM_API_URL,
 			eas: {
 				projectId: '8d0a02e6-116c-4f13-bc9b-b72a6b07fc14'
 			}

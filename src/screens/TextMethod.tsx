@@ -34,6 +34,11 @@ export function TextMethod({ navigation }: TextMethodProps) {
 		}
 	};
 
+	const onSubmit = (query) => {
+		setSearchQuery(query);
+		addChip();
+	};
+
 	const searchPlants = async () => {
 		if (!buttonOnHold) {
 			setButtonOnHold(true);
@@ -66,9 +71,10 @@ export function TextMethod({ navigation }: TextMethodProps) {
 						value={searchQuery}
 						onChangeText={onChangeSearch}
 						style={styles.fabVariant}
+						onSubmitEditing={onSubmit}
 					/>
 					<HelperText type="info" visible>
-						Pressione espaço para dividir as palavras!
+						Pressione enter ou espaço para dividir as palavras!
 					</HelperText>
 					<View style={styles.chipsContainer}>
 						{chips.map((chip) => (

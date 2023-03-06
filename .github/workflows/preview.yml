@@ -32,6 +32,8 @@ jobs:
           echo "PLANT_ID_API_URL=${{ secrets.PLANT_ID_API_URL }}" >> $GITHUB_ENV
           echo "PLANT_ID_API_KEY=${{ secrets.PLANT_ID_API_KEY }}" >> $GITHUB_ENV
           echo "GARDIM_API_URL=${{ secrets.GARDIM_API_URL }}" >> $GITHUB_ENV
+          echo "MQTT_URL=${{ secrets.MQTT_URL }}" >> $GITHUB_ENV
+          echo "MQTT_PORT=${{ secrets.MQTT_PORT }}" >> $GITHUB_ENV
 
       - name: 🚀 Publish to Expo & create a QR code
         uses: expo/expo-preview-action@v1

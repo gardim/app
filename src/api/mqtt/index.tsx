@@ -51,8 +51,9 @@ export const MQTTProvider = ({ children }: MQTTProviderProps) => {
 			.connect({ useSSL: isSSL })
 			.then(() => {
 				console.log('connected');
-				client.subscribe('/gardim/esp32/000000/soil');
-				client.subscribe('/gardim/esp32/000000/lux');
+
+				client.subscribe('gardim/esp32/000000/soil');
+				client.subscribe('gardim/esp32/000000/lux');
 			})
 			.catch((responseObject) => {
 				if (responseObject.errorCode !== 0) {
@@ -62,13 +63,13 @@ export const MQTTProvider = ({ children }: MQTTProviderProps) => {
 
 		client.on('messageReceived', (message: Message) => {
 			const value = message.payloadString;
-			if (message.destinationName === 'gardim/esp32/000000/soil') {
+			if (message.destinationName === '+/gardim/esp32/000000/soil') {
 				setSoilValue(value);
+				console.log(`soil: ${value}`);
 			} else if (message.destinationName === 'gardim/esp32/000000/lux') {
 				setLuxValue(value);
+				console.log(`lux: ${value}`);
 			}
-
-			console.log(value);
 		});
 
 		return () => {

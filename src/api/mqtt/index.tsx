@@ -51,8 +51,8 @@ export const MQTTProvider = ({ children }: MQTTProviderProps) => {
 			.connect({ useSSL: isSSL })
 			.then(() => {
 				console.log('connected');
-				client.subscribe('gardim/esp32/000000/soil');
-				client.subscribe('gardim/esp32/000000/lux');
+				client.subscribe('/gardim/esp32/000000/soil');
+				client.subscribe('/gardim/esp32/000000/lux');
 			})
 			.catch((responseObject) => {
 				if (responseObject.errorCode !== 0) {

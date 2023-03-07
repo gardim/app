@@ -40,8 +40,6 @@ export default {
 			gardimApiUrl: process.env.GARDIM_API_URL,
 			mqttUrl: process.env.MQTT_URL ?? 'ws://test.mosquitto.org',
 			mqttPort: process.env.MQTT_PORT ?? 8080,
-			weatherUrl: process.env.WEATHER_URL,
-			weatherApiKey: process.env.WEATHER_API_KEY,
 			eas: {
 				projectId: '8d0a02e6-116c-4f13-bc9b-b72a6b07fc14'
 			}

@@ -210,7 +210,7 @@
 			},
 			"minimum_temperature": {
 				"deg_f": -32,
-				"deg_c": -36
+				"deg_c": -1
 			},
 			"maximum_temperature": {
 				"deg_f": null,

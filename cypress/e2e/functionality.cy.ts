@@ -137,7 +137,7 @@ describe('main functionalities', () => {
 			'"light_maximum":9,' +
 			'"atmospheric_humidity_minimum":-5,' +
 			'"atmospheric_humidity_maximum":15,' +
-			'"temperature_minimum":-36,' +
+			'"temperature_minimum":-1,' +
 			'"temperature_maximum":27,' +
 			'"soil_humidity_minimum":5,' +
 			'"soil_humidity_maximum":5' +
@@ -147,8 +147,19 @@ describe('main functionalities', () => {
 
 		cy.visit('/');
 
+		cy.fixture('weatherstack-request.json').then((json) => {
+			cy.intercept('*weather', {
+				statusCode: 200,
+				body: json,
+			});
+		});
+
 		cy.contains('Blumenau').should('be.visible').click({ force: true });
 
 		cy.contains('Umidade do Solo').should('be.visible');
+		cy.contains('Luminosidade').should('be.visible');
+
+		cy.contains('Umidade do Ambiente').scrollIntoView().should('be.visible');
+		cy.contains('Temperatura do Ambiente').scrollIntoView().should('be.visible');
 	});
 });

@@ -4,8 +4,8 @@ export const PH_MAXIMUM = 5;
 export const LIGHT_MINIMUM = 2;
 export const LIGHT_MAXIMUM = 8;
 
-export const ATMOSPHERIC_HUMIDITY_MINIMUM = 5;
-export const ATMOSPHERIC_HUMIDITY_MAXIMUM = 6;
+export const ATMOSPHERIC_HUMIDITY_MINIMUM = 65;
+export const ATMOSPHERIC_HUMIDITY_MAXIMUM = 91;
 
 export const TEMPERATURE_MINIMUM = 15;
 export const TEMPERATURE_MAXIMUM = 27;

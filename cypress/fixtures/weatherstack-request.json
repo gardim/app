@@ -1,0 +1,41 @@
+{
+    "request": {
+        "type": "City",
+        "query": "Sao Paulo, Brazil",
+        "language": "en",
+        "unit": "m"
+    },
+    "location": {
+        "name": "Sao Paulo",
+        "country": "Brazil",
+        "region": "Sao Paulo",
+        "lat": "-23.533",
+        "lon": "-46.617",
+        "timezone_id": "America/Sao_Paulo",
+        "localtime": "2023-03-07 00:03",
+        "localtime_epoch": 1678147380,
+        "utc_offset": "-3.0"
+    },
+    "current": {
+        "observation_time": "03:03 AM",
+        "temperature": 22,
+        "weather_code": 113,
+        "weather_icons": [
+            "https://cdn.worldweatheronline.com/images/wsymbols01_png_64/wsymbol_0008_clear_sky_night.png"
+        ],
+        "weather_descriptions": [
+            "Clear"
+        ],
+        "wind_speed": 4,
+        "wind_degree": 359,
+        "wind_dir": "N",
+        "pressure": 1015,
+        "precip": 0.1,
+        "humidity": 78,
+        "cloudcover": 0,
+        "feelslike": 25,
+        "uv_index": 1,
+        "visibility": 10,
+        "is_day": "no"
+    }
+}

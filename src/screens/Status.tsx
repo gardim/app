@@ -3,14 +3,14 @@ import { View, ScrollView, Dimensions, Platform } from 'react-native';
 import { Text, Card, Avatar } from 'react-native-paper';
 import { LinearGaugeChart } from '../components/LinearGaugeChart';
 import { PlantContext } from '../context';
-import { MQTTContext } from '../api/mqtt';
+import { SocketContext } from '../api/socket';
 import { getWeather } from '../api/weatherstack';
 import { humidityToValue, temperatureToValue } from '../utils/index';
 
 export function Status() {
 	const plantContext = useContext(PlantContext);
 	const plant = plantContext.plant;
-	const { soilValue, luxValue } = useContext(MQTTContext);
+	const { soilValue, luxValue } = useContext(SocketContext);
 
 	const [weatherData, setWeatherData] = useState(null);
 

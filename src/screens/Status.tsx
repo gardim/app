@@ -18,7 +18,7 @@ export function Status() {
 	return (
 		<View>
 			<ScrollView>
-				{soilValue && code == plant.code && (
+				{!!(soilValue && code == plant.code) && (
 					<Card style={{ marginVertical: 10, marginHorizontal: 20 }}>
 						<Card.Title
 							title="Umidade do Solo"
@@ -37,7 +37,7 @@ export function Status() {
 						</Card.Actions>
 					</Card>
 				)}
-				{luxValue && code == plant.code && (
+				{!!(luxValue && code == plant.code) && (
 					<Card style={{ marginVertical: 10, marginHorizontal: 20 }}>
 						<Card.Title
 							title="Luminosidade"

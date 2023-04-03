@@ -1,15 +1,21 @@
-import React, { createContext, useEffect, useState, ReactNode, useMemo } from 'react';
+import React, { createContext, useEffect, useState, ReactNode, useMemo, useContext } from 'react';
 import io from 'socket.io-client';
 import Constants from 'expo-constants';
 import { SocketPayload } from './types';
 import uuid from 'react-native-uuid';
+import { PlantContext } from '../../context';
 
 type SocketResponse = {
 	soilValue: number;
 	luxValue: number;
+	code: string;
 };
 
-export const SocketContext = createContext<SocketResponse>({ soilValue: null, luxValue: null });
+export const SocketContext = createContext<SocketResponse>({
+	soilValue: null,
+	luxValue: null,
+	code: null,
+});
 
 interface SocketProviderProps {
 	children: ReactNode;
@@ -18,7 +24,9 @@ interface SocketProviderProps {
 export const SocketProvider = ({ children }: SocketProviderProps) => {
 	const [soilValue, setSoilValue] = useState<number>(null);
 	const [luxValue, setLuxValue] = useState<number>(null);
+	const [code, setCode] = useState<string>(null);
 	const { socketUrl } = Constants.manifest.extra;
+	const plantContext = useContext(PlantContext);
 
 	const userId = uuid.v4();
 
@@ -38,17 +46,21 @@ export const SocketProvider = ({ children }: SocketProviderProps) => {
 			console.log('Disconnected from server');
 		});
 
-		socket.on('gardim/esp32/000000/soil', (data: string) => {
-			console.log(data);
-			const parsedData: SocketPayload = JSON.parse(data);
-			setSoilValue(Number(parsedData.parsed.toFixed(2)));
-		});
+		if (plantContext.plant?.code) {
+			console.log(plantContext.plant.code);
+			setCode(plantContext.plant.code);
+			socket.on(`gardim/esp32/${plantContext.plant.code}/soil`, (data: string) => {
+				console.log(data);
+				const parsedData: SocketPayload = JSON.parse(data);
+				setSoilValue(Number(parsedData.parsed.toFixed(2)));
+			});
 
-		socket.on('gardim/esp32/000000/lux', (data: string) => {
-			console.log(data);
-			const parsedData: SocketPayload = JSON.parse(data);
-			setLuxValue(parsedData.parsed);
-		});
+			socket.on(`gardim/esp32/${plantContext.plant.code}/lux`, (data: string) => {
+				console.log(data);
+				const parsedData: SocketPayload = JSON.parse(data);
+				setLuxValue(parsedData.parsed);
+			});
+		}
 
 		socket.on('error', (error: unknown) => {
 			console.log('Socket error:', error);
@@ -57,12 +69,13 @@ export const SocketProvider = ({ children }: SocketProviderProps) => {
 		return () => {
 			socket.disconnect();
 		};
-	}, []);
+	}, [plantContext.plant?.code]);
 
 	const contextValue = useMemo(() => {
 		return {
 			soilValue,
 			luxValue,
+			code,
 		};
 	}, [soilValue, luxValue]);
 

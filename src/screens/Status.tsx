@@ -11,47 +11,51 @@ import { LUX, PERCENTAGE, TEMPERATURE } from '../utils/defaults';
 export function Status() {
 	const plantContext = useContext(PlantContext);
 	const plant = plantContext.plant;
-	const { soilValue, luxValue } = useContext(SocketContext);
+	const { soilValue, luxValue, code } = useContext(SocketContext);
 
 	const { weather } = useContext(WeahterContext);
 
 	return (
 		<View>
 			<ScrollView>
-				<Card style={{ marginVertical: 10, marginHorizontal: 20 }}>
-					<Card.Title
-						title="Umidade do Solo"
-						left={(props) => <Avatar.Icon {...props} icon="water-alert-outline" />}
-					/>
-					<Card.Content>
-						<LinearGaugeChart
-							min={plant.soil_humidity_minimum}
-							max={plant.soil_humidity_maximum}
-							value={soilValue || 1}
-							range={PERCENTAGE}
+				{soilValue && code == plant.code && (
+					<Card style={{ marginVertical: 10, marginHorizontal: 20 }}>
+						<Card.Title
+							title="Umidade do Solo"
+							left={(props) => <Avatar.Icon {...props} icon="water-alert-outline" />}
 						/>
-					</Card.Content>
-					<Card.Actions>
-						<Text>{soilValue || 1}%</Text>
-					</Card.Actions>
-				</Card>
-				<Card style={{ marginVertical: 10, marginHorizontal: 20 }}>
-					<Card.Title
-						title="Luminosidade"
-						left={(props) => <Avatar.Icon {...props} icon="lightbulb-on-outline" />}
-					/>
-					<Card.Content>
-						<LinearGaugeChart
-							min={plant.light_minimum}
-							max={plant.light_maximum}
-							value={luxValue || 1}
-							range={LUX}
+						<Card.Content>
+							<LinearGaugeChart
+								min={plant.soil_humidity_minimum}
+								max={plant.soil_humidity_maximum}
+								value={soilValue}
+								range={PERCENTAGE}
+							/>
+						</Card.Content>
+						<Card.Actions>
+							<Text>{soilValue}%</Text>
+						</Card.Actions>
+					</Card>
+				)}
+				{luxValue && code == plant.code && (
+					<Card style={{ marginVertical: 10, marginHorizontal: 20 }}>
+						<Card.Title
+							title="Luminosidade"
+							left={(props) => <Avatar.Icon {...props} icon="lightbulb-on-outline" />}
 						/>
-					</Card.Content>
-					<Card.Actions>
-						<Text>{luxValue || 1} LUX</Text>
-					</Card.Actions>
-				</Card>
+						<Card.Content>
+							<LinearGaugeChart
+								min={plant.light_minimum}
+								max={plant.light_maximum}
+								value={luxValue}
+								range={LUX}
+							/>
+						</Card.Content>
+						<Card.Actions>
+							<Text>{luxValue} LUX</Text>
+						</Card.Actions>
+					</Card>
+				)}
 				{weather && (
 					<>
 						<Card style={{ marginVertical: 10, marginHorizontal: 20 }}>

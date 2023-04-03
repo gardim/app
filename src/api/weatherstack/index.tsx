@@ -41,6 +41,7 @@ export const WeatherProvider = ({ children }: WeatherProviderProps) => {
 			setIsLoading(true);
 			try {
 				const result = await getWeather();
+				console.log(result);
 				setWeather(result);
 			} catch (err) {
 				setError(err);

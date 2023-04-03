@@ -150,8 +150,8 @@ describe('main functionalities', () => {
 			'"ph_minimum":5.5,' +
 			'"light_minimum":5,' +
 			'"light_maximum":9,' +
-			'"atmospheric_humidity_minimum":-5,' +
-			'"atmospheric_humidity_maximum":15,' +
+			'"atmospheric_humidity_minimum":5,' +
+			'"atmospheric_humidity_maximum":5,' +
 			'"temperature_minimum":-1,' +
 			'"temperature_maximum":27,' +
 			'"soil_humidity_minimum":5,' +
@@ -171,9 +171,6 @@ describe('main functionalities', () => {
 		cy.visit('/');
 
 		cy.contains('Blumenau').should('be.visible').click({ force: true });
-
-		cy.contains('Umidade do Solo').should('be.visible');
-		cy.contains('Luminosidade').should('be.visible');
 
 		cy.contains('Umidade do Ambiente').scrollIntoView().should('be.visible');
 		cy.contains('Temperatura do Ambiente').scrollIntoView().should('be.visible');

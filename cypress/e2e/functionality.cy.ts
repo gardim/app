@@ -3,6 +3,14 @@ import 'cypress-localstorage-commands';
 
 describe('main functionalities', () => {
 	it('requests data from plant api', () => {
+
+		cy.fixture('weatherstack-request.json').then((json) => {
+			cy.intercept('*weather', {
+				statusCode: 200,
+				body: json,
+			});
+		});
+		
 		cy.visit('/', {
 			onBeforeLoad(win) {
 				cy.stub(win.console, 'log').as('consoleLog');
@@ -60,6 +68,13 @@ describe('main functionalities', () => {
 	});
 
 	it('requests data from trefle api', () => {
+		cy.fixture('weatherstack-request.json').then((json) => {
+			cy.intercept('*weather', {
+				statusCode: 200,
+				body: json,
+			});
+		});
+
 		cy.visit('/', {
 			onBeforeLoad(win) {
 				cy.stub(win.console, 'log').as('consoleLog');
@@ -145,14 +160,15 @@ describe('main functionalities', () => {
 
 		cy.setLocalStorage('@183086', plant);
 
-		cy.visit('/');
-
 		cy.fixture('weatherstack-request.json').then((json) => {
 			cy.intercept('*weather', {
 				statusCode: 200,
 				body: json,
 			});
 		});
+
+
+		cy.visit('/');
 
 		cy.contains('Blumenau').should('be.visible').click({ force: true });
 

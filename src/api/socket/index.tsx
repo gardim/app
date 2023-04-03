@@ -1,6 +1,8 @@
 import React, { createContext, useEffect, useState, ReactNode, useMemo } from 'react';
 import io from 'socket.io-client';
 import Constants from 'expo-constants';
+import { SocketPayload } from './types';
+import uuid from 'react-native-uuid';
 
 type SocketResponse = {
 	soilValue: number;
@@ -18,12 +20,12 @@ export const SocketProvider = ({ children }: SocketProviderProps) => {
 	const [luxValue, setLuxValue] = useState<number>(null);
 	const { socketUrl } = Constants.manifest.extra;
 
-	const clientId = `${Math.random().toString(16).slice(3)}`;
+	const userId = uuid.v4();
 
 	const socket = io(socketUrl, {
 		transports: ['websocket'],
 		query: {
-			userId: clientId,
+			userId: userId,
 		},
 	});
 
@@ -36,12 +38,20 @@ export const SocketProvider = ({ children }: SocketProviderProps) => {
 			console.log('Disconnected from server');
 		});
 
-		socket.on('gardim/esp32/000000/soil', (data: number) => {
-			setSoilValue(data);
+		socket.on('gardim/esp32/000000/soil', (data: string) => {
+			console.log(data);
+			const parsedData: SocketPayload = JSON.parse(data);
+			setSoilValue(Number(parsedData.parsed.toFixed(2)));
 		});
 
-		socket.on('gardim/esp32/000000/lux', (data: number) => {
-			setLuxValue(data);
+		socket.on('gardim/esp32/000000/lux', (data: string) => {
+			console.log(data);
+			const parsedData: SocketPayload = JSON.parse(data);
+			setLuxValue(parsedData.parsed);
+		});
+
+		socket.on('error', (error: unknown) => {
+			console.log('Socket error:', error);
 		});
 
 		return () => {

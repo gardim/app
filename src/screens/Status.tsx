@@ -1,35 +1,23 @@
-import React, { useContext, useState, useEffect } from 'react';
-import { View, ScrollView, Dimensions, Platform } from 'react-native';
+import React, { useContext } from 'react';
+import { View, ScrollView } from 'react-native';
 import { Text, Card, Avatar } from 'react-native-paper';
 import { LinearGaugeChart } from '../components/LinearGaugeChart';
 import { PlantContext } from '../context';
 import { SocketContext } from '../api/socket';
-import { getWeather } from '../api/weatherstack';
-import { humidityToValue, temperatureToValue } from '../utils/index';
+import { WeahterContext } from '../api/weatherstack';
+import { temperatureToValue } from '../utils/index';
+import { LUX, PERCENTAGE, TEMPERATURE } from '../utils/defaults';
 
 export function Status() {
 	const plantContext = useContext(PlantContext);
 	const plant = plantContext.plant;
 	const { soilValue, luxValue } = useContext(SocketContext);
 
-	const [weatherData, setWeatherData] = useState(null);
-
-	let height = Dimensions.get('window').height;
-
-	if (Platform.OS === 'web') {
-		height -= 200;
-	}
-
-	useEffect(() => {
-		console.log(plant);
-		getWeather().then((data) => {
-			setWeatherData(data);
-		});
-	}, []);
+	const { weather } = useContext(WeahterContext);
 
 	return (
 		<View>
-			<ScrollView style={{ maxHeight: height }}>
+			<ScrollView>
 				<Card style={{ marginVertical: 10, marginHorizontal: 20 }}>
 					<Card.Title
 						title="Umidade do Solo"
@@ -40,10 +28,11 @@ export function Status() {
 							min={plant.soil_humidity_minimum}
 							max={plant.soil_humidity_maximum}
 							value={soilValue || 1}
+							range={PERCENTAGE}
 						/>
 					</Card.Content>
 					<Card.Actions>
-						<Text>{soilValue || 1}</Text>
+						<Text>{soilValue || 1}%</Text>
 					</Card.Actions>
 				</Card>
 				<Card style={{ marginVertical: 10, marginHorizontal: 20 }}>
@@ -56,13 +45,14 @@ export function Status() {
 							min={plant.light_minimum}
 							max={plant.light_maximum}
 							value={luxValue || 1}
+							range={LUX}
 						/>
 					</Card.Content>
 					<Card.Actions>
-						<Text>{luxValue || 1}</Text>
+						<Text>{luxValue || 1} LUX</Text>
 					</Card.Actions>
 				</Card>
-				{weatherData && (
+				{weather && (
 					<>
 						<Card style={{ marginVertical: 10, marginHorizontal: 20 }}>
 							<Card.Title
@@ -71,13 +61,14 @@ export function Status() {
 							/>
 							<Card.Content>
 								<LinearGaugeChart
-									min={humidityToValue(plant.atmospheric_humidity_minimum)}
-									max={humidityToValue(plant.atmospheric_humidity_maximum)}
-									value={humidityToValue(weatherData.current.humidity)}
+									min={plant.atmospheric_humidity_minimum}
+									max={plant.atmospheric_humidity_maximum}
+									value={weather.current.humidity}
+									range={PERCENTAGE}
 								/>
 							</Card.Content>
 							<Card.Actions>
-								<Text>{weatherData.current.humidity}%</Text>
+								<Text>{weather.current.humidity}%</Text>
 							</Card.Actions>
 						</Card>
 						<Card style={{ marginVertical: 10, marginHorizontal: 20 }}>
@@ -87,13 +78,15 @@ export function Status() {
 							/>
 							<Card.Content>
 								<LinearGaugeChart
-									min={temperatureToValue(plant.temperature_minimum)}
-									max={temperatureToValue(plant.temperature_maximum)}
-									value={temperatureToValue(weatherData.current.temperature)}
+									min={plant.temperature_minimum}
+									max={plant.temperature_maximum}
+									value={weather.current.temperature}
+									range={TEMPERATURE}
+									conversor={temperatureToValue}
 								/>
 							</Card.Content>
 							<Card.Actions>
-								<Text>{weatherData.current.temperature}°C</Text>
+								<Text>{weather.current.temperature}°C</Text>
 							</Card.Actions>
 						</Card>
 					</>

@@ -1,28 +1,42 @@
 import { Slider } from '@miblanchard/react-native-slider';
 import React, { useRef, useEffect, useState } from 'react';
 import { View, StyleSheet } from 'react-native';
+import { Range } from '../types';
+import { scaleRange } from '../utils';
 
 type LinearGaugeChartProps = {
 	min: number;
 	max: number;
 	value: number;
+	range: Range;
+	conversor?: (value: number) => number | null;
 };
 
-export const LinearGaugeChart = ({ min, max, value }: LinearGaugeChartProps) => {
+export const LinearGaugeChart = ({ min, max, value, range, conversor }: LinearGaugeChartProps) => {
 	const [sliderValue, setSliderValue] = useState(value);
 
 	useEffect(() => {
 		setSliderValue(value);
 	}, [value]);
 
-	const sectionColors = Array.from({ length: 10 }, (_, i) => {
+	const scaledRange = scaleRange(range);
+
+	let scaledMin = min;
+	let scaledMax = max;
+
+	if (conversor) {
+		scaledMin = conversor(min);
+		scaledMax = conversor(max);
+	}
+
+	const sectionColors = Array.from({ length: scaledRange.max }, (_, i) => {
 		const value = i + 1;
-		if (value >= min && value <= max) {
-			return '#B0D8A4'; // Green
-		} else if ((value === min - 1 && value !== 0) || value === max + 1) {
-			return '#FEE191'; // Yellow
+		if (value >= scaledMin && value <= scaledMax) {
+			return '#B0D8A4';
+		} else if ((value === scaledMin - 1 && value !== 0) || value === scaledMax + 1) {
+			return '#FEE191';
 		} else {
-			return '#E84258'; // Red
+			return '#E84258';
 		}
 	});
 
@@ -37,8 +51,8 @@ export const LinearGaugeChart = ({ min, max, value }: LinearGaugeChartProps) => 
 			</View>
 			<Slider
 				ref={sliderRef}
-				minimumValue={1}
-				maximumValue={10}
+				minimumValue={range.min}
+				maximumValue={range.max}
 				step={1}
 				value={sliderValue}
 				minimumTrackTintColor="transparent"

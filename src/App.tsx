@@ -10,6 +10,7 @@ import { CombinedDarkTheme, CombinedDefaultTheme } from './utils/theme';
 import { StatusBar } from 'react-native';
 import { PlantProvider } from './context';
 import { SocketProvider } from './api/socket';
+import { WeatherProvider } from './api/weatherstack';
 
 function App() {
 	const [isThemeDark, setIsThemeDark] = React.useState(false);
@@ -34,8 +35,10 @@ function App() {
 				<>
 					<PlantProvider>
 						<SocketProvider>
-							<StatusBar barStyle={isThemeDark ? 'light-content' : 'dark-content'} />
-							<RootNavigation theme={theme} />
+							<WeatherProvider>
+								<StatusBar barStyle={isThemeDark ? 'light-content' : 'dark-content'} />
+								<RootNavigation theme={theme} />
+							</WeatherProvider>
 						</SocketProvider>
 					</PlantProvider>
 				</>

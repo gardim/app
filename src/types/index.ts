@@ -28,3 +28,8 @@ export type ImageType = {
 	id: string;
 	uri: string;
 };
+
+export type Range = {
+	min: number;
+	max: number;
+};

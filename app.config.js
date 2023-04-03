@@ -38,8 +38,7 @@ export default {
 			plantIdApiKey: process.env.PLANT_ID_API_KEY,
 			plantIdApiUrl: process.env.PLANT_ID_API_URL,
 			gardimApiUrl: process.env.GARDIM_API_URL,
-			mqttUrl: process.env.MQTT_URL ?? 'ws://test.mosquitto.org',
-			mqttPort: process.env.MQTT_PORT ?? 8080,
+			socketUrl: process.env.SOCKET_URL,
 			eas: {
 				projectId: '8d0a02e6-116c-4f13-bc9b-b72a6b07fc14'
 			}

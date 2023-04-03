@@ -48,10 +48,10 @@ export const mapToPlant = (info: TrefleSpeciesResponse | Suggestion): Plant => {
 		plantDetails.light_maximum = trefleData.growth?.light + 2 ?? plantDetails.light_maximum;
 
 		plantDetails.atmospheric_humidity_minimum =
-			trefleData.growth?.atmospheric_humidity - 10 ?? plantDetails.atmospheric_humidity_minimum;
+			trefleData.growth?.atmospheric_humidity - 2 ?? plantDetails.atmospheric_humidity_minimum;
 
 		plantDetails.atmospheric_humidity_maximum =
-			trefleData.growth?.atmospheric_humidity + 10 ?? plantDetails.atmospheric_humidity_maximum;
+			trefleData.growth?.atmospheric_humidity + 2 ?? plantDetails.atmospheric_humidity_maximum;
 
 		plantDetails.temperature_minimum =
 			trefleData.growth?.minimum_temperature?.deg_c ?? plantDetails.temperature_minimum;

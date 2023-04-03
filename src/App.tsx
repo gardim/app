@@ -9,7 +9,8 @@ import RootNavigation from './navigation/RootNavigation';
 import { CombinedDarkTheme, CombinedDefaultTheme } from './utils/theme';
 import { StatusBar } from 'react-native';
 import { PlantProvider } from './context';
-import { MQTTProvider } from './api/mqtt';
+import { SocketProvider } from './api/socket';
+import { WeatherProvider } from './api/weatherstack';
 
 function App() {
 	const [isThemeDark, setIsThemeDark] = React.useState(false);
@@ -33,10 +34,12 @@ function App() {
 			<PreferencesContext.Provider value={preferences}>
 				<>
 					<PlantProvider>
-						<MQTTProvider>
-							<StatusBar barStyle={isThemeDark ? 'light-content' : 'dark-content'} />
-							<RootNavigation theme={theme} />
-						</MQTTProvider>
+						<SocketProvider>
+							<WeatherProvider>
+								<StatusBar barStyle={isThemeDark ? 'light-content' : 'dark-content'} />
+								<RootNavigation theme={theme} />
+							</WeatherProvider>
+						</SocketProvider>
 					</PlantProvider>
 				</>
 			</PreferencesContext.Provider>

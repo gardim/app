@@ -26,6 +26,13 @@ const sizes: ViewportPreset[] = [
 sizes.forEach((size) => {
 	describe(`basic behavior on ${size} screen`, () => {
 		it('verifies home screen', () => {
+			cy.fixture('weatherstack-request.json').then((json) => {
+				cy.intercept('*weather', {
+					statusCode: 200,
+					body: json,
+				});
+			});
+
 			cy.viewport(size);
 			cy.visit('/');
 
@@ -33,6 +40,13 @@ sizes.forEach((size) => {
 		});
 
 		it('verifies method identification screen', () => {
+			cy.fixture('weatherstack-request.json').then((json) => {
+				cy.intercept('*weather', {
+					statusCode: 200,
+					body: json,
+				});
+			});
+
 			cy.viewport(size);
 			cy.visit('/');
 
@@ -52,6 +66,13 @@ sizes.forEach((size) => {
 		});
 
 		it('verifies image method screen', () => {
+			cy.fixture('weatherstack-request.json').then((json) => {
+				cy.intercept('*weather', {
+					statusCode: 200,
+					body: json,
+				});
+			});
+
 			cy.viewport(size);
 			cy.visit('/', {
 				onBeforeLoad(win) {
@@ -91,6 +112,13 @@ sizes.forEach((size) => {
 		});
 
 		it('verifies text method screen', () => {
+			cy.fixture('weatherstack-request.json').then((json) => {
+				cy.intercept('*weather', {
+					statusCode: 200,
+					body: json,
+				});
+			});
+
 			cy.viewport(size);
 			cy.visit('/');
 
@@ -108,6 +136,13 @@ sizes.forEach((size) => {
 		});
 
 		it('changes theme', () => {
+			cy.fixture('weatherstack-request.json').then((json) => {
+				cy.intercept('*weather', {
+					statusCode: 200,
+					body: json,
+				});
+			});
+
 			cy.viewport(size);
 			cy.visit('/');
 
@@ -127,6 +162,13 @@ sizes.forEach((size) => {
 		});
 
 		it('interacts with drawer', () => {
+			cy.fixture('weatherstack-request.json').then((json) => {
+				cy.intercept('*weather', {
+					statusCode: 200,
+					body: json,
+				});
+			});
+			
 			cy.viewport(size);
 			cy.visit('/');
 

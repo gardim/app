@@ -40,5 +40,4 @@ jobs:
           PLANT_ID_API_URL: ${{ secrets.PLANT_ID_API_URL }}
           PLANT_ID_API_KEY: ${{ secrets.PLANT_ID_API_KEY }}
           GARDIM_API_URL: ${{ secrets.GARDIM_API_URL }}
-          MQTT_URL:  ${{ secrets.SECURE_MQTT_URL }}
-          MQTT_PORT:  ${{ secrets.MQTT_PORT }}
+          SOCKET_URL:  ${{ secrets.SECURE_SOCKET_URL }}

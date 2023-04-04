@@ -11,6 +11,7 @@ import { StatusBar } from 'react-native';
 import { PlantProvider } from './context';
 import { SocketProvider } from './api/socket';
 import { WeatherProvider } from './api/weatherstack';
+import LocationProvider from './api/location';
 
 function App() {
 	const [isThemeDark, setIsThemeDark] = React.useState(false);
@@ -33,14 +34,16 @@ function App() {
 		<PaperProvider theme={theme}>
 			<PreferencesContext.Provider value={preferences}>
 				<>
-					<PlantProvider>
-						<SocketProvider>
-							<WeatherProvider>
-								<StatusBar barStyle={isThemeDark ? 'light-content' : 'dark-content'} />
-								<RootNavigation theme={theme} />
-							</WeatherProvider>
-						</SocketProvider>
-					</PlantProvider>
+					<LocationProvider>
+						<PlantProvider>
+							<SocketProvider>
+								<WeatherProvider>
+									<StatusBar barStyle={isThemeDark ? 'light-content' : 'dark-content'} />
+									<RootNavigation theme={theme} />
+								</WeatherProvider>
+							</SocketProvider>
+						</PlantProvider>
+					</LocationProvider>
 				</>
 			</PreferencesContext.Provider>
 		</PaperProvider>

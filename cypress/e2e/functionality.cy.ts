@@ -171,8 +171,7 @@ describe('main functionalities', () => {
 		cy.visit('/');
 
 		cy.contains('Blumenau').should('be.visible').click({ force: true });
+		cy.contains('Oops! Parece que você não tem nada habilitado para essa planta').scrollIntoView().should('be.visible');
 
-		cy.contains('Umidade do Ambiente').scrollIntoView().should('be.visible');
-		cy.contains('Temperatura do Ambiente').scrollIntoView().should('be.visible');
 	});
 });

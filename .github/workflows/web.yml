@@ -40,4 +40,4 @@ jobs:
           PLANT_ID_API_URL: ${{ secrets.PLANT_ID_API_URL }}
           PLANT_ID_API_KEY: ${{ secrets.PLANT_ID_API_KEY }}
           GARDIM_API_URL: ${{ secrets.GARDIM_API_URL }}
-          SOCKET_URL:  ${{ secrets.SECURE_SOCKET_URL }}
+          ENABLE_SOCKET:  ${{ secrets.ENABLE_SOCKET }}

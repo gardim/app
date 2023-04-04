@@ -1,11 +1,11 @@
 {
   "files": {
-    "app.js": "/gardim/static/js/app.e831029b.chunk.js",
-    "app.js.map": "/gardim/static/js/app.e831029b.chunk.js.map",
+    "app.js": "/gardim/static/js/app.f75311ed.chunk.js",
+    "app.js.map": "/gardim/static/js/app.f75311ed.chunk.js.map",
     "runtime~app.js": "/gardim/static/js/runtime~app.bc82272b.js",
     "runtime~app.js.map": "/gardim/static/js/runtime~app.bc82272b.js.map",
-    "static/js/2.c3ff7140.chunk.js": "/gardim/static/js/2.c3ff7140.chunk.js",
-    "static/js/2.c3ff7140.chunk.js.map": "/gardim/static/js/2.c3ff7140.chunk.js.map",
+    "static/js/2.f750355d.chunk.js": "/gardim/static/js/2.f750355d.chunk.js",
+    "static/js/2.f750355d.chunk.js.map": "/gardim/static/js/2.f750355d.chunk.js.map",
     "fonts/AntDesign.ttf": "/gardim/./fonts/AntDesign.ttf",
     "fonts/Entypo.ttf": "/gardim/./fonts/Entypo.ttf",
     "fonts/Feather.ttf": "/gardim/./fonts/Feather.ttf",
@@ -24,7 +24,7 @@
     "index.html": "/gardim/index.html",
     "manifest.json": "/gardim/manifest.json",
     "serve.json": "/gardim/serve.json",
-    "static/js/2.c3ff7140.chunk.js.LICENSE.txt": "/gardim/static/js/2.c3ff7140.chunk.js.LICENSE.txt",
+    "static/js/2.f750355d.chunk.js.LICENSE.txt": "/gardim/static/js/2.f750355d.chunk.js.LICENSE.txt",
     "static/media/bell.png": "/gardim/static/media/bell.cf04af27.png",
     "static/media/heart.png": "/gardim/static/media/heart.23b5c2c0.png",
     "static/media/rocket.png": "/gardim/static/media/rocket.d2f3bf41.png",
@@ -32,7 +32,7 @@
   },
   "entrypoints": [
     "static/js/runtime~app.bc82272b.js",
-    "static/js/2.c3ff7140.chunk.js",
-    "static/js/app.e831029b.chunk.js"
+    "static/js/2.f750355d.chunk.js",
+    "static/js/app.f75311ed.chunk.js"
   ]
 }

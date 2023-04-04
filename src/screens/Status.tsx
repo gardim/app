@@ -1,6 +1,6 @@
 import React, { useContext } from 'react';
 import { View, ScrollView } from 'react-native';
-import { Text, Card, Avatar } from 'react-native-paper';
+import { Text, Card, Avatar, ActivityIndicator } from 'react-native-paper';
 import { LinearGaugeChart } from '../components/LinearGaugeChart';
 import { PlantContext } from '../context';
 import { SocketContext } from '../api/socket';
@@ -10,11 +10,9 @@ import { LUX, PERCENTAGE, TEMPERATURE } from '../utils/defaults';
 import { AntDesign } from '@expo/vector-icons';
 import { Plant } from '../types';
 import { WeatherstackResponse } from '../api/weatherstack/types';
-import { ActivityIndicator } from 'react-native-paper';
 
 export function Status() {
-	const plantContext = useContext(PlantContext);
-	const plant = plantContext.plant;
+	const { plant } = useContext(PlantContext);
 	const { soilValue, luxValue, code } = useContext(SocketContext);
 	const { weather, isLoading } = useContext(WeahterContext);
 
@@ -24,11 +22,7 @@ export function Status() {
 	return (
 		<View style={{ flex: 1 }}>
 			{!renderLux && !renderSoil && !weather ? (
-				isLoading ? (
-					<Loading />
-				) : (
-					<NoData />
-				)
+				(isLoading && <Loading />) || <NoData />
 			) : (
 				<ScrollView>
 					{renderSoil && <SoilCard plant={plant} soilValue={soilValue} />}

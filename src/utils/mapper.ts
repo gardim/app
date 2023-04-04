@@ -1,5 +1,7 @@
 import { TrefleSpeciesResponse } from '../api/trefle/types';
 import { Suggestion } from '../api/plant_id/types';
+import uuid from 'react-native-uuid';
+
 import { Plant } from '../types';
 import {
 	PH_MINIMUM,
@@ -18,7 +20,7 @@ import { convertScale } from '.';
 export const mapToPlant = (info: TrefleSpeciesResponse | Suggestion): Plant => {
 	const isTrefle = (info as TrefleSpeciesResponse)?.data !== undefined;
 	const plantDetails: Plant = {
-		id: null,
+		id: uuid.v4().toString(),
 		name: null,
 		code: null,
 		common_name: null,
@@ -38,7 +40,7 @@ export const mapToPlant = (info: TrefleSpeciesResponse | Suggestion): Plant => {
 
 	if (isTrefle) {
 		const trefleData = (info as TrefleSpeciesResponse).data;
-		plantDetails.id = trefleData.id.toString();
+		plantDetails.id = uuid.v4().toString();
 		plantDetails.common_name = trefleData.common_name ?? plantDetails.common_name;
 		plantDetails.scientific_name = trefleData.scientific_name ?? plantDetails.scientific_name;
 		plantDetails.edible_parts = trefleData.edible_part ?? plantDetails.edible_parts;

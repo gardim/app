@@ -1,6 +1,6 @@
 import React, { useContext } from 'react';
 import { View, ScrollView } from 'react-native';
-import { Text, Card, Avatar } from 'react-native-paper';
+import { Text, Card, Avatar, ActivityIndicator } from 'react-native-paper';
 import { LinearGaugeChart } from '../components/LinearGaugeChart';
 import { PlantContext } from '../context';
 import { SocketContext } from '../api/socket';
@@ -12,11 +12,9 @@ import { Plant } from '../types';
 import { WeatherstackResponse } from '../api/weatherstack/types';
 
 export function Status() {
-	const plantContext = useContext(PlantContext);
-	const plant = plantContext.plant;
+	const { plant } = useContext(PlantContext);
 	const { soilValue, luxValue, code } = useContext(SocketContext);
-
-	const { weather } = useContext(WeahterContext);
+	const { weather, isLoading } = useContext(WeahterContext);
 
 	const renderSoil = !!(soilValue && code == plant.code);
 	const renderLux = !!(luxValue && code == plant.code);
@@ -24,7 +22,7 @@ export function Status() {
 	return (
 		<View style={{ flex: 1 }}>
 			{!renderLux && !renderSoil && !weather ? (
-				<NoData />
+				(isLoading && <Loading />) || <NoData />
 			) : (
 				<ScrollView>
 					{renderSoil && <SoilCard plant={plant} soilValue={soilValue} />}
@@ -55,6 +53,21 @@ interface WeatherCardProps {
 	weather: WeatherstackResponse;
 	plant: Plant;
 }
+
+const Loading = () => {
+	return (
+		<View
+			style={{
+				justifyContent: 'center',
+				alignContent: 'center',
+				display: 'flex',
+				flex: 1,
+				flexDirection: 'column',
+			}}>
+			<ActivityIndicator animating={true} size={'large'} />
+		</View>
+	);
+};
 
 const NoData = () => {
 	return (

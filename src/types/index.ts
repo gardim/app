@@ -22,6 +22,7 @@ export interface PlantContextType {
 	updatePlant: (plant: Plant) => void;
 	updatePlantName: (name: string) => void;
 	updatePlantCode: (code: string) => void;
+	resetPlant: () => void;
 }
 
 export type ImageType = {

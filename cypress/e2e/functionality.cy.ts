@@ -1,16 +1,35 @@
 /// <reference types="cypress" />
 import 'cypress-localstorage-commands';
 
+const plant =
+	'{' +
+	'"id":"183086",' +
+	'"name":"Blumenau",' +
+	'"code":"000000",' +
+	'"common_name":"Beach strawberry",' +
+	'"scientific_name":"Sorbus aucuparia",' +
+	'"edible_parts":null,' +
+	'"ph_maximum":7.5,' +
+	'"ph_minimum":5.5,' +
+	'"light_minimum":5,' +
+	'"light_maximum":9,' +
+	'"atmospheric_humidity_minimum":5,' +
+	'"atmospheric_humidity_maximum":5,' +
+	'"temperature_minimum":-1,' +
+	'"temperature_maximum":27,' +
+	'"soil_humidity_minimum":5,' +
+	'"soil_humidity_maximum":5' +
+	'}';
+
 describe('main functionalities', () => {
 	it('requests data from plant api', () => {
-
 		cy.fixture('weatherstack-request.json').then((json) => {
 			cy.intercept('*weather', {
 				statusCode: 200,
 				body: json,
 			});
 		});
-		
+
 		cy.visit('/', {
 			onBeforeLoad(win) {
 				cy.stub(win.console, 'log').as('consoleLog');
@@ -138,26 +157,6 @@ describe('main functionalities', () => {
 	});
 
 	it('verifies saved plant', () => {
-		const plant =
-			'{' +
-			'"id":"183086",' +
-			'"name":"Blumenau",' +
-			'"code":"000000",' +
-			'"common_name":"Beach strawberry",' +
-			'"scientific_name":"Sorbus aucuparia",' +
-			'"edible_parts":null,' +
-			'"ph_maximum":7.5,' +
-			'"ph_minimum":5.5,' +
-			'"light_minimum":5,' +
-			'"light_maximum":9,' +
-			'"atmospheric_humidity_minimum":5,' +
-			'"atmospheric_humidity_maximum":5,' +
-			'"temperature_minimum":-1,' +
-			'"temperature_maximum":27,' +
-			'"soil_humidity_minimum":5,' +
-			'"soil_humidity_maximum":5' +
-			'}';
-
 		cy.setLocalStorage('@183086', plant);
 
 		cy.fixture('weatherstack-request.json').then((json) => {
@@ -167,11 +166,61 @@ describe('main functionalities', () => {
 			});
 		});
 
+		cy.visit('/');
+
+		cy.contains('Blumenau').should('be.visible').click({ force: true });
+		cy.contains('Oops! Parece que você não tem nada habilitado para essa planta').should(
+			'be.visible'
+		);
+	});
+
+	it('edits saved plant name', () => {
+		cy.setLocalStorage('@183086', plant);
+
+		cy.fixture('weatherstack-request.json').then((json) => {
+			cy.intercept('*weather', {
+				statusCode: 200,
+				body: json,
+			});
+		});
 
 		cy.visit('/');
 
 		cy.contains('Blumenau').should('be.visible').click({ force: true });
-		cy.contains('Oops! Parece que você não tem nada habilitado para essa planta').scrollIntoView().should('be.visible');
+		cy.contains('Oops! Parece que você não tem nada habilitado para essa planta').should(
+			'be.visible'
+		);
+		cy.contains('Configurações').should('be.visible').click({ force: true });
 
+		cy.contains('Editar').should('be.visible').click({ force: true });
+		cy.get('[data-testid="input-nome"]').type('Jujuba');
+		cy.contains('Done').click({ force: true });
+		cy.get('[data-testid="back icon"]').click({
+			force: true,
+		});
+		cy.contains('Jujuba').should('be.visible');
+	});
+
+	it('deletes saved plant', () => {
+		cy.setLocalStorage('@183086', plant);
+
+		cy.fixture('weatherstack-request.json').then((json) => {
+			cy.intercept('*weather', {
+				statusCode: 200,
+				body: json,
+			});
+		});
+
+		cy.visit('/');
+
+		cy.contains('Blumenau').should('be.visible').click({ force: true });
+		cy.contains('Oops! Parece que você não tem nada habilitado para essa planta').should(
+			'be.visible'
+		);
+
+		cy.contains('Configurações').should('be.visible').click({ force: true });
+		cy.contains('Apagar').should('be.visible').click({ force: true });
+		cy.contains('Prosseguir').should('be.visible').click({ force: true });
+		cy.contains('Adicione sua primeira planta').should('be.visible');
 	});
 });

@@ -80,7 +80,7 @@ const NoData = () => {
 				flexDirection: 'column',
 			}}>
 			<AntDesign name="frowno" size={24} color="black" style={{ alignSelf: 'center' }} />
-			<Text variant="titleLarge" style={{ alignSelf: 'center' }}>
+			<Text variant="titleLarge" style={{ alignSelf: 'center', textAlign: 'center' }}>
 				Oops! Parece que você não tem nada habilitado para essa planta
 			</Text>
 		</View>

@@ -4,11 +4,13 @@ import * as Location from 'expo-location';
 type Location = {
 	latitude: string;
 	longitude: string;
+	granted: boolean;
 };
 
 export const LocationContext = createContext<Location>({
 	latitude: null,
 	longitude: null,
+	granted: false,
 });
 
 interface LocationProviderProps {
@@ -17,6 +19,7 @@ interface LocationProviderProps {
 
 const LocationProvider = ({ children }: LocationProviderProps) => {
 	const [location, setLocation] = useState(null);
+	const [granted, setGranted] = useState(null);
 
 	useEffect(() => {
 		(async () => {
@@ -25,7 +28,7 @@ const LocationProvider = ({ children }: LocationProviderProps) => {
 				console.log('Permission to access location was denied');
 				return;
 			}
-
+			setGranted(true);
 			const location = await Location.getCurrentPositionAsync({});
 			setLocation(location);
 		})();
@@ -35,7 +38,7 @@ const LocationProvider = ({ children }: LocationProviderProps) => {
 	const longitude = location?.coords?.longitude;
 
 	const contextValue = useMemo(() => {
-		return { latitude: latitude, longitude: longitude };
+		return { latitude: latitude, longitude: longitude, granted: granted };
 	}, [location]);
 
 	return <LocationContext.Provider value={contextValue}>{children}</LocationContext.Provider>;

@@ -10,13 +10,13 @@ import { LUX, PERCENTAGE, TEMPERATURE } from '../utils/defaults';
 import { AntDesign } from '@expo/vector-icons';
 import { Plant } from '../types';
 import { WeatherstackResponse } from '../api/weatherstack/types';
+import { ActivityIndicator } from 'react-native-paper';
 
 export function Status() {
 	const plantContext = useContext(PlantContext);
 	const plant = plantContext.plant;
 	const { soilValue, luxValue, code } = useContext(SocketContext);
-
-	const { weather } = useContext(WeahterContext);
+	const { weather, isLoading } = useContext(WeahterContext);
 
 	const renderSoil = !!(soilValue && code == plant.code);
 	const renderLux = !!(luxValue && code == plant.code);
@@ -24,7 +24,11 @@ export function Status() {
 	return (
 		<View style={{ flex: 1 }}>
 			{!renderLux && !renderSoil && !weather ? (
-				<NoData />
+				isLoading ? (
+					<Loading />
+				) : (
+					<NoData />
+				)
 			) : (
 				<ScrollView>
 					{renderSoil && <SoilCard plant={plant} soilValue={soilValue} />}
@@ -55,6 +59,21 @@ interface WeatherCardProps {
 	weather: WeatherstackResponse;
 	plant: Plant;
 }
+
+const Loading = () => {
+	return (
+		<View
+			style={{
+				justifyContent: 'center',
+				alignContent: 'center',
+				display: 'flex',
+				flex: 1,
+				flexDirection: 'column',
+			}}>
+			<ActivityIndicator animating={true} size={'large'} />
+		</View>
+	);
+};
 
 const NoData = () => {
 	return (

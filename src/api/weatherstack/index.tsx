@@ -38,15 +38,13 @@ export const WeatherProvider = ({ children }: WeatherProviderProps) => {
 	const [weather, setWeather] = useState<WeatherstackResponse | null>(null);
 	const [isLoading, setIsLoading] = useState(false);
 	const [error, setError] = useState<Error | null>(null);
-	const locationContext = useContext(LocationContext);
+	const { latitude, longitude, granted } = useContext(LocationContext);
 
 	useEffect(() => {
 		async function fetchWeather() {
-			setIsLoading(true);
 			try {
-				const { latitude, longitude } = locationContext;
 				if (latitude != undefined && longitude != undefined) {
-					const result = await getWeather(locationContext.latitude, locationContext.longitude);
+					const result = await getWeather(latitude, longitude);
 					console.log(result);
 					setWeather(result);
 				}
@@ -56,8 +54,11 @@ export const WeatherProvider = ({ children }: WeatherProviderProps) => {
 				setIsLoading(false);
 			}
 		}
-		fetchWeather();
-	}, [locationContext.latitude, locationContext.longitude]);
+		if (granted) {
+			setIsLoading(true);
+			fetchWeather();
+		}
+	}, [latitude, longitude, granted]);
 
 	const contextValue = useMemo(() => {
 		return { weather, isLoading, error };

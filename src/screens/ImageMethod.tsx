@@ -1,11 +1,12 @@
 import * as ImagePicker from 'expo-image-picker';
-import React, { useState } from 'react';
+import React, { useState, useContext } from 'react';
 import { StyleSheet, View, Dimensions } from 'react-native';
 import { ImageMethodProps, ImageType } from '../types/stack';
 import { DeletableImage } from '../components/DeletableImage';
 import { FAB, Text, Snackbar } from 'react-native-paper';
 import Carousel from 'react-native-reanimated-carousel';
 import { identifyPlant } from '../api/plant_id';
+import { LocationContext } from '../api/location';
 
 export function ImageMethod({ navigation }: ImageMethodProps) {
 	const [images, setImages] = useState<ImageType[]>([]);
@@ -13,6 +14,7 @@ export function ImageMethod({ navigation }: ImageMethodProps) {
 	const [buttonOnHold, setButtonOnHold] = React.useState<boolean>(false);
 	const [visibleAlert, setVisiblAlert] = React.useState(false);
 	const [errorMessage, setErrorMessage] = React.useState('');
+	const locationContext = useContext(LocationContext);
 
 	const onDismissSnackBar = () => setVisiblAlert(false);
 
@@ -56,7 +58,11 @@ export function ImageMethod({ navigation }: ImageMethodProps) {
 		if (!buttonOnHold) {
 			setButtonOnHold(true);
 			try {
-				const result = await identifyPlant(images);
+				const result = await identifyPlant(
+					images,
+					locationContext.latitude,
+					locationContext.longitude
+				);
 				if (result.is_plant) {
 					navigation.navigate('Result', result);
 				} else {

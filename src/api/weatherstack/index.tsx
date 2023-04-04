@@ -1,17 +1,20 @@
-import React, { createContext, useEffect, useState, ReactNode, useMemo } from 'react';
+import React, { createContext, useEffect, useState, ReactNode, useMemo, useContext } from 'react';
 import Constants from 'expo-constants';
 import { WeatherstackResponse } from './types';
+import { LocationContext } from '../location';
 
-async function getWeather(): Promise<WeatherstackResponse> {
+async function getWeather(latitude: string, longitude: string): Promise<WeatherstackResponse> {
 	const { gardimApiUrl } = Constants.manifest.extra;
 	const response = await fetch(`${gardimApiUrl}/.netlify/functions/api/weather`, {
-		method: 'GET',
+		method: 'POST',
 		headers: {
-			'Content-Type': 'application/json',
+			'Content-Type': 'text/plain',
 		},
+		body: `${latitude},${longitude}`,
 	});
 
 	const result = await response.json();
+	console.log(result);
 	return result;
 }
 
@@ -35,14 +38,18 @@ export const WeatherProvider = ({ children }: WeatherProviderProps) => {
 	const [weather, setWeather] = useState<WeatherstackResponse | null>(null);
 	const [isLoading, setIsLoading] = useState(false);
 	const [error, setError] = useState<Error | null>(null);
+	const locationContext = useContext(LocationContext);
 
 	useEffect(() => {
 		async function fetchWeather() {
 			setIsLoading(true);
 			try {
-				const result = await getWeather();
-				console.log(result);
-				setWeather(result);
+				const { latitude, longitude } = locationContext;
+				if (latitude != undefined && longitude != undefined) {
+					const result = await getWeather(locationContext.latitude, locationContext.longitude);
+					console.log(result);
+					setWeather(result);
+				}
 			} catch (err) {
 				setError(err);
 			} finally {
@@ -50,7 +57,7 @@ export const WeatherProvider = ({ children }: WeatherProviderProps) => {
 			}
 		}
 		fetchWeather();
-	}, []);
+	}, [locationContext.latitude, locationContext.longitude]);
 
 	const contextValue = useMemo(() => {
 		return { weather, isLoading, error };

@@ -168,7 +168,7 @@ sizes.forEach((size) => {
 					body: json,
 				});
 			});
-			
+
 			cy.viewport(size);
 			cy.visit('/');
 

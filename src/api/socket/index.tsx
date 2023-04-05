@@ -38,7 +38,7 @@ export const SocketProvider = ({ children }: SocketProviderProps) => {
 	});
 
 	useEffect(() => {
-		if (enableSocket) {
+		if (enableSocket != 'false') {
 			socket.on('connect', () => {
 				console.log('Connected to server');
 			});

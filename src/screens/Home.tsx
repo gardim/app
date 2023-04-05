@@ -29,7 +29,7 @@ export function Home({ navigation, route }: HomeProps) {
 		};
 
 		loadPlants();
-	}, [visibleAlert]);
+	}, [visibleAlert, plantContext]);
 
 	const handleOnPress = (plant: Plant) => {
 		plantContext.updatePlant(plant);

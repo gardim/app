@@ -3,8 +3,7 @@ import { View, StyleSheet } from 'react-native';
 import { Text, FAB, List, Avatar, Snackbar } from 'react-native-paper';
 import { Plant } from '../types';
 import { HomeProps } from '../types/stack';
-import { getAllKeys } from '../storage';
-import { getMultiple } from '../storage/index';
+import { getAllKeys, getMultiple } from '../storage';
 import { PlantContext } from '../context';
 
 export function Home({ navigation, route }: HomeProps) {

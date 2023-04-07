@@ -12,6 +12,7 @@ import { PlantProvider } from './context';
 import { SocketProvider } from './api/socket';
 import { WeatherProvider } from './api/weatherstack';
 import LocationProvider from './api/location';
+import { NotificationsProvider } from './api/notification';
 
 function App() {
 	const [isThemeDark, setIsThemeDark] = React.useState(false);
@@ -38,8 +39,12 @@ function App() {
 						<PlantProvider>
 							<SocketProvider>
 								<WeatherProvider>
-									<StatusBar barStyle={isThemeDark ? 'light-content' : 'dark-content'} />
-									<RootNavigation theme={theme} />
+									<NotificationsProvider>
+										<StatusBar
+											barStyle={isThemeDark ? 'light-content' : 'dark-content'}
+										/>
+										<RootNavigation theme={theme} />
+									</NotificationsProvider>
 								</WeatherProvider>
 							</SocketProvider>
 						</PlantProvider>

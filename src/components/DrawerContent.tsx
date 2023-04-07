@@ -4,11 +4,13 @@ import { Drawer, Switch, Text, TouchableRipple, useTheme } from 'react-native-pa
 import { useSafeAreaInsets } from 'react-native-safe-area-context';
 
 import { PreferencesContext } from './PreferencesContext';
+import { useNotifications } from '../api/notification';
 
 export default function DrawerContent() {
 	const insets = useSafeAreaInsets();
 
 	const { toggleTheme, isThemeDark } = React.useContext(PreferencesContext);
+	const { hasScheduledNotifications, toggleNotifications } = useNotifications();
 	const theme = useTheme();
 
 	return (
@@ -25,6 +27,14 @@ export default function DrawerContent() {
 					<Text variant="labelLarge">Dark Theme</Text>
 					<View pointerEvents="none">
 						<Switch value={isThemeDark} testID="theme switch" />
+					</View>
+				</View>
+			</TouchableRipple>
+			<TouchableRipple onPress={toggleNotifications}>
+				<View style={[styles.preference]}>
+					<Text variant="labelLarge">Notification</Text>
+					<View pointerEvents="none">
+						<Switch value={hasScheduledNotifications} testID="theme switch" />
 					</View>
 				</View>
 			</TouchableRipple>

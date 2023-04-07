@@ -4,6 +4,8 @@ import { NotificationContentInput, TimeIntervalTriggerInput } from 'expo-notific
 import { getAllKeys, getMultiple } from '../../storage';
 import { Plant } from '../../types';
 import { rangeToSeconds } from '../../utils';
+import * as Device from 'expo-device';
+import { Platform } from 'react-native';
 
 Notifications.setNotificationHandler({
 	handleNotification: async () => ({
@@ -51,31 +53,57 @@ export function NotificationsProvider({ children }: NotificationProviderProps) {
 	}, []);
 
 	async function getNotificationPermissions() {
-		const { status } = await Notifications.getPermissionsAsync();
-		setNotificationStatus(status === 'granted');
+		if (Device.isDevice) {
+			const { status: existingStatus } = await Notifications.getPermissionsAsync();
+			let finalStatus = existingStatus;
+			if (existingStatus !== 'granted') {
+				const { status } = await Notifications.requestPermissionsAsync();
+				finalStatus = status;
+			}
+			if (finalStatus !== 'granted') {
+				console.log('Failed to get push token for push notification!');
+				return;
+			}
+			setNotificationStatus(true);
+		} else {
+			console.log('Must use physical device for Push Notifications');
+		}
+
+		if (Platform.OS === 'android') {
+			Notifications.setNotificationChannelAsync('default', {
+				name: 'default',
+				importance: Notifications.AndroidImportance.MAX,
+				vibrationPattern: [0, 250, 250, 250],
+				lightColor: '#FF231F7C',
+			});
+		}
 	}
 
 	async function checkScheduledNotifications() {
-		const scheduledNotifications = await Notifications.getAllScheduledNotificationsAsync();
-		setHasScheduledNotifications(scheduledNotifications.length > 0);
+		if (notificationStatus) {
+			const scheduledNotifications = await Notifications.getAllScheduledNotificationsAsync();
+			setHasScheduledNotifications(scheduledNotifications.length > 0);
+		}
 	}
 
 	const scheduleWateringNotifications = async () => {
-		plants.map((it: [string, string]) => {
-			const plant = JSON.parse(it[1]) as Plant;
-			const content: NotificationContentInput = {
-				title: `${plant.name} está precisando de sua atenção!`,
-				body: 'Dê água à sua plantinha!',
-				sound: true,
-			};
+		if (notificationStatus) {
+			plants.map((it: [string, string]) => {
+				const plant = JSON.parse(it[1]) as Plant;
+				const content: NotificationContentInput = {
+					title: `${plant.name} está precisando de sua atenção!`,
+					body: 'Dê água à sua plantinha!',
+					sound: true,
+				};
 
-			const trigger: TimeIntervalTriggerInput = {
-				seconds: rangeToSeconds(plant.soil_humidity_minimum),
-				repeats: true,
-			};
-			Notifications.scheduleNotificationAsync({ content, trigger });
-		});
-		setHasScheduledNotifications(true);
+				const trigger: TimeIntervalTriggerInput = {
+					seconds: rangeToSeconds(plant.soil_humidity_minimum),
+					repeats: true,
+				};
+				Notifications.scheduleNotificationAsync({ content, trigger });
+			});
+			setHasScheduledNotifications(true);
+		}
 	};
 
 	const toggleNotifications = async () => {
@@ -87,8 +115,10 @@ export function NotificationsProvider({ children }: NotificationProviderProps) {
 	};
 
 	const cancelNotifications = () => {
-		Notifications.cancelAllScheduledNotificationsAsync();
-		setHasScheduledNotifications(false);
+		if (notificationStatus) {
+			Notifications.cancelAllScheduledNotificationsAsync();
+			setHasScheduledNotifications(false);
+		}
 	};
 
 	return (

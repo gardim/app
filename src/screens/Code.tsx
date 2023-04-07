@@ -11,6 +11,7 @@ import { CELL_COUNT } from '../utils/defaults';
 import { CodeProps } from '../types/stack';
 import { PlantContext } from '../context';
 import { storeData } from '../storage/index';
+import { useNotifications } from '../api/notification';
 
 export function Code({ navigation }: CodeProps) {
 	const [value, setValue] = useState('');
@@ -23,13 +24,18 @@ export function Code({ navigation }: CodeProps) {
 
 	const theme = useTheme();
 	const plantContext = useContext(PlantContext);
+	const { scheduleWateringNotifications } = useNotifications();
+
+	const handlePlantData = async () => {
+		if (plantContext.plant && plantContext.plant.code) {
+			await storeData(plantContext.plant);
+			scheduleWateringNotifications();
+		}
+	};
 
 	useEffect(() => {
-		if (plantContext.plant && plantContext.plant.code) {
-			storeData(plantContext.plant);
-		}
+		handlePlantData();
 	}, [plantContext.plant]);
-
 	const onPress = () => {
 		plantContext.updatePlantCode(value);
 		navigation.navigate('Home', { success: true });

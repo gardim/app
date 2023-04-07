@@ -1,4 +1,4 @@
-import React, { createContext, useContext, useEffect, useState, ReactNode } from 'react';
+import React, { createContext, useContext, useEffect, useState, ReactNode, useMemo } from 'react';
 import * as Notifications from 'expo-notifications';
 import { NotificationContentInput, TimeIntervalTriggerInput } from 'expo-notifications';
 import { getAllKeys, getMultiple } from '../../storage';
@@ -88,7 +88,7 @@ export function NotificationsProvider({ children }: NotificationProviderProps) {
 
 	const scheduleWateringNotifications = async () => {
 		if (notificationStatus) {
-			plants.map((it: [string, string]) => {
+			plants.forEach((it: [string, string]) => {
 				const plant = JSON.parse(it[1]) as Plant;
 				const content: NotificationContentInput = {
 					title: `${plant.name} está precisando de sua atenção!`,
@@ -121,15 +121,24 @@ export function NotificationsProvider({ children }: NotificationProviderProps) {
 		}
 	};
 
+	const notificationsValue = useMemo(() => {
+		return {
+			scheduleWateringNotifications,
+			cancelNotifications,
+			notificationStatus,
+			hasScheduledNotifications,
+			toggleNotifications,
+		};
+	}, [
+		scheduleWateringNotifications,
+		cancelNotifications,
+		notificationStatus,
+		hasScheduledNotifications,
+		toggleNotifications,
+	]);
+
 	return (
-		<NotificationsContext.Provider
-			value={{
-				scheduleWateringNotifications,
-				cancelNotifications,
-				notificationStatus,
-				hasScheduledNotifications,
-				toggleNotifications,
-			}}>
+		<NotificationsContext.Provider value={notificationsValue}>
 			{children}
 		</NotificationsContext.Provider>
 	);

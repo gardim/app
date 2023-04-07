@@ -30,12 +30,10 @@ export const SocketProvider = ({ children }: SocketProviderProps) => {
 
 	const userId = uuid.v4();
 
-	const socket = io(socketUrl, {
-		transports: ['websocket'],
-		query: {
-			userId: userId,
-		},
-	});
+	const socket =
+		enableSocket != 'false'
+			? io(socketUrl, { transports: ['websocket'], query: { userId: userId } })
+			: null;
 
 	useEffect(() => {
 		if (enableSocket != 'false') {

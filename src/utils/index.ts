@@ -42,3 +42,8 @@ export function luxToValue(value: number): number {
 	}
 	return scaleValue;
 }
+
+export function rangeToSeconds(value: number): number {
+	const secondsInDay = 24 * 60 * 60;
+	return value * secondsInDay;
+}

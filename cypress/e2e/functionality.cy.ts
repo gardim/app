@@ -223,4 +223,72 @@ describe('main functionalities', () => {
 		cy.contains('Prosseguir').should('be.visible').click({ force: true });
 		cy.contains('Adicione sua primeira planta').should('be.visible');
 	});
+
+	it('saves plant without code', () => {
+		cy.fixture('weatherstack-request.json').then((json) => {
+			cy.intercept('*weather', {
+				statusCode: 200,
+				body: json,
+			});
+		});
+
+		cy.visit('/', {
+			onBeforeLoad(win) {
+				cy.stub(win.console, 'log').as('consoleLog');
+			},
+		});
+
+		cy.get('[data-testid="Add Plant"]').click({ force: true });
+
+		cy.contains('Método de Identificação').should('be.visible');
+
+		cy.contains('Identificar por texto').should('be.visible').click({ force: true });
+
+		cy.get('[data-testid="search-bar"]').click().type('strawberry ');
+		cy.get('[data-testid="search-bar"]').click().type('beach ');
+
+		cy.get('[data-testid="chip-container"]').contains('strawberry').should('be.visible');
+
+		cy.fixture('trefle-request.json').then((json) => {
+			cy.intercept('*trefle', {
+				statusCode: 200,
+				body: json,
+			});
+		});
+
+		cy.get('[data-testid="Method Continue"]').click({
+			force: true,
+		});
+
+		cy.contains('Beach strawberry').click({ force: true });
+
+		cy.fixture('trefle-species-request.json').then((json) => {
+			cy.intercept('*trefle?id=263319', {
+				statusCode: 200,
+				body: json,
+			});
+		});
+
+		cy.get('[data-testid="Result Continue"]').click({
+			force: true,
+		});
+
+		cy.contains('Nome').should('be.visible');
+
+		cy.get('[data-testid="input-nome"]').type('Blumenau');
+
+		cy.get('[data-testid="Name Continue"]').click({
+			force: true,
+		});
+
+		cy.contains('Código').should('be.visible');
+
+		cy.contains('aqui').click({ force: true });
+
+		cy.contains('Suas Plantas').should('be.visible');
+
+		cy.contains('Blumenau').should('be.visible');
+
+		cy.contains('Sua planta foi salva com sucesso!').should('be.visible');
+	});
 });

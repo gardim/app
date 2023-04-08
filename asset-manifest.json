@@ -1,7 +1,7 @@
 {
   "files": {
-    "app.js": "/gardim/static/js/app.3b333b4c.chunk.js",
-    "app.js.map": "/gardim/static/js/app.3b333b4c.chunk.js.map",
+    "app.js": "/gardim/static/js/app.17e46fd4.chunk.js",
+    "app.js.map": "/gardim/static/js/app.17e46fd4.chunk.js.map",
     "runtime~app.js": "/gardim/static/js/runtime~app.bc82272b.js",
     "runtime~app.js.map": "/gardim/static/js/runtime~app.bc82272b.js.map",
     "static/js/2.0f7423d1.chunk.js": "/gardim/static/js/2.0f7423d1.chunk.js",
@@ -33,6 +33,6 @@
   "entrypoints": [
     "static/js/runtime~app.bc82272b.js",
     "static/js/2.0f7423d1.chunk.js",
-    "static/js/app.3b333b4c.chunk.js"
+    "static/js/app.17e46fd4.chunk.js"
   ]
 }

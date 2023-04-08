@@ -6,7 +6,7 @@ import {
 	useBlurOnFulfill,
 	useClearByFocusCell,
 } from 'react-native-confirmation-code-field';
-import { Text, useTheme, FAB } from 'react-native-paper';
+import { Text, useTheme, FAB, Button } from 'react-native-paper';
 import { CELL_COUNT } from '../utils/defaults';
 import { CodeProps } from '../types/stack';
 import { PlantContext } from '../context';
@@ -37,8 +37,14 @@ export function Code({ navigation }: CodeProps) {
 	useEffect(() => {
 		handlePlantData();
 	}, [plantContext.plant]);
+
 	const onPress = () => {
 		plantContext.updatePlantCode(value);
+		navigation.navigate('Home', { success: true });
+	};
+
+	const onPressEmpty = () => {
+		plantContext.updatePlantCode('empty');
 		navigation.navigate('Home', { success: true });
 	};
 
@@ -69,6 +75,13 @@ export function Code({ navigation }: CodeProps) {
 						</Text>
 					)}
 				/>
+				<Text style={{ textAlign: 'center' }}>
+					Não tem o dispositivo ainda? Clique
+					<Button mode="text" onPress={onPressEmpty} style={{ margin: 0 }}>
+						aqui
+					</Button>
+					para continuar sem adicionar.
+				</Text>
 			</View>
 			{value.length >= 6 && (
 				<FAB

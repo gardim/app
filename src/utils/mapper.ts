@@ -36,6 +36,9 @@ export const mapToPlant = (info: TrefleSpeciesResponse | Suggestion): Plant => {
 		temperature_maximum: TEMPERATURE_MAXIMUM,
 		soil_humidity_minimum: SOIL_HUMIDITY_MINIMUM,
 		soil_humidity_maximum: SOIL_HUMIDITY_MAXIMUM,
+		created_at: null,
+		history: [],
+		current: null,
 	};
 
 	if (isTrefle) {

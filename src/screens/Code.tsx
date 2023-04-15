@@ -6,7 +6,7 @@ import {
 	useBlurOnFulfill,
 	useClearByFocusCell,
 } from 'react-native-confirmation-code-field';
-import { Text, useTheme, FAB, Button } from 'react-native-paper';
+import { Text, useTheme, FAB } from 'react-native-paper';
 import { CELL_COUNT } from '../utils/defaults';
 import { CodeProps } from '../types/stack';
 import { PlantContext } from '../context';
@@ -27,7 +27,7 @@ export function Code({ navigation }: CodeProps) {
 	const { scheduleWateringNotifications, sendOneTimeWateringNotification } = useNotifications();
 
 	const handlePlantData = async () => {
-		if (plantContext.plant && plantContext.plant.code) {
+		if (plantContext.plant && plantContext.plant.created_at) {
 			await storeData(plantContext.plant);
 			scheduleWateringNotifications();
 			sendOneTimeWateringNotification(plantContext.plant);
@@ -39,12 +39,8 @@ export function Code({ navigation }: CodeProps) {
 	}, [plantContext.plant]);
 
 	const onPress = () => {
-		plantContext.updatePlantCode(value);
-		navigation.navigate('Home', { success: true });
-	};
-
-	const onPressEmpty = () => {
-		plantContext.updatePlantCode('empty');
+		plantContext.updatePlantCode(value ?? 'empty');
+		plantContext.updatePlantCreatedAt();
 		navigation.navigate('Home', { success: true });
 	};
 
@@ -76,10 +72,17 @@ export function Code({ navigation }: CodeProps) {
 					)}
 				/>
 				<Text style={{ textAlign: 'center' }}>
-					Não tem o dispositivo ainda? Clique
-					<Button mode="text" onPress={onPressEmpty} style={{ margin: 0 }}>
+					Não tem o dispositivo ainda? Clique{' '}
+					<Text
+						onPress={onPress}
+						style={{
+							margin: 0,
+							color: theme.colors.primary,
+							textDecorationLine: 'underline',
+							fontWeight: 'bold',
+						}}>
 						aqui
-					</Button>
+					</Text>{' '}
 					para continuar sem adicionar.
 				</Text>
 			</View>

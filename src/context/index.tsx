@@ -28,13 +28,27 @@ export const PlantProvider = ({ children }: PlantProviderProps) => {
 		});
 	};
 
-	const resetContext = () => {
+	const updatePlantCreatedAt = () => {
+		setPlant({
+			...plant,
+			created_at: new Date(),
+		});
+	};
+
+	const resetPlant = () => {
 		setPlant(null);
 	};
 
 	const contextValue = useMemo(() => {
-		return { plant, updatePlant, updatePlantName, updatePlantCode, resetPlant: resetContext };
-	}, [plant, updatePlant, updatePlantName, updatePlantCode, resetContext]);
+		return {
+			plant,
+			updatePlant,
+			updatePlantName,
+			updatePlantCode,
+			resetPlant,
+			updatePlantCreatedAt,
+		};
+	}, [plant, updatePlant, updatePlantName, updatePlantCode, resetPlant]);
 
 	return <PlantContext.Provider value={contextValue}>{children}</PlantContext.Provider>;
 };

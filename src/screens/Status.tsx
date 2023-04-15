@@ -1,38 +1,37 @@
 import React, { useContext } from 'react';
 import { View, ScrollView } from 'react-native';
-import { Text, Card, Avatar, ActivityIndicator } from 'react-native-paper';
+import { Text, Card, Avatar } from 'react-native-paper';
 import { LinearGaugeChart } from '../components/LinearGaugeChart';
 import { PlantContext } from '../context';
 import { SocketContext } from '../api/socket';
-import { WeahterContext } from '../api/weatherstack';
 import { temperatureToValue } from '../utils/index';
 import { LUX, PERCENTAGE, TEMPERATURE } from '../utils/defaults';
 import { AntDesign } from '@expo/vector-icons';
 import { Plant } from '../types';
-import { WeatherstackResponse } from '../api/weatherstack/types';
 
 export function Status() {
 	const { plant } = useContext(PlantContext);
 	const { soilValue, luxValue, code } = useContext(SocketContext);
-	const { weather, isLoading } = useContext(WeahterContext);
 
 	const renderSoil = !!(soilValue && code == plant.code);
 	const renderLux = !!(luxValue && code == plant.code);
 
+	const noData =
+		!renderLux &&
+		!renderSoil &&
+		!plant?.current?.atmospheric_humidity &&
+		!plant?.current?.atmospheric_temperature;
+
 	return (
 		<View style={{ flex: 1 }}>
-			{!renderLux && !renderSoil && !weather ? (
-				(isLoading && <Loading />) || <NoData />
+			{noData ? (
+				<NoData />
 			) : (
 				<ScrollView>
 					{renderSoil && <SoilCard plant={plant} soilValue={soilValue} />}
 					{renderLux && <LuxCard plant={plant} luxValue={luxValue} />}
-					{weather && (
-						<>
-							<UmidityCard weather={weather} plant={plant} />
-							<TemperatureCard weather={weather} plant={plant} />
-						</>
-					)}
+					{!!plant?.current?.atmospheric_humidity && <UmidityCard plant={plant} />}
+					{!!plant?.current?.atmospheric_temperature && <TemperatureCard plant={plant} />}
 				</ScrollView>
 			)}
 		</View>
@@ -50,24 +49,8 @@ interface LuxCardProps {
 }
 
 interface WeatherCardProps {
-	weather: WeatherstackResponse;
 	plant: Plant;
 }
-
-const Loading = () => {
-	return (
-		<View
-			style={{
-				justifyContent: 'center',
-				alignContent: 'center',
-				display: 'flex',
-				flex: 1,
-				flexDirection: 'column',
-			}}>
-			<ActivityIndicator animating={true} size={'large'} />
-		</View>
-	);
-};
 
 const NoData = () => {
 	return (
@@ -131,7 +114,7 @@ const LuxCard = ({ luxValue, plant }: LuxCardProps) => {
 	);
 };
 
-const UmidityCard = ({ weather, plant }: WeatherCardProps) => {
+const UmidityCard = ({ plant }: WeatherCardProps) => {
 	return (
 		<Card style={{ marginVertical: 10, marginHorizontal: 20 }}>
 			<Card.Title
@@ -140,20 +123,20 @@ const UmidityCard = ({ weather, plant }: WeatherCardProps) => {
 			/>
 			<Card.Content>
 				<LinearGaugeChart
-					min={plant.atmospheric_humidity_minimum}
-					max={plant.atmospheric_humidity_maximum}
-					value={weather.current.humidity}
+					min={plant?.atmospheric_humidity_minimum}
+					max={plant?.atmospheric_humidity_maximum}
+					value={plant?.current?.atmospheric_humidity || 0}
 					range={PERCENTAGE}
 				/>
 			</Card.Content>
 			<Card.Actions>
-				<Text>{weather.current.humidity}%</Text>
+				<Text>{plant?.current?.atmospheric_humidity}%</Text>
 			</Card.Actions>
 		</Card>
 	);
 };
 
-const TemperatureCard = ({ weather, plant }: WeatherCardProps) => {
+const TemperatureCard = ({ plant }: WeatherCardProps) => {
 	return (
 		<Card style={{ marginVertical: 10, marginHorizontal: 20 }}>
 			<Card.Title
@@ -164,13 +147,13 @@ const TemperatureCard = ({ weather, plant }: WeatherCardProps) => {
 				<LinearGaugeChart
 					min={plant.temperature_minimum}
 					max={plant.temperature_maximum}
-					value={weather.current.temperature}
+					value={plant?.current?.atmospheric_temperature}
 					range={TEMPERATURE}
 					conversor={temperatureToValue}
 				/>
 			</Card.Content>
 			<Card.Actions>
-				<Text>{weather.current.temperature}°C</Text>
+				<Text>{plant?.current?.atmospheric_temperature}°C</Text>
 			</Card.Actions>
 		</Card>
 	);

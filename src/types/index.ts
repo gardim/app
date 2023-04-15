@@ -15,13 +15,31 @@ export type Plant = {
 	temperature_maximum: number | null;
 	soil_humidity_minimum: number | null;
 	soil_humidity_maximum: number | null;
+	created_at: Date | null;
+	history: History[] | null;
+	current: Current | null;
 };
+
+export interface Current {
+	light: number | null;
+	soil_humidity: number | null;
+	atmospheric_humidity: number | null;
+	atmospheric_temperature: number | null;
+	temperature: number | null;
+}
+
+export interface History extends Current {
+	date: string | null;
+	status: 'average' | 'good' | 'bad' | null;
+	image: string | null;
+}
 
 export interface PlantContextType {
 	plant: Plant;
 	updatePlant: (plant: Plant) => void;
 	updatePlantName: (name: string) => void;
 	updatePlantCode: (code: string) => void;
+	updatePlantCreatedAt: () => void;
 	resetPlant: () => void;
 }
 

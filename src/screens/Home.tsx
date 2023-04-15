@@ -7,8 +7,8 @@ import { getAllKeys, getMultiple } from '../storage';
 import { PlantContext } from '../context';
 
 export function Home({ navigation, route }: HomeProps) {
-	const [visibleAlert, setVisiblAlert] = React.useState(route.params?.success ? true : false);
-	const [visible, setVisible] = React.useState<boolean>(false);
+	const [visibleAlert, setVisiblAlert] = useState(route.params?.success ? true : false);
+	const [visible, setVisible] = useState<boolean>(false);
 
 	const onDismissSnackBar = () => setVisiblAlert(false);
 

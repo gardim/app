@@ -47,3 +47,8 @@ export function rangeToSeconds(value: number): number {
 	const secondsInDay = 24 * 60 * 60;
 	return value * secondsInDay;
 }
+
+export function convertDate(date: Date): string {
+	const newDate = new Date(date);
+	return newDate.toISOString().slice(0, 10);
+}

@@ -4,7 +4,7 @@ import { Text, Card, Avatar } from 'react-native-paper';
 import { LinearGaugeChart } from '../components/LinearGaugeChart';
 import { PlantContext } from '../context';
 import { SocketContext } from '../api/socket';
-import { temperatureToValue } from '../utils/index';
+import { luxToValue, percentageToValue, temperatureToValue } from '../utils/index';
 import { LUX, PERCENTAGE, TEMPERATURE } from '../utils/defaults';
 import { AntDesign } from '@expo/vector-icons';
 import { Plant } from '../types';
@@ -13,8 +13,8 @@ export function Status() {
 	const { plant } = useContext(PlantContext);
 	const { soilValue, luxValue, code } = useContext(SocketContext);
 
-	const renderSoil = !!(soilValue && code == plant.code);
-	const renderLux = !!(luxValue && code == plant.code);
+	const renderSoil = !!(soilValue && code == plant?.code);
+	const renderLux = !!(luxValue && code == plant?.code);
 
 	const noData =
 		!renderLux &&
@@ -30,7 +30,7 @@ export function Status() {
 				<ScrollView>
 					{renderSoil && <SoilCard plant={plant} soilValue={soilValue} />}
 					{renderLux && <LuxCard plant={plant} luxValue={luxValue} />}
-					{!!plant?.current?.atmospheric_humidity && <UmidityCard plant={plant} />}
+					{!!plant?.current?.atmospheric_humidity && <HumidityCard plant={plant} />}
 					{!!plant?.current?.atmospheric_temperature && <TemperatureCard plant={plant} />}
 				</ScrollView>
 			)}
@@ -76,6 +76,8 @@ const SoilCard = ({ soilValue, plant }: SoilCardProps) => {
 			<Card.Title
 				title="Umidade do Solo"
 				left={(props) => <Avatar.Icon {...props} icon="water-alert-outline" />}
+				subtitle={`Referência: entre ${plant.soil_humidity_minimum}% e ${plant.soil_humidity_maximum}%`}
+				subtitleVariant="labelSmall"
 			/>
 			<Card.Content>
 				<LinearGaugeChart
@@ -83,6 +85,7 @@ const SoilCard = ({ soilValue, plant }: SoilCardProps) => {
 					max={plant.soil_humidity_maximum}
 					value={soilValue}
 					range={PERCENTAGE}
+					conversor={percentageToValue}
 				/>
 			</Card.Content>
 			<Card.Actions>
@@ -98,6 +101,8 @@ const LuxCard = ({ luxValue, plant }: LuxCardProps) => {
 			<Card.Title
 				title="Luminosidade"
 				left={(props) => <Avatar.Icon {...props} icon="lightbulb-on-outline" />}
+				subtitle={`Referência: entre ${plant.light_minimum}lux e ${plant.light_maximum}lux`}
+				subtitleVariant="labelSmall"
 			/>
 			<Card.Content>
 				<LinearGaugeChart
@@ -105,6 +110,7 @@ const LuxCard = ({ luxValue, plant }: LuxCardProps) => {
 					max={plant.light_maximum}
 					value={luxValue}
 					range={LUX}
+					conversor={luxToValue}
 				/>
 			</Card.Content>
 			<Card.Actions>
@@ -114,12 +120,14 @@ const LuxCard = ({ luxValue, plant }: LuxCardProps) => {
 	);
 };
 
-const UmidityCard = ({ plant }: WeatherCardProps) => {
+const HumidityCard = ({ plant }: WeatherCardProps) => {
 	return (
 		<Card style={{ marginVertical: 10, marginHorizontal: 20 }}>
 			<Card.Title
 				title="Umidade do Ambiente"
 				left={(props) => <Avatar.Icon {...props} icon="weather-rainy" />}
+				subtitle={`Referência: entre ${plant.atmospheric_humidity_minimum}% e ${plant.atmospheric_humidity_maximum}%`}
+				subtitleVariant="labelSmall"
 			/>
 			<Card.Content>
 				<LinearGaugeChart
@@ -127,6 +135,7 @@ const UmidityCard = ({ plant }: WeatherCardProps) => {
 					max={plant?.atmospheric_humidity_maximum}
 					value={plant?.current?.atmospheric_humidity || 0}
 					range={PERCENTAGE}
+					conversor={percentageToValue}
 				/>
 			</Card.Content>
 			<Card.Actions>
@@ -142,6 +151,8 @@ const TemperatureCard = ({ plant }: WeatherCardProps) => {
 			<Card.Title
 				title="Temperatura do Ambiente"
 				left={(props) => <Avatar.Icon {...props} icon="sun-thermometer-outline" />}
+				subtitle={`Referência: entre ${plant.temperature_minimum}°C e ${plant.temperature_maximum}°C`}
+				subtitleVariant="labelSmall"
 			/>
 			<Card.Content>
 				<LinearGaugeChart

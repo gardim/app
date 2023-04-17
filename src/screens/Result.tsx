@@ -3,7 +3,7 @@ import { View, StyleSheet, ScrollView, Dimensions, Platform } from 'react-native
 import { PlantOptionsList } from '../components/PlantOptionsList';
 import { ResultProps } from '../types/stack';
 import { Text, FAB } from 'react-native-paper';
-import { PlantIDResponse } from '../api/plant_id/types';
+import { PlantIDIdentificationResponse } from '../api/plant_id/types';
 import { TreflePlantSearchResponse } from '../api/trefle/types';
 import { getPlant } from '../api/trefle';
 import { PlantContext } from '../context';
@@ -15,7 +15,7 @@ export function Result({ navigation, route }: ResultProps) {
 	const [buttonOnHold, setButtonOnHold] = React.useState<boolean>(false);
 
 	const plantResult = route.params;
-	const isTrefle = (plantResult as PlantIDResponse).suggestions ? false : true;
+	const isTrefle = (plantResult as PlantIDIdentificationResponse).suggestions ? false : true;
 	let height = Dimensions.get('window').height;
 
 	const plantContext = useContext(PlantContext);
@@ -52,7 +52,7 @@ export function Result({ navigation, route }: ResultProps) {
 				}
 			}
 		} else {
-			const plantSelected = (plantResult as PlantIDResponse).suggestions.find(
+			const plantSelected = (plantResult as PlantIDIdentificationResponse).suggestions.find(
 				(it) => it.id === selectedOption
 			);
 
@@ -72,9 +72,9 @@ export function Result({ navigation, route }: ResultProps) {
 					Selecione o resultado da busca
 				</Text>
 				<ScrollView style={{ maxHeight: height }}>
-					{(plantResult as PlantIDResponse).suggestions ? (
+					{(plantResult as PlantIDIdentificationResponse).suggestions ? (
 						<PlantOptionsList
-							info={(plantResult as PlantIDResponse).suggestions.map((it) => ({
+							info={(plantResult as PlantIDIdentificationResponse).suggestions.map((it) => ({
 								id: it.id,
 								name: it.plant_name,
 								probability: it.probability,

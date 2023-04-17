@@ -1,3 +1,6 @@
+import { HealthAssessment } from '../api/plant_id/types';
+import { Status } from '../utils/status';
+
 export type Plant = {
 	id: string;
 	name: string | null;
@@ -17,29 +20,39 @@ export type Plant = {
 	soil_humidity_maximum: number | null;
 	created_at: Date | null;
 	history: History[] | null;
-	current: Current | null;
+	current: CurrentMetrics | null;
 };
 
-export interface Current {
-	light: number | null;
-	soil_humidity: number | null;
-	atmospheric_humidity: number | null;
-	atmospheric_temperature: number | null;
-	temperature: number | null;
+export interface CurrentMetrics {
+	light?: number | null;
+	soil_humidity?: number | null;
+	atmospheric_humidity?: number | null;
+	atmospheric_temperature?: number | null;
+	temperature?: number | null;
+	health_assessment?: HealthAssessment;
 }
 
-export interface History extends Current {
+export interface ProbableDiseases {
+	name: string;
+	probability: number;
+}
+
+export interface AssessmentResults {
+	is_healthy: boolean;
+	probable_diseases?: ProbableDiseases[] | null;
+}
+
+export interface History extends CurrentMetrics {
 	date: string | null;
-	status: 'average' | 'good' | 'bad' | null;
-	image: string | null;
+	status: Status;
+	assessment_results?: AssessmentResults;
 }
 
 export interface PlantContextType {
 	plant: Plant;
 	updatePlant: (plant: Plant) => void;
 	updatePlantName: (name: string) => void;
-	updatePlantCode: (code: string) => void;
-	updatePlantCreatedAt: () => void;
+	updatePlantCodeAndCreatedAt: (code: string) => void;
 	resetPlant: () => void;
 }
 

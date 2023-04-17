@@ -1,38 +1,40 @@
-import React, { useContext, useState, useEffect, useMemo } from 'react';
-import { SafeAreaView, StyleSheet, View } from 'react-native';
-import { ExpandableCalendar, CalendarProvider } from 'react-native-calendars';
-import { MarkedDates } from 'react-native-calendars/src/types';
+import React, { useContext, useState, useMemo, useEffect } from 'react';
+import { SafeAreaView, ScrollView, StyleSheet, View } from 'react-native';
+import { Calendar } from 'react-native-calendars';
+import { MarkedDates, DateData } from 'react-native-calendars/src/types';
 import { Positions } from 'react-native-calendars/src/expandableCalendar';
 import { PreferencesContext } from '../components/PreferencesContext';
-import { Dialog, Portal, Text, Button, TextInput } from 'react-native-paper';
+import { Dialog, Portal, Text, Button, HelperText, Card } from 'react-native-paper';
 import { PlantContext } from '../context';
 import { CombinedDarkTheme, CombinedDefaultTheme } from '../utils/theme';
-import { convertDate } from '../utils';
+import { statusToColor } from '../utils/status';
+import { History } from '../types';
 
 export default function Statistics() {
+	const [overviewVisible, setOverviewVisible] = useState(false);
 	const { isThemeDark } = useContext(PreferencesContext);
-	const [theme, setTheme] = useState(isThemeDark ? CombinedDarkTheme : CombinedDefaultTheme);
-	const [editVisible, setEditVisible] = React.useState(false);
-	const plantContext = useContext(PlantContext);
-	const initialDate = plantContext?.plant?.created_at
-		? convertDate(plantContext.plant.created_at)
-		: convertDate(new Date());
+	const theme = isThemeDark ? CombinedDarkTheme : CombinedDefaultTheme;
+	const [themeId, setThemeId] = useState(isThemeDark ? 'dark' : 'light');
+	const [currentHistory, setCurrentHistory] = useState<History>(null);
 
 	useEffect(() => {
-		setTheme(isThemeDark ? CombinedDarkTheme : CombinedDefaultTheme);
+		setThemeId(isThemeDark ? 'dark' : 'light');
 	}, [isThemeDark]);
+
+	const calendarKey = isThemeDark ? 'dark' : 'light';
+
+	const plantContext = useContext(PlantContext);
 
 	const marked = useMemo(() => {
 		const markers: MarkedDates = {};
 		const history = plantContext.plant.history;
 		history?.forEach((item) => {
-			const date = item.date;
-			markers[date] = {
+			markers[item.date] = {
 				selected: true,
-				marked: true,
+				marked: false,
 				customStyles: {
 					container: {
-						backgroundColor: '#5E60CE',
+						backgroundColor: statusToColor(item.status),
 					},
 				},
 			};
@@ -40,50 +42,97 @@ export default function Statistics() {
 		return markers;
 	}, [plantContext.plant.history]);
 
-	const showEditDialog = (date) => {
-		console.log(date);
-		setEditVisible(true);
+	const showOverviewDialog = (date: DateData) => {
+		const history = plantContext.plant.history;
+		const matchingHistory = history.find((history) => history.date === date.dateString);
+		if (matchingHistory) {
+			setCurrentHistory(matchingHistory);
+			setOverviewVisible(true);
+		}
 	};
-	const hideEditDialog = () => setEditVisible(false);
+	const hideOverviewDialog = () => setOverviewVisible(false);
 
-	const handleOnEdit = async () => hideEditDialog();
+	const handleOnFinish = async () => hideOverviewDialog();
 
 	return (
 		<SafeAreaView style={styles.container}>
 			<Portal>
-				<Dialog visible={editVisible} onDismiss={hideEditDialog}>
-					<Dialog.Title>Editar</Dialog.Title>
-					<Dialog.Content>
-						<Text variant="titleMedium" style={{ textAlign: 'center', margin: 20 }}>
-							Dê um nome à sua planta!
-						</Text>
-						<TextInput mode="flat" testID="input-nome" />
-					</Dialog.Content>
-					<Dialog.Actions>
-						<Button onPress={handleOnEdit}>Done</Button>
+				<Dialog visible={overviewVisible} onDismiss={hideOverviewDialog}>
+					<Dialog.Title style={styles.title}>Resumo</Dialog.Title>
+					<Text style={styles.subtitle}>{currentHistory?.date}</Text>
+					<Dialog.ScrollArea>
+						<ScrollView>
+							{currentHistory?.atmospheric_humidity && (
+								<OverviewCard
+									title="Umidade do Ambiente"
+									unit="%"
+									value={currentHistory.atmospheric_humidity}
+									min={plantContext.plant.atmospheric_humidity_minimum}
+									max={plantContext.plant.atmospheric_humidity_maximum}
+								/>
+							)}
+							{currentHistory?.light && (
+								<OverviewCard
+									title="Luminosidade"
+									unit="lux"
+									value={currentHistory.light}
+									min={plantContext.plant.light_minimum}
+									max={plantContext.plant.light_maximum}
+								/>
+							)}
+							{currentHistory?.soil_humidity && (
+								<OverviewCard
+									title="Umidade do Solo"
+									unit="%"
+									value={currentHistory.soil_humidity.toFixed(2)}
+									min={plantContext.plant.soil_humidity_minimum}
+									max={plantContext.plant.soil_humidity_maximum}
+								/>
+							)}
+							{currentHistory?.atmospheric_temperature && (
+								<OverviewCard
+									title="Temperatura do Ambiente"
+									unit="°C"
+									value={currentHistory.atmospheric_temperature}
+									min={plantContext.plant.temperature_minimum}
+									max={plantContext.plant.temperature_maximum}
+								/>
+							)}
+						</ScrollView>
+					</Dialog.ScrollArea>
+					<Dialog.Actions style={{ justifyContent: 'center' }}>
+						<Button onPress={handleOnFinish}>Ok</Button>
 					</Dialog.Actions>
 				</Dialog>
 			</Portal>
-			<View style={{ backgroundColor: theme.colors.background, flex: 1 }}>
-				<CalendarProvider date={initialDate}>
-					<ExpandableCalendar
-						theme={{
-							backgroundColor: theme.colors.background,
-							calendarBackground: theme.colors.background,
-							textSectionTitleColor: theme.colors.onBackground,
-							selectedDayTextColor: theme.colors.onBackground,
-							todayTextColor: theme.colors.onBackground,
-							todayBackgroundColor: theme.colors.primary,
-							dayTextColor: 'black',
-						}}
-						firstDay={1}
-						disablePan
-						markedDates={marked}
-						markingType={'custom'}
-						initialPosition={Positions.CLOSED}
-						onDayPress={(date) => showEditDialog(date)}
-					/>
-				</CalendarProvider>
+
+			<HelperText type="info" visible style={{ textAlign: 'center' }}>
+				Pressione nas datas para obter um resumo do que aconteceu no dia indicado!
+			</HelperText>
+
+			<View key={calendarKey} style={{ backgroundColor: theme.colors.background, flex: 1 }}>
+				<Calendar
+					theme={{
+						backgroundColor: theme.colors.background,
+						calendarBackground: theme.colors.background,
+						textSectionTitleColor: theme.colors.onBackground,
+						selectedDayBackgroundColor: 'transparent',
+						selectedDayTextColor: theme.colors.onBackground,
+						todayTextColor: theme.colors.onBackground,
+						todayBackgroundColor: theme.colors.primary,
+						dayTextColor: 'gray',
+						dotColor: theme.colors.primary,
+						selectedDotColor: theme.colors.onBackground,
+						monthTextColor: theme.colors.onBackground,
+					}}
+					firstDay={1}
+					disablePan
+					markedDates={marked}
+					markingType={'custom'}
+					initialPosition={Positions.CLOSED}
+					onDayPress={(date) => showOverviewDialog(date)}
+					style={{ margin: 20 }}
+				/>
 			</View>
 		</SafeAreaView>
 	);
@@ -103,7 +152,40 @@ const styles = StyleSheet.create({
 		alignItems: 'center',
 		padding: 10,
 	},
-	fabStyle: {
-		margin: 20,
+	title: {
+		textAlign: 'center',
+	},
+	subtitle: {
+		textAlign: 'center',
+		marginBottom: 20,
 	},
 });
+
+interface OverviewCardProps {
+	title: string;
+	unit: string;
+	value: number | string;
+	min: number;
+	max: number;
+}
+
+const OverviewCard = ({ title, unit, value, min, max }: OverviewCardProps) => {
+	return (
+		<Card style={{ marginVertical: 10, marginHorizontal: 5 }}>
+			<Card.Title
+				title={title}
+				titleNumberOfLines={2}
+				subtitleNumberOfLines={2}
+				right={() => (
+					<Text>
+						{value}
+						{unit}
+					</Text>
+				)}
+				subtitle={`Referência: entre ${min}${unit} e ${max}${unit}`}
+				subtitleVariant="labelSmall"
+				rightStyle={{ margin: 0, padding: 0, paddingBottom: 25, marginRight: 10 }}
+			/>
+		</Card>
+	);
+};

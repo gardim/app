@@ -49,14 +49,26 @@ export const mapToPlant = (info: TrefleSpeciesResponse | Suggestion): Plant => {
 		plantDetails.edible_parts = trefleData.edible_part ?? plantDetails.edible_parts;
 		plantDetails.ph_maximum = trefleData.growth?.ph_maximum ?? plantDetails.ph_maximum;
 		plantDetails.ph_minimum = trefleData.growth?.ph_minimum ?? plantDetails.ph_minimum;
-		plantDetails.light_minimum = trefleData.growth?.light - 2 ?? plantDetails.light_minimum;
-		plantDetails.light_maximum = trefleData.growth?.light + 2 ?? plantDetails.light_maximum;
 
-		plantDetails.atmospheric_humidity_minimum =
-			trefleData.growth?.atmospheric_humidity - 2 ?? plantDetails.atmospheric_humidity_minimum;
+		const trefleLight = trefleData.growth?.light;
 
-		plantDetails.atmospheric_humidity_maximum =
-			trefleData.growth?.atmospheric_humidity + 2 ?? plantDetails.atmospheric_humidity_maximum;
+		if (trefleLight) {
+			const min = trefleLight * 100000 - 20000;
+			const max = trefleLight * 100000 + 20000;
+
+			plantDetails.light_minimum = min < 0 ? 0 : min;
+			plantDetails.light_maximum = max > 100000 ? 100000 : max;
+		}
+
+		const trefleAtmosphericHumidity = trefleData.growth?.atmospheric_humidity;
+
+		if (trefleAtmosphericHumidity) {
+			const min = trefleAtmosphericHumidity * 100 - 20;
+			const max = trefleAtmosphericHumidity * 100 + 20;
+
+			plantDetails.atmospheric_humidity_minimum = min < 0 ? 0 : min;
+			plantDetails.atmospheric_humidity_maximum = max > 100 ? 100 : max;
+		}
 
 		plantDetails.temperature_minimum =
 			trefleData.growth?.minimum_temperature?.deg_c ?? plantDetails.temperature_minimum;
@@ -64,27 +76,28 @@ export const mapToPlant = (info: TrefleSpeciesResponse | Suggestion): Plant => {
 		plantDetails.temperature_maximum =
 			trefleData.growth?.maximum_temperature?.deg_c ?? plantDetails.temperature_maximum;
 
-		plantDetails.soil_humidity_minimum = trefleData.growth?.soil_humidity
-			? trefleData.growth.soil_humidity - 2
-			: plantDetails.soil_humidity_minimum;
+		const trefleSoilHumidity = trefleData.growth?.soil_humidity;
 
-		plantDetails.soil_humidity_maximum = trefleData.growth?.soil_humidity
-			? trefleData.growth.soil_humidity + 2
-			: plantDetails.soil_humidity_maximum;
+		if (trefleSoilHumidity) {
+			plantDetails.soil_humidity_minimum = trefleSoilHumidity * 100 - 20;
+			plantDetails.soil_humidity_maximum = trefleSoilHumidity * 100 + 20;
+		}
 	} else {
 		const plantIdData = info as Suggestion;
-		plantDetails.id = plantIdData.plant_name;
 		plantDetails.common_name = plantIdData.plant_name ?? plantDetails.common_name;
 		plantDetails.scientific_name =
 			plantIdData.plant_details?.scientific_name ?? plantDetails.scientific_name;
 		plantDetails.edible_parts =
 			plantIdData.plant_details?.edible_parts ?? plantDetails.edible_parts;
-		plantDetails.soil_humidity_minimum =
-			convertScale(plantIdData.plant_details?.watering?.min) ??
-			plantDetails.soil_humidity_minimum;
-		plantDetails.soil_humidity_maximum =
-			convertScale(plantIdData.plant_details?.watering?.max) ??
-			plantDetails.soil_humidity_maximum;
+
+		if (plantIdData.plant_details?.watering?.min && plantIdData.plant_details?.watering?.max) {
+			plantDetails.soil_humidity_minimum = convertScale(
+				plantIdData.plant_details?.watering?.min
+			);
+			plantDetails.soil_humidity_maximum = convertScale(
+				plantIdData.plant_details?.watering?.max
+			);
+		}
 	}
 
 	return plantDetails;

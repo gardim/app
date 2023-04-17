@@ -4,6 +4,10 @@ import Constants from 'expo-constants';
 import { SocketPayload } from './types';
 import uuid from 'react-native-uuid';
 import { PlantContext } from '../../context';
+import {
+	updateLuxCurrentMetricsFromSocket,
+	updateSoilCurrentMetricsFromSocket,
+} from '../../utils/currentMetrics';
 
 type SocketResponse = {
 	soilValue: number;
@@ -27,6 +31,8 @@ export const SocketProvider = ({ children }: SocketProviderProps) => {
 	const [code, setCode] = useState<string>(null);
 	const { socketUrl, enableSocket } = Constants.manifest.extra;
 	const plantContext = useContext(PlantContext);
+	let soilTicker = 0;
+	let luxTicker = 0;
 
 	const userId = uuid.v4();
 
@@ -45,24 +51,47 @@ export const SocketProvider = ({ children }: SocketProviderProps) => {
 				console.log('Disconnected from server');
 			});
 
-			if (plantContext.plant?.code) {
-				console.log(plantContext.plant.code);
-				setCode(plantContext.plant.code);
-				socket.on(`gardim/esp32/${plantContext.plant.code}/soil`, (data: SocketPayload) => {
-					console.log(data);
-					const parsedData = data;
-					setSoilValue(Number(parsedData.parsed.toFixed(2)));
-				});
-
-				socket.on(`gardim/esp32/${plantContext.plant.code}/lux`, (data: SocketPayload) => {
-					console.log(data);
-					const parsedData = data;
-					setLuxValue(parsedData.parsed);
-				});
-			}
-
 			socket.on('error', (error: unknown) => {
 				console.log('Socket error:', error);
+			});
+
+			const codeExists = plantContext.plant?.code !== undefined;
+
+			if (!codeExists)
+				return () => {
+					socket.disconnect();
+				};
+
+			console.log(plantContext.plant.code);
+
+			setCode(plantContext.plant.code);
+
+			socket.on(`gardim/esp32/${plantContext.plant.code}/soil`, async (data: SocketPayload) => {
+				const parsedData = data;
+				setSoilValue(Number(parsedData.parsed.toFixed(2)));
+
+				if (soilTicker >= 60) {
+					soilTicker = 0;
+					await updateSoilCurrentMetricsFromSocket(plantContext.plant.id, data.parsed);
+				} else {
+					console.log('SOIL update skipped...');
+				}
+
+				soilTicker++;
+			});
+
+			socket.on(`gardim/esp32/${plantContext.plant.code}/lux`, async (data: SocketPayload) => {
+				const parsedData = data;
+				setLuxValue(parsedData.parsed);
+
+				if (luxTicker >= 1) {
+					luxTicker = 0;
+					await updateLuxCurrentMetricsFromSocket(plantContext.plant.id, data.parsed);
+				} else {
+					console.log('LUX update skipped...');
+				}
+
+				luxTicker++;
 			});
 
 			return () => {

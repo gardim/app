@@ -190,7 +190,7 @@ describe('main functionalities', () => {
 		cy.contains('Oops! Parece que você não tem nada habilitado para essa planta').should(
 			'be.visible'
 		);
-		cy.contains('Configurações').should('be.visible').click({ force: true });
+		cy.contains('Ajustes').should('be.visible').click({ force: true });
 
 		cy.contains('Editar').should('be.visible').click({ force: true });
 		cy.get('[data-testid="input-nome"]').type('Jujuba');
@@ -218,7 +218,7 @@ describe('main functionalities', () => {
 			'be.visible'
 		);
 
-		cy.contains('Configurações').should('be.visible').click({ force: true });
+		cy.contains('Ajustes').should('be.visible').click({ force: true });
 		cy.contains('Apagar').should('be.visible').click({ force: true });
 		cy.contains('Prosseguir').should('be.visible').click({ force: true });
 		cy.contains('Adicione sua primeira planta').should('be.visible');

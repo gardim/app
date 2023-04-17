@@ -45,7 +45,7 @@ export function Home({ navigation, route }: HomeProps) {
 								const plant = JSON.parse(it[1]) as Plant;
 								return (
 									<List.Item
-										key={plant.id}
+										key={plant?.id}
 										title={plant.name}
 										titleStyle={{ fontSize: 18, fontWeight: 'bold' }}
 										description={plant.scientific_name}

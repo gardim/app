@@ -21,16 +21,10 @@ export const PlantProvider = ({ children }: PlantProviderProps) => {
 		});
 	};
 
-	const updatePlantCode = (code: string) => {
+	const updatePlantCodeAndCreatedAt = (code: string) => {
 		setPlant({
 			...plant,
 			code: code,
-		});
-	};
-
-	const updatePlantCreatedAt = () => {
-		setPlant({
-			...plant,
 			created_at: new Date(),
 		});
 	};
@@ -44,11 +38,10 @@ export const PlantProvider = ({ children }: PlantProviderProps) => {
 			plant,
 			updatePlant,
 			updatePlantName,
-			updatePlantCode,
+			updatePlantCodeAndCreatedAt,
 			resetPlant,
-			updatePlantCreatedAt,
 		};
-	}, [plant, updatePlant, updatePlantName, updatePlantCode, resetPlant]);
+	}, [plant, updatePlant, updatePlantName, updatePlantCodeAndCreatedAt, resetPlant]);
 
 	return <PlantContext.Provider value={contextValue}>{children}</PlantContext.Provider>;
 };

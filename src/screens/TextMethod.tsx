@@ -73,7 +73,7 @@ export function TextMethod({ navigation }: TextMethodProps) {
 						style={styles.fabVariant}
 						onSubmitEditing={onSubmit}
 					/>
-					<HelperText type="info" visible>
+					<HelperText type="info" visible style={{ textAlign: 'center' }}>
 						Pressione enter ou espaço para dividir as palavras!
 					</HelperText>
 					<View style={styles.chipsContainer}>

@@ -24,3 +24,9 @@ export const CombinedDarkTheme = {
 	...DarkTheme,
 	...darkGreenColors,
 };
+
+export const StatusColorTheme = {
+	bad: '#E84258',
+	average: '#FEE191',
+	good: '#B0D8A4',
+};

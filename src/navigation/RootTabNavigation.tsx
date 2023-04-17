@@ -1,4 +1,4 @@
-import { Feather, Fontisto, Ionicons } from '@expo/vector-icons';
+import { Feather, Fontisto, FontAwesome } from '@expo/vector-icons';
 import { createMaterialBottomTabNavigator } from '@react-navigation/material-bottom-tabs';
 import React, { useLayoutEffect, useContext } from 'react';
 import { useTheme } from 'react-native-paper';
@@ -7,6 +7,7 @@ import { PlantContext } from '../context';
 import { RootTabNavigationProps } from '../types/stack';
 import { Configurations } from '../screens/Configurations';
 import Statistics from '../screens/Statistics';
+import { Analysis } from '../screens/Analysis';
 
 const Tab = createMaterialBottomTabNavigator();
 
@@ -40,9 +41,19 @@ export function RootTabNavigation({ navigation, route }: RootTabNavigationProps)
 				name="Statistics"
 				component={Statistics}
 				options={{
-					tabBarLabel: 'Estatísticas',
+					tabBarLabel: 'Monitoria',
 					tabBarIcon: () => (
-						<Ionicons name="stats-chart" size={24} color={theme.colors.primary} />
+						<FontAwesome name="calendar-check-o" size={24} color={theme.colors.primary} />
+					),
+				}}
+			/>
+			<Tab.Screen
+				name="Analysis"
+				component={Analysis}
+				options={{
+					tabBarLabel: 'Análise',
+					tabBarIcon: () => (
+						<FontAwesome name="stethoscope" size={24} color={theme.colors.primary} />
 					),
 				}}
 			/>
@@ -50,7 +61,7 @@ export function RootTabNavigation({ navigation, route }: RootTabNavigationProps)
 				name="Configurations"
 				component={Configurations}
 				options={{
-					tabBarLabel: 'Configurações',
+					tabBarLabel: 'Ajustes',
 					tabBarIcon: () => <Feather name="settings" size={24} color={theme.colors.primary} />,
 				}}
 			/>

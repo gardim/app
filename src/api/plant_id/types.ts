@@ -98,13 +98,13 @@ interface MetaData {
 	datetime: string;
 }
 
-export interface PlantIDResponse {
+export interface PlantIDIdentificationResponse {
 	id: number;
 	custom_id: null | string;
 	meta_data: MetaData;
 	uploaded_datetime: number;
 	finished_datetime: number;
-	images: Image[];
+	images: Image[] | null;
 	suggestions: Suggestion[];
 	modifiers: string[];
 	secret: string;
@@ -113,4 +113,53 @@ export interface PlantIDResponse {
 	feedback: string | null;
 	is_plant_probability: number;
 	is_plant: boolean;
+}
+
+export interface Disease {
+	entity_id: number;
+	name: string;
+	probability: number;
+	redundant: boolean | null;
+	similar_images: SimilarImage[] | null;
+	disease_details: DiseaseDetails;
+}
+
+export interface Treatment {
+	biological: string[] | null;
+	prevention: string[] | null;
+	chemical: string[] | null;
+}
+
+export interface DiseaseDetails {
+	local_name: string | null;
+	description: string;
+	treatment: Treatment | null;
+	classification: string[];
+	common_names: string[];
+	cause: string | null;
+	language: string | null;
+	url: string | null;
+}
+
+export interface HealthAssessment {
+	is_healthy_probability: number;
+	is_healthy: boolean;
+	diseases: Disease[];
+}
+
+export interface PlantIDHealthResponse {
+	id: number;
+	custom_id: null | string;
+	meta_data: MetaData;
+	uploaded_datetime: number;
+	finished_datetime: number;
+	images: Image[] | null;
+	modifiers: string[];
+	secret: string;
+	fail_cause: string | null;
+	countable: boolean;
+	feedback: string | null;
+	is_plant_probability: number;
+	is_plant: boolean;
+	health_assessment: HealthAssessment;
 }

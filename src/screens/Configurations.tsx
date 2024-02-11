@@ -2,7 +2,7 @@ import React, { useContext, useEffect } from 'react';
 import { View, StyleSheet } from 'react-native';
 import { PlantContext } from '../context';
 import { List, Dialog, Portal, Text, Button, TextInput } from 'react-native-paper';
-import { storeData, removeValue } from '../storage/index';
+import { storeData, removeValue, cleanImages } from '../storage/index';
 import { ConfigurationsProps } from '../types/tab';
 
 export function Configurations({ navigation }: ConfigurationsProps) {
@@ -29,6 +29,7 @@ export function Configurations({ navigation }: ConfigurationsProps) {
 	};
 	const handleOnDelete = () => {
 		removeValue(`@${plantContext.plant.id}`);
+		cleanImages(`${plantContext.plant.id}`);
 		plantContext.resetPlant();
 		navigation.navigate('Home');
 	};

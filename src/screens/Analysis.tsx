@@ -1,52 +1,78 @@
 import React, { useContext, useState, useEffect } from 'react';
 import { ImageType } from '../types';
 import { LocationContext } from '../api/location';
-import { convertImageToBase64 } from '../utils';
+import { useTheme } from 'react-native-paper';
+import { convertHealthAssessmentToPortugueseBrasilian, convertDate } from '../utils';
 import { plantHealth } from '../api/plant_id';
 import { CameraOrGallery } from '../components/CameraOrGallery';
 import { HealthAssessment } from '../api/plant_id/types';
-import { Avatar, Card, Chip, HelperText, List, Text } from 'react-native-paper';
-import { ScrollView, View, StyleSheet } from 'react-native';
+import { ActivityIndicator, Card, Chip, HelperText, List, Text, Avatar } from 'react-native-paper';
+import { ScrollView, View, StyleSheet, Dimensions, Image } from 'react-native';
 import { Treatment } from '../api/plant_id/types';
 import { AntDesign } from '@expo/vector-icons';
 import { updateDiseaseCurrentMetricsFromAnalysis } from '../utils/currentMetrics';
 import { PlantContext } from '../context';
-import { getOne } from '../storage';
+import { getImages, getOne, storeImage } from '../storage';
+import Carousel from 'react-native-reanimated-carousel';
 
 export function Analysis() {
 	const [images, setImages] = useState<ImageType[]>([]);
-	const [buttonOnHold, setButtonOnHold] = React.useState<boolean>(false);
-	const [visibleAlert, setVisibleAlert] = React.useState(false);
-	const [errorMessage, setErrorMessage] = React.useState('');
+	const [buttonOnHold, setButtonOnHold] = useState<boolean>(false);
+	const [visibleAlert, setVisibleAlert] = useState(false);
+	const [errorMessage, setErrorMessage] = useState('');
 	const plantContext = useContext(PlantContext);
 	const [result, setResult] = React.useState<HealthAssessment>(null);
+	const [loading, setLoading] = useState(false);
 	const locationContext = useContext(LocationContext);
+	const theme = useTheme();
 
 	useEffect(() => {
 		const loadResult = async () => {
-			const a = `@${plantContext.plant.id}`;
-			const plant = await getOne(a);
-			setResult(plant?.current?.health_assessment);
+			setLoading(true);
+			const id = `@${plantContext.plant.id}`;
+			const plant = await getOne(id);
+			const today = convertDate(new Date());
+			const images: ImageType[] =
+				(await getImages(plantContext.plant.id)).map((i) => ({ base64: i })) || [];
+
+			console.log(`Loaded images: ${images.length}`);
+
+			if (plant?.current?.health_assessment_date) {
+				if (today == convertDate(plant?.current?.health_assessment_date)) {
+					setResult(plant?.current?.health_assessment);
+					setImages(images);
+				}
+			}
+			setLoading(false);
 		};
 		loadResult();
 	}, []);
+
+	const width = Dimensions.get('window').width;
 
 	const searchPlants = async () => {
 		if (!buttonOnHold) {
 			setButtonOnHold(true);
 			try {
-				const base64Images = await convertImageToBase64(images);
+				const base64Images = images.map((i) => i.base64);
+				await Promise.all(
+					base64Images.map(async (b64) => await storeImage(plantContext.plant.id, b64))
+				);
+
+				console.log(`urls ${JSON.stringify(images.map((i) => i.uri))}`);
+
 				const result = await plantHealth(
 					base64Images,
 					locationContext.latitude,
 					locationContext.longitude
 				);
+
 				if (result.is_plant) {
-					setResult(result.health_assessment);
-					updateDiseaseCurrentMetricsFromAnalysis(
-						plantContext.plant.id,
+					const translated_response = await convertHealthAssessmentToPortugueseBrasilian(
 						result.health_assessment
 					);
+					setResult(translated_response);
+					updateDiseaseCurrentMetricsFromAnalysis(plantContext.plant.id, translated_response);
 				} else {
 					throw new Error('Nenhuma planta foi encontrada');
 				}
@@ -62,7 +88,9 @@ export function Analysis() {
 
 	return (
 		<>
-			{!result ? (
+			{loading ? (
+				<ActivityIndicator animating={true} />
+			) : !result ? (
 				<CameraOrGallery
 					description="Adicione algumas fotos para podermos analisar a sua plantinha!"
 					searchPlants={searchPlants}
@@ -75,14 +103,35 @@ export function Analysis() {
 					setVisibleAlert={setVisibleAlert}
 				/>
 			) : !result.is_healthy ? (
-				<>
-					<AntDesign name="frowno" size={24} color="black" style={{ alignSelf: 'center' }} />
+				<ScrollView>
+					<Carousel
+						pagingEnabled={true}
+						snapEnabled={true}
+						mode={'horizontal-stack'}
+						modeConfig={{
+							snapDirection: 'left',
+						}}
+						loop={true}
+						width={width}
+						height={120}
+						data={images}
+						renderItem={({ item }) => {
+							const uri = `data:image/jpg;base64,${item.base64}`;
+							return <Image source={{ uri: uri }} style={styles.image} />;
+						}}
+					/>
+					<AntDesign
+						name="frowno"
+						size={24}
+						color={theme.colors.onBackground}
+						style={{ alignSelf: 'center' }}
+					/>
 					<Text
-						variant="titleLarge"
+						variant="titleMedium"
 						style={{ alignSelf: 'center', textAlign: 'center', margin: 10 }}>
 						Oops! Sua plantinha não parece muito bem. Confira abaixo as possíveis causas!
 					</Text>
-					<ScrollView>
+					<View>
 						<List.AccordionGroup>
 							{result.diseases.map((disease) => (
 								<List.Accordion
@@ -102,8 +151,8 @@ export function Analysis() {
 								</List.Accordion>
 							))}
 						</List.AccordionGroup>
-					</ScrollView>
-				</>
+					</View>
+				</ScrollView>
 			) : (
 				<Text> Parabens sua planta ta bem</Text>
 			)}
@@ -125,6 +174,10 @@ const DescriptionSection = ({ description }: { description: string }) => {
 };
 
 const ListPossibilities = ({ name, possibilities }: { name: string; possibilities: string[] }) => {
+	if (!possibilities || possibilities.length === 0 || !Array.isArray(possibilities)) {
+		return null;
+	}
+
 	return (
 		<List.AccordionGroup>
 			<List.Accordion id={name} title={name} style={{ marginHorizontal: 20 }}>
@@ -166,7 +219,7 @@ const TreatmentSection = ({ treatment }: { treatment: Treatment }) =>
 	);
 
 const ClassificationSection = ({ classification }: { classification: string[] }) => {
-	if (!classification || classification.length === 0) {
+	if (!classification || classification.length === 0 || !Array.isArray(classification)) {
 		return null;
 	}
 
@@ -176,7 +229,7 @@ const ClassificationSection = ({ classification }: { classification: string[] })
 				Classificação
 			</Text>
 			<View style={styles.chipsContainer}>
-				{classification.map((cls) => (
+				{classification?.map((cls) => (
 					<Chip key={cls} style={styles.chip}>
 						{cls}
 					</Chip>
@@ -187,7 +240,7 @@ const ClassificationSection = ({ classification }: { classification: string[] })
 };
 
 const CommonNamesSection = ({ commonNames }: { commonNames: string[] }) => {
-	if (!commonNames || commonNames.length === 0) {
+	if (!commonNames || commonNames.length === 0 || !Array.isArray(commonNames)) {
 		return null;
 	}
 
@@ -219,8 +272,9 @@ const styles = StyleSheet.create({
 		margin: 4,
 	},
 	image: {
-		width: '100%',
-		height: 200,
+		width: '40%',
+		height: 100,
 		borderRadius: 10,
+		alignSelf: 'center',
 	},
 });

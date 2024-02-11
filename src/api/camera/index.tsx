@@ -3,9 +3,10 @@ import uuid from 'react-native-uuid';
 import { ImageType } from '../../types';
 
 export const getImages = async (method: 'camera' | 'gallery'): Promise<ImageType> => {
-	const options = {
+	const options: ImagePicker.ImagePickerOptions = {
 		mediaTypes: ImagePicker.MediaTypeOptions.Images,
 		allowsEditing: false,
+		base64: true,
 	};
 
 	let result: ImagePicker.ImagePickerResult = null;
@@ -20,6 +21,7 @@ export const getImages = async (method: 'camera' | 'gallery'): Promise<ImageType
 		return {
 			id: result.assets[0].assetId ? result.assets[0].assetId : uuid.v4().toString(),
 			uri: result.assets[0].uri,
+			base64: result.assets[0].base64,
 		};
 	} else {
 		throw Error();

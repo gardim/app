@@ -25,6 +25,5 @@ export async function getPlant(id: number): Promise<TrefleSpeciesResponse> {
 	});
 
 	const result = await response.json();
-	console.log(result);
 	return result;
 }

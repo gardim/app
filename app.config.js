@@ -40,6 +40,8 @@ export default {
 			gardimApiUrl: process.env.GARDIM_API_URL,
 			socketUrl: process.env.SOCKET_URL,
 			enableSocket: process.env.ENABLE_SOCKET ?? true,
+			translateUrl: process.env.TRANSLATE_URL,
+			translateKey: process.env.TRANSLATE_KEY,
 			eas: {
 				projectId: '8d0a02e6-116c-4f13-bc9b-b72a6b07fc14'
 			}

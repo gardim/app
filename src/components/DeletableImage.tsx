@@ -12,9 +12,11 @@ type DeletableImageType = {
 export function DeletableImage({ image, remove }: DeletableImageType) {
 	const theme = useTheme();
 
+	const uri = image?.uri ? image.uri : `data:image/jpg;base64,${image.base64}`;
+
 	return (
 		<View style={styles(theme).container}>
-			<Image source={{ uri: image.uri }} style={styles(theme).image} />
+			<Image source={{ uri: uri }} style={styles(theme).image} />
 			<View style={{ position: 'absolute', top: 0, right: 0 }}>
 				<Badge
 					value={<Icon name="close" size={18} color="white" testID="close badge" />}

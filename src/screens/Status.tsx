@@ -7,6 +7,7 @@ import { SocketContext } from '../api/socket';
 import { luxToValue, percentageToValue, temperatureToValue } from '../utils/index';
 import { LUX, PERCENTAGE, TEMPERATURE } from '../utils/defaults';
 import { AntDesign } from '@expo/vector-icons';
+import { useTheme } from 'react-native-paper';
 import { Plant } from '../types';
 
 export function Status() {
@@ -53,6 +54,8 @@ interface WeatherCardProps {
 }
 
 const NoData = () => {
+	const theme = useTheme();
+
 	return (
 		<View
 			style={{
@@ -62,7 +65,12 @@ const NoData = () => {
 				flex: 1,
 				flexDirection: 'column',
 			}}>
-			<AntDesign name="frowno" size={24} color="black" style={{ alignSelf: 'center' }} />
+			<AntDesign
+				name="frowno"
+				size={24}
+				color={theme.colors.onBackground}
+				style={{ alignSelf: 'center' }}
+			/>
 			<Text variant="titleLarge" style={{ alignSelf: 'center', textAlign: 'center' }}>
 				Oops! Parece que você não tem nada habilitado para essa planta
 			</Text>

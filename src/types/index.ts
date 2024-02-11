@@ -30,6 +30,7 @@ export interface CurrentMetrics {
 	atmospheric_temperature?: number | null;
 	temperature?: number | null;
 	health_assessment?: HealthAssessment;
+	health_assessment_date?: Date | null;
 }
 
 export interface ProbableDiseases {
@@ -42,9 +43,14 @@ export interface AssessmentResults {
 	probable_diseases?: ProbableDiseases[] | null;
 }
 
-export interface History extends CurrentMetrics {
+export interface History {
+	light?: number | null;
+	soil_humidity?: number | null;
+	atmospheric_humidity?: number | null;
+	atmospheric_temperature?: number | null;
+	temperature?: number | null;
 	date: string | null;
-	status: Status;
+	status?: Status;
 	assessment_results?: AssessmentResults;
 }
 
@@ -57,8 +63,9 @@ export interface PlantContextType {
 }
 
 export type ImageType = {
-	id: string;
-	uri: string;
+	id?: string;
+	uri?: string;
+	base64: string;
 };
 
 export type Range = {

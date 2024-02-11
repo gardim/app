@@ -50,7 +50,6 @@ async function updatePlant(
 
 	const newPlant = callback(plant, today, status);
 
-	console.log(`New Plant to SAVE: ${JSON.stringify(newPlant)}`);
 	await storeData(newPlant);
 }
 
@@ -70,8 +69,6 @@ function updateHistoryArray(history: History[], item: History): History[] {
 		...item,
 	};
 
-	console.log(`Original: ${JSON.stringify(history)}`);
-	console.log(`New: ${JSON.stringify(shallowClone)}`);
 	return shallowClone;
 }
 
@@ -128,20 +125,31 @@ export async function updateDiseaseCurrentMetricsFromAnalysis(
 	}
 	const assessmentResults: AssessmentResults = convertHealthAssessmentToAssessmentResults(value);
 
-	const setAssessment = (plant: Plant, today: string, status: Status): Plant => {
+	const setAssessment = (plant: Plant, today: string, status?: Status): Plant => {
 		const current: CurrentMetrics = {
 			...plant.current,
 			health_assessment: value,
+			health_assessment_date: new Date(),
 		};
+
+		if (status)
+			return {
+				...plant,
+				history: updateHistoryArray(plant.history, {
+					...current,
+					date: today,
+					status: status,
+					assessment_results: assessmentResults,
+				}),
+				current: current,
+			};
 
 		return {
 			...plant,
 			history: updateHistoryArray(plant.history, {
 				...current,
 				date: today,
-				status: status,
 				assessment_results: assessmentResults,
-				health_assessment: null,
 			}),
 			current: current,
 		};

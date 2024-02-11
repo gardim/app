@@ -56,8 +56,6 @@ export function Result({ navigation, route }: ResultProps) {
 				(it) => it.id === selectedOption
 			);
 
-			console.log(JSON.stringify(plantSelected));
-
 			plant = mapToPlant(plantSelected);
 		}
 

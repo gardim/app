@@ -4,11 +4,12 @@ import { Calendar } from 'react-native-calendars';
 import { MarkedDates, DateData } from 'react-native-calendars/src/types';
 import { Positions } from 'react-native-calendars/src/expandableCalendar';
 import { PreferencesContext } from '../components/PreferencesContext';
-import { Dialog, Portal, Text, Button, HelperText, Card } from 'react-native-paper';
+import { Dialog, Portal, Text, Button, HelperText, Card, Chip, Avatar } from 'react-native-paper';
 import { PlantContext } from '../context';
 import { CombinedDarkTheme, CombinedDefaultTheme } from '../utils/theme';
 import { statusToColor } from '../utils/status';
-import { History } from '../types';
+import { History, ProbableDiseases } from '../types';
+import { useTheme } from 'react-native-paper';
 
 export default function Statistics() {
 	const [overviewVisible, setOverviewVisible] = useState(false);
@@ -31,10 +32,14 @@ export default function Statistics() {
 		history?.forEach((item) => {
 			markers[item.date] = {
 				selected: true,
+				textColor: 'red',
 				marked: false,
 				customStyles: {
 					container: {
 						backgroundColor: statusToColor(item.status),
+					},
+					text: {
+						color: 'black',
 					},
 				},
 			};
@@ -44,7 +49,8 @@ export default function Statistics() {
 
 	const showOverviewDialog = (date: DateData) => {
 		const history = plantContext.plant.history;
-		const matchingHistory = history.find((history) => history.date === date.dateString);
+		const matchingHistory = history?.find((history) => history.date === date.dateString);
+		console.log(history);
 		if (matchingHistory) {
 			setCurrentHistory(matchingHistory);
 			setOverviewVisible(true);
@@ -98,6 +104,11 @@ export default function Statistics() {
 									max={plantContext.plant.temperature_maximum}
 								/>
 							)}
+							{currentHistory?.assessment_results?.probable_diseases && (
+								<HealthCard
+									diseases={currentHistory.assessment_results?.probable_diseases}
+								/>
+							)}
 						</ScrollView>
 					</Dialog.ScrollArea>
 					<Dialog.Actions style={{ justifyContent: 'center' }}>
@@ -118,7 +129,7 @@ export default function Statistics() {
 						textSectionTitleColor: theme.colors.onBackground,
 						selectedDayBackgroundColor: 'transparent',
 						selectedDayTextColor: theme.colors.onBackground,
-						todayTextColor: theme.colors.onBackground,
+						todayTextColor: 'black',
 						todayBackgroundColor: theme.colors.primary,
 						dayTextColor: 'gray',
 						dotColor: theme.colors.primary,
@@ -136,37 +147,6 @@ export default function Statistics() {
 			</View>
 		</SafeAreaView>
 	);
-}
-
-const styles = StyleSheet.create({
-	container: {
-		flexGrow: 1,
-		padding: 8,
-		justifyContent: 'center',
-	},
-	row: {
-		flex: 0.5,
-		marginBottom: 8,
-		flexDirection: 'column',
-		justifyContent: 'center',
-		alignItems: 'center',
-		padding: 10,
-	},
-	title: {
-		textAlign: 'center',
-	},
-	subtitle: {
-		textAlign: 'center',
-		marginBottom: 20,
-	},
-});
-
-interface OverviewCardProps {
-	title: string;
-	unit: string;
-	value: number | string;
-	min: number;
-	max: number;
 }
 
 const OverviewCard = ({ title, unit, value, min, max }: OverviewCardProps) => {
@@ -189,3 +169,83 @@ const OverviewCard = ({ title, unit, value, min, max }: OverviewCardProps) => {
 		</Card>
 	);
 };
+
+const HealthCard = ({ diseases }: { diseases: ProbableDiseases[] }) => {
+	return (
+		<Card style={{ marginVertical: 10, marginHorizontal: 5, paddingVertical: 5 }}>
+			<Card.Title
+				title="Possíveis doenças"
+				titleNumberOfLines={2}
+				subtitleNumberOfLines={50}
+				subtitle={<DiseasesList diseases={diseases} />}
+			/>
+		</Card>
+	);
+};
+
+const DiseasesList = ({ diseases }: { diseases: ProbableDiseases[] }) => {
+	if (!diseases || diseases.length === 0 || !Array.isArray(diseases)) {
+		return null;
+	}
+
+	return (
+		<>
+			<View style={styles.chipsContainer}>
+				{diseases.map((disease) => {
+					if (disease.probability > 0.7) {
+						return (
+							<Chip
+								key={disease.name}
+								style={styles.chip}
+								textStyle={{ fontSize: 10 }}
+								avatar={<Avatar.Text size={20} label={disease.probability.toFixed(2)} />}>
+								{disease.name}
+							</Chip>
+						);
+					}
+				})}
+			</View>
+		</>
+	);
+};
+
+const styles = StyleSheet.create({
+	container: {
+		flexGrow: 1,
+		padding: 8,
+		justifyContent: 'center',
+	},
+	row: {
+		flex: 0.5,
+		marginBottom: 8,
+		flexDirection: 'column',
+		justifyContent: 'center',
+		alignItems: 'center',
+		padding: 10,
+	},
+	title: {
+		textAlign: 'center',
+	},
+	subtitle: {
+		textAlign: 'center',
+		marginBottom: 20,
+	},
+	chipsContainer: {
+		flexDirection: 'row',
+		flexWrap: 'wrap',
+		marginTop: 8,
+		justifyContent: 'flex-start',
+		marginHorizontal: 10,
+	},
+	chip: {
+		margin: 2,
+	},
+});
+
+interface OverviewCardProps {
+	title: string;
+	unit: string;
+	value: number | string;
+	min: number;
+	max: number;
+}

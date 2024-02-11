@@ -1,7 +1,8 @@
 /* eslint-disable indent */
-import { HealthAssessment } from '../api/plant_id/types';
+import { Disease, HealthAssessment } from '../api/plant_id/types';
 import { AssessmentResults, ImageType, ProbableDiseases, Range } from '../types';
 import { TEMPERATURE } from './defaults';
+import { translate } from '../api/translate';
 
 export function convertScale(num: number): number {
 	switch (num) {
@@ -94,4 +95,53 @@ export function convertHealthAssessmentToAssessmentResults(
 	};
 
 	return result;
+}
+
+export async function convertHealthAssessmentToPortugueseBrasilian(
+	health_assessment: HealthAssessment
+): Promise<HealthAssessment> {
+	const translateMessages = async (text: string) => {
+		return await translate(text, {
+			tld: 'en',
+			to: 'pt',
+		});
+	};
+	const diseases = await Promise.all(
+		health_assessment?.diseases.map(async (disease) => {
+			return await mapStringElements(disease, translateMessages);
+		})
+	);
+	const health_assessment_result = { ...health_assessment, diseases };
+	return health_assessment_result;
+}
+
+async function mapStringElements(
+	obj: Disease,
+	callback: (str: string) => Promise<string>
+): Promise<Disease> {
+	const newObj: Disease = { ...obj };
+
+	for (const key in newObj) {
+		const value = newObj[key];
+
+		if (typeof value === 'string') {
+			newObj[key] = await callback(value);
+		} else if (Array.isArray(value)) {
+			newObj[key] = await Promise.all(
+				value.map(async (item) => {
+					if (typeof item === 'string') {
+						return await callback(item);
+					} else if (typeof item === 'object' && item !== null) {
+						return await mapStringElements(item, callback);
+					} else {
+						return item;
+					}
+				})
+			);
+		} else if (typeof value === 'object' && value !== null) {
+			newObj[key] = await mapStringElements(value, callback);
+		}
+	}
+
+	return newObj;
 }

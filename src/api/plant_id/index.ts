@@ -16,7 +16,7 @@ export async function identifyPlant(
 	latitude?: string,
 	longitude?: string
 ): Promise<PlantIDResponse> {
-	const { plantIdApiKey, plantIdApiUrl } = Constants.manifest.extra;
+	const { plantIdApiKey, plantIdApiUrl } = Constants;
 
 	const base64Images: string[] = await Promise.all(
 		images.map(async (image: ImageType) => {

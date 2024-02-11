@@ -20,7 +20,6 @@ type NotificationResponse = {
 	cancelNotifications: () => void;
 	sendOneTimeWateringNotification: (plant: Plant) => void;
 	toggleNotifications: () => void;
-	notificationStatus: boolean;
 	hasScheduledNotifications: boolean;
 };
 
@@ -29,7 +28,6 @@ export const NotificationsContext = createContext<NotificationResponse>({
 	cancelNotifications: null,
 	sendOneTimeWateringNotification: null,
 	toggleNotifications: null,
-	notificationStatus: null,
 	hasScheduledNotifications: null,
 });
 
@@ -38,7 +36,6 @@ interface NotificationProviderProps {
 }
 
 export function NotificationsProvider({ children }: NotificationProviderProps) {
-	const [notificationStatus, setNotificationStatus] = useState(false);
 	const [hasScheduledNotifications, setHasScheduledNotifications] = useState(false);
 	const [plants, setPlants] = useState([]);
 
@@ -66,7 +63,6 @@ export function NotificationsProvider({ children }: NotificationProviderProps) {
 				console.log('Failed to get push token for push notification!');
 				return;
 			}
-			setNotificationStatus(true);
 		} else {
 			console.log('Must use physical device for Push Notifications');
 		}
@@ -82,14 +78,14 @@ export function NotificationsProvider({ children }: NotificationProviderProps) {
 	}
 
 	async function checkScheduledNotifications() {
-		if (notificationStatus) {
+		if (Platform.OS !== 'web') {
 			const scheduledNotifications = await Notifications.getAllScheduledNotificationsAsync();
 			setHasScheduledNotifications(scheduledNotifications.length > 0);
 		}
 	}
 
 	const scheduleWateringNotifications = async () => {
-		if (notificationStatus) {
+		if (Platform.OS !== 'web') {
 			plants.forEach((it: [string, string]) => {
 				const plant = JSON.parse(it[1]) as Plant;
 				const content: NotificationContentInput = {
@@ -102,6 +98,7 @@ export function NotificationsProvider({ children }: NotificationProviderProps) {
 					seconds: rangeToSeconds(plant.soil_humidity_minimum),
 					repeats: true,
 				};
+
 				Notifications.scheduleNotificationAsync({ content, trigger });
 			});
 			setHasScheduledNotifications(true);
@@ -109,7 +106,7 @@ export function NotificationsProvider({ children }: NotificationProviderProps) {
 	};
 
 	const sendOneTimeWateringNotification = async (plant: Plant) => {
-		if (notificationStatus) {
+		if (Platform.OS !== 'web') {
 			const content: NotificationContentInput = {
 				title: `${plant.name} está precisando de sua atenção!`,
 				body: 'Dê água à sua plantinha!',
@@ -130,7 +127,7 @@ export function NotificationsProvider({ children }: NotificationProviderProps) {
 	};
 
 	const cancelNotifications = () => {
-		if (notificationStatus) {
+		if (Platform.OS !== 'web') {
 			Notifications.cancelAllScheduledNotificationsAsync();
 			setHasScheduledNotifications(false);
 		}
@@ -141,7 +138,6 @@ export function NotificationsProvider({ children }: NotificationProviderProps) {
 			scheduleWateringNotifications,
 			cancelNotifications,
 			sendOneTimeWateringNotification,
-			notificationStatus,
 			hasScheduledNotifications,
 			toggleNotifications,
 		};
@@ -149,7 +145,6 @@ export function NotificationsProvider({ children }: NotificationProviderProps) {
 		scheduleWateringNotifications,
 		cancelNotifications,
 		sendOneTimeWateringNotification,
-		notificationStatus,
 		hasScheduledNotifications,
 		toggleNotifications,
 	]);

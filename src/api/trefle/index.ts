@@ -2,7 +2,7 @@ import Constants from 'expo-constants';
 import { TreflePlantSearchResponse, TrefleSpeciesResponse } from './types';
 
 export async function identifyPlant(query: string[]): Promise<TreflePlantSearchResponse> {
-	const { gardimApiUrl } = Constants.manifest.extra;
+	const { gardimApiUrl } = Constants;
 	const response = await fetch(`${gardimApiUrl}/.netlify/functions/api/trefle`, {
 		method: 'POST',
 		headers: {
@@ -16,7 +16,7 @@ export async function identifyPlant(query: string[]): Promise<TreflePlantSearchR
 }
 
 export async function getPlant(id: number): Promise<TrefleSpeciesResponse> {
-	const { gardimApiUrl } = Constants.manifest.extra;
+	const { gardimApiUrl } = Constants;
 	const response = await fetch(`${gardimApiUrl}/.netlify/functions/api/trefle?id=${id}`, {
 		method: 'GET',
 		headers: {

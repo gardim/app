@@ -69,6 +69,7 @@
     "eslint": "^8.34.0",
     "eslint-plugin-react": "^7.32.2",
     "gh-pages": "^6.1.1",
+    "patch-package": "^8.0.0",
     "prettier": "^3.2.5",
     "webpack": "^5.0.0"
   },

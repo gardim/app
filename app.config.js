@@ -5,7 +5,6 @@ export default {
 		name: 'gardim',
 		slug: 'gardim',
 		version: '1.0.0',
-		entryPoint: './src/App.tsx',
 		orientation: 'portrait',
 		icon: './assets/icon.png',
 		userInterfaceStyle: 'light',

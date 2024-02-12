@@ -1,4 +1,5 @@
-import React from 'react';
+import * as React from 'react';
+
 import { View, StyleSheet } from 'react-native';
 import { Text, FAB } from 'react-native-paper';
 import { IdentificationMethodProps } from '../types/stack';

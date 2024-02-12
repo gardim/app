@@ -1,7 +1,7 @@
 import 'react-native-gesture-handler';
 
 import { registerRootComponent } from 'expo';
-import React from 'react';
+import * as React from 'react';
 import { Provider as PaperProvider } from 'react-native-paper';
 
 import { PreferencesContext } from './components/PreferencesContext';
@@ -10,7 +10,6 @@ import { CombinedDarkTheme, CombinedDefaultTheme } from './utils/theme';
 import { StatusBar } from 'react-native';
 import { PlantProvider } from './context';
 import { SocketProvider } from './api/socket';
-import { WeatherProvider } from './api/weatherstack';
 import LocationProvider from './api/location';
 import { NotificationsProvider } from './api/notification';
 
@@ -38,14 +37,10 @@ function App() {
 					<LocationProvider>
 						<PlantProvider>
 							<SocketProvider>
-								<WeatherProvider>
-									<NotificationsProvider>
-										<StatusBar
-											barStyle={isThemeDark ? 'light-content' : 'dark-content'}
-										/>
-										<RootNavigation theme={theme} />
-									</NotificationsProvider>
-								</WeatherProvider>
+								<NotificationsProvider>
+									<StatusBar barStyle={isThemeDark ? 'light-content' : 'dark-content'} />
+									<RootNavigation theme={theme} />
+								</NotificationsProvider>
 							</SocketProvider>
 						</PlantProvider>
 					</LocationProvider>

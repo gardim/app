@@ -1,5 +1,6 @@
-import React, { createContext, useState, useEffect, ReactNode, useMemo } from 'react';
-import * as Location from 'expo-location';
+import { createContext, useState, useEffect, ReactNode, useMemo } from 'react';
+import * as React from 'react';
+import { requestForegroundPermissionsAsync, getCurrentPositionAsync } from 'expo-location';
 
 type Location = {
 	latitude: string;
@@ -23,13 +24,13 @@ const LocationProvider = ({ children }: LocationProviderProps) => {
 
 	useEffect(() => {
 		(async () => {
-			const { status } = await Location.requestForegroundPermissionsAsync();
+			const { status } = await requestForegroundPermissionsAsync();
 			if (status !== 'granted') {
 				console.log('Permission to access location was denied');
 				return;
 			}
 			setGranted(true);
-			const location = await Location.getCurrentPositionAsync({});
+			const location = await getCurrentPositionAsync({});
 			setLocation(location);
 		})();
 	}, []);

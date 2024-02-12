@@ -1,4 +1,5 @@
-import React, { useContext } from 'react';
+import { useContext } from 'react';
+import * as React from 'react';
 import { View, ScrollView } from 'react-native';
 import { Text, Card, Avatar, ActivityIndicator } from 'react-native-paper';
 import { LinearGaugeChart } from '../components/LinearGaugeChart';

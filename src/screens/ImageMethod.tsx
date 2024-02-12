@@ -1,5 +1,6 @@
 import * as ImagePicker from 'expo-image-picker';
-import React, { useState, useContext } from 'react';
+import { useState, useContext } from 'react';
+import * as React from 'react';
 import { StyleSheet, View, Dimensions } from 'react-native';
 import { ImageMethodProps, ImageType } from '../types/stack';
 import { DeletableImage } from '../components/DeletableImage';

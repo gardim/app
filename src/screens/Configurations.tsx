@@ -1,4 +1,5 @@
-import React, { useContext, useEffect } from 'react';
+import { useContext, useEffect } from 'react';
+import * as React from 'react';
 import { View, StyleSheet } from 'react-native';
 import { PlantContext } from '../context';
 import { List, Dialog, Portal, Text, Button, TextInput } from 'react-native-paper';

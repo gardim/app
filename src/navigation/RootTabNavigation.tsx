@@ -1,6 +1,7 @@
 import { Feather, Fontisto } from '@expo/vector-icons';
-import { createMaterialBottomTabNavigator } from '@react-navigation/material-bottom-tabs';
-import React, { useLayoutEffect, useContext } from 'react';
+import { createMaterialBottomTabNavigator } from 'react-native-paper/react-navigation';
+import { useLayoutEffect, useContext } from 'react';
+import * as React from 'react';
 import { useTheme } from 'react-native-paper';
 import { Status } from '../screens/Status';
 import { PlantContext } from '../context';

@@ -1,4 +1,5 @@
-import React, { useContext } from 'react';
+import { useContext } from 'react';
+import * as React from 'react';
 import { StyleSheet, View } from 'react-native';
 import { Text, TextInput, FAB } from 'react-native-paper';
 import { NameProps } from '../types/stack';

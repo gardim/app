@@ -1,8 +1,8 @@
-import React, { createContext, useEffect, useState, ReactNode, useMemo, useContext } from 'react';
+import { createContext, useEffect, useState, ReactNode, useMemo, useContext } from 'react';
+import * as React from 'react';
 import io from 'socket.io-client';
 import Constants from 'expo-constants';
 import { SocketPayload } from './types';
-import uuid from 'react-native-uuid';
 import { PlantContext } from '../../context';
 
 type SocketResponse = {
@@ -25,10 +25,10 @@ export const SocketProvider = ({ children }: SocketProviderProps) => {
 	const [soilValue, setSoilValue] = useState<number>(null);
 	const [luxValue, setLuxValue] = useState<number>(null);
 	const [code, setCode] = useState<string>(null);
-	const { socketUrl, enableSocket } = Constants.manifest.extra;
+	const { socketUrl, enableSocket } = Constants;
 	const plantContext = useContext(PlantContext);
 
-	const userId = uuid.v4();
+	const userId = '1';
 
 	const socket =
 		enableSocket != 'false'

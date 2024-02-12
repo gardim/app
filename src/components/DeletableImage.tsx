@@ -1,4 +1,4 @@
-import React from 'react';
+import * as React from 'react';
 import { View, StyleSheet, Image } from 'react-native';
 import { ImageType } from '../types';
 import { Badge, Icon } from 'react-native-elements';

@@ -1,6 +1,6 @@
 import { DrawerNavigationProp } from '@react-navigation/drawer';
 import { StackHeaderProps } from '@react-navigation/stack';
-import React from 'react';
+import * as React from 'react';
 import { Platform } from 'react-native';
 import { useTheme, Appbar, Menu } from 'react-native-paper';
 

@@ -1,10 +1,11 @@
-import React, { createContext, useEffect, useState, ReactNode, useMemo, useContext } from 'react';
+import { createContext, useEffect, useState, ReactNode, useMemo, useContext } from 'react';
+import * as React from 'react';
 import Constants from 'expo-constants';
 import { WeatherstackResponse } from './types';
 import { LocationContext } from '../location';
 
 async function getWeather(latitude: string, longitude: string): Promise<WeatherstackResponse> {
-	const { gardimApiUrl } = Constants.manifest.extra;
+	const { gardimApiUrl } = Constants;
 	const response = await fetch(`${gardimApiUrl}/.netlify/functions/api/weather`, {
 		method: 'POST',
 		headers: {

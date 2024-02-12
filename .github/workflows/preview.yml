@@ -5,23 +5,22 @@ jobs:
     if: contains(github.actor, 'dependabot') == false
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v2
+      - name: ⚙️ Set up repository
+        uses: actions/checkout@v4.1.1
         with:
           fetch-depth: 0
           token: ${{ secrets.GITHUB_TOKEN }}
 
-      - name: ⚙️ Set up repository
-        uses: actions/checkout@v2
-
       - name: ❇️ Setup Node.js environment
-        uses: actions/setup-node@v3.6.0
+        uses: actions/setup-node@v4.0.2
         with:
-          node-version: 16.x
+          node-version: 18.x
+          cache: yarn
 
       - name: 🔷 Set up Expo
-        uses: expo/expo-github-action@v7
+        uses: expo/expo-github-action@v8
         with:
-          expo-version: latest
+          eas-version: latest
           token: ${{ secrets.EXPO_TOKEN }}
 
       - name: 📦 Install dependencies
@@ -34,14 +33,7 @@ jobs:
           echo "GARDIM_API_URL=${{ secrets.GARDIM_API_URL }}" >> $GITHUB_ENV
           echo "SOCKET_URL=${{ secrets.SOCKET_URL }}" >> $GITHUB_ENV
 
-      - name: 🚀 Publish to Expo & create a QR code
-        uses: expo/expo-preview-action@v1
+      - name: 🚀 Create preview
+        uses: expo/expo-github-action/preview@v8
         with:
-          channel: pr-${{ github.event.number }}
-        id: preview
-       
-
-      - name: 💬 Comment in preview
-        uses: expo/expo-github-action/preview-comment@v7
-        with:
-          channel: pr-${{ github.event.number }}
+          command: eas update --auto

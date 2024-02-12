@@ -14,11 +14,15 @@ export default {
 			backgroundColor: '#ffffff'
 		},
 		updates: {
-			fallbackToCacheTimeout: 0
+			fallbackToCacheTimeout: 0,
+			url: 'https://u.expo.dev/8d0a02e6-116c-4f13-bc9b-b72a6b07fc14'
 		},
 		assetBundlePatterns: [
 			'**/*'
 		],
+		runtimeVersion: {
+			policy: 'appVersion'
+		},
 		ios: {
 			supportsTablet: true,
 			bundleIdentifier: 'com.gardim'

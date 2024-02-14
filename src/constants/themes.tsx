@@ -1,26 +1,37 @@
-import 'react-native-gesture-handler';
-
 import {
 	DarkTheme as NavigationDarkTheme,
 	DefaultTheme as NavigationDefaultTheme,
+	Theme,
 } from '@react-navigation/native';
 import { MD3DarkTheme, MD3LightTheme, adaptNavigationTheme } from 'react-native-paper';
-
-import { darkGreenColors, lightGreenColors } from './colors';
+import { darkGreenColors, lightGreenColors } from '../utils/colors';
 
 const { LightTheme, DarkTheme } = adaptNavigationTheme({
 	reactNavigationLight: NavigationDefaultTheme,
 	reactNavigationDark: NavigationDarkTheme,
 });
 
-export const CombinedDefaultTheme = {
+const CombinedDefaultTheme: Theme = {
 	...MD3LightTheme,
 	...LightTheme,
-	...lightGreenColors,
+	colors: {
+		...LightTheme.colors,
+		...lightGreenColors.colors,
+	},
 };
 
-export const CombinedDarkTheme = {
+const CombinedDarkTheme: Theme = {
 	...MD3DarkTheme,
 	...DarkTheme,
-	...darkGreenColors,
+	colors: {
+		...DarkTheme.colors,
+		...darkGreenColors.colors,
+	},
 };
+
+const themes = {
+	light: CombinedDefaultTheme,
+	dark: CombinedDarkTheme,
+};
+
+export default themes;

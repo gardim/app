@@ -1,8 +1,6 @@
-import 'dotenv/config';
-
 export default {
 	expo: {
-		name: 'gardim',
+		name: 'Gardim',
 		slug: 'gardim',
 		version: '1.0.0',
 		orientation: 'portrait',
@@ -38,11 +36,6 @@ export default {
 			favicon: './assets/favicon.png'
 		},
 		extra: {
-			plantIdApiKey: process.env.PLANT_ID_API_KEY,
-			plantIdApiUrl: process.env.PLANT_ID_API_URL,
-			gardimApiUrl: process.env.GARDIM_API_URL,
-			socketUrl: process.env.SOCKET_URL,
-			enableSocket: process.env.ENABLE_SOCKET ?? true,
 			eas: {
 				projectId: '8d0a02e6-116c-4f13-bc9b-b72a6b07fc14'
 			}

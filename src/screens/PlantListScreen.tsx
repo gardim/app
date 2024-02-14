@@ -8,13 +8,15 @@ import { AppDispatch, RootState } from '../store';
 import Nav from '../components/Nav';
 import { MaterialCommunityIcons } from '@expo/vector-icons';
 import { SafeAreaView } from 'react-native-safe-area-context';
-import { setSelectedPlant } from '../reducers/plantsSlice';
-import { PageProps } from '../navigation/MainStackNavigation';
+import { MainStackParamList } from '../navigation/MainStackNavigation';
+import { useLinkTo } from '@react-navigation/native';
+import { StackScreenProps } from '@react-navigation/stack';
 
-type Props = PageProps<'home'>;
+type PlantListScreenProps = StackScreenProps<MainStackParamList, 'Home'>;
 
-const PlantListScreen = ({ navigation }: Props) => {
+const PlantListScreen = ({ navigation }: PlantListScreenProps) => {
 	const dispatch: AppDispatch = useDispatch();
+	const linkTo = useLinkTo();
 	const { colors } = useTheme();
 	const plants = useSelector((state: RootState) => state.plants.plants);
 
@@ -24,9 +26,8 @@ const PlantListScreen = ({ navigation }: Props) => {
 
 	const [visible, setVisible] = React.useState<boolean>(false);
 
-	const handleOnPress = (id) => {
-		dispatch(setSelectedPlant(id));
-		navigation.navigate('plant-profile');
+	const handleOnPress = (id: number) => {
+		linkTo(`/plants/${id}`);
 	};
 
 	const renderFAB = (styles) => (
@@ -59,7 +60,7 @@ const PlantListScreen = ({ navigation }: Props) => {
 					title="Minhas Plantas"
 					rightButton={
 						<MaterialCommunityIcons
-							onPress={() => navigation.navigate('notifications')}
+							onPress={() => navigation.navigate('Notifications')}
 							style={[styles.container, { right: 20 }]}
 							name="bell-outline"
 							color={colors.primary}
@@ -115,9 +116,5 @@ const styles = StyleSheet.create({
 		margin: 40,
 	},
 });
-
-Nav.defaultProps = {
-	rightButton: <View style={{ width: 1 }} />,
-};
 
 export default PlantListScreen;

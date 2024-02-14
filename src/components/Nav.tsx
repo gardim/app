@@ -1,10 +1,15 @@
-import React from 'react';
+import React, { ReactNode } from 'react';
 
-import PropTypes from 'prop-types';
 import { Dimensions, StyleSheet, View } from 'react-native';
 import { Title } from 'react-native-paper';
 
-function Nav({ title, style, rightButton }) {
+type NavProps = {
+	title: string;
+	style?: object;
+	rightButton: ReactNode;
+};
+
+function Nav({ title, style, rightButton }: NavProps) {
 	return (
 		<View style={[styles.container, style]}>
 			<View style={styles.headerContainer}>
@@ -27,15 +32,5 @@ const styles = StyleSheet.create({
 		width: Dimensions.get('window').width,
 	},
 });
-
-Nav.propTypes = {
-	title: PropTypes.string,
-	style: PropTypes.object,
-	rightButton: PropTypes.element,
-};
-
-Nav.defaultProps = {
-	rightButton: <View style={{ width: 1 }} />,
-};
 
 export default Nav;

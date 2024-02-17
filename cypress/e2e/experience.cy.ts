@@ -1,6 +1,6 @@
 /// <reference types="cypress" />
 
-import { lightGreenColors, darkGreenColors } from '../../src/utils/colors';
+import { lightGreenColors, darkGreenColors } from '../../src/constants/colors';
 type ViewportPreset =
 	| 'iphone-6'
 	| 'iphone-7'

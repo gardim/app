@@ -3,7 +3,7 @@ import { NavigationContainer } from '@react-navigation/native';
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
 import * as React from 'react';
 import { useTheme } from 'react-native-paper';
-import Plants from '../screens/PlantListScreen';
+import Plants from '../screens/MyPlantsScreen';
 
 const Tab = createBottomTabNavigator();
 

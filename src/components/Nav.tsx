@@ -1,35 +1,41 @@
-import React, { ReactNode } from 'react';
+import React from 'react';
 
-import { Dimensions, StyleSheet, View } from 'react-native';
+import { StyleSheet, View, SafeAreaView, StatusBar } from 'react-native';
 import { Title } from 'react-native-paper';
+import {} from 'react-native-safe-area-context';
+import { MaterialCommunityIcons } from '@expo/vector-icons';
+import { useLinkTo, useTheme } from '@react-navigation/native';
 
 type NavProps = {
 	title: string;
-	style?: object;
-	rightButton: ReactNode;
 };
 
-function Nav({ title, style, rightButton }: NavProps) {
+function Nav({ title }: NavProps) {
+	const linkTo = useLinkTo();
+	const { colors } = useTheme();
+
 	return (
-		<View style={[styles.container, style]}>
+		<SafeAreaView style={{ marginTop: StatusBar.currentHeight }}>
 			<View style={styles.headerContainer}>
 				<Title>{title}</Title>
+				<MaterialCommunityIcons
+					onPress={() => linkTo('/notifications')}
+					name="bell-outline"
+					color={colors.primary}
+					size={24}
+				/>
 			</View>
-			{rightButton}
-		</View>
+		</SafeAreaView>
 	);
 }
 
 const styles = StyleSheet.create({
 	headerContainer: {
-		alignItems: 'flex-start',
-		justifyContent: 'center',
+		alignItems: 'center',
+		justifyContent: 'space-between',
 		marginHorizontal: 20,
+		flexDirection: 'row',
 		marginTop: 10,
-	},
-	container: {
-		height: 50,
-		width: Dimensions.get('window').width,
 	},
 });
 

@@ -1,13 +1,14 @@
 import React from 'react';
 
 import { createMaterialBottomTabNavigator } from 'react-native-paper/react-navigation';
-import { createStackNavigator } from '@react-navigation/stack';
+import { StackHeaderProps, createStackNavigator } from '@react-navigation/stack';
 
-import PlantListScreen from '../screens/PlantListScreen';
-import HandPlant from '../svgs/HandPlant';
+import MyPlantsScreen from '../screens/MyPlantsScreen';
+import HandPlant from '../items/svgs/HandPlant';
 import NotificationsScreen from '../screens/NotificationsScreen';
 import PlantProfileScreen from '../screens/PlantProfileScreen';
-import { NavigatorScreenParams } from '@react-navigation/native';
+import { NavigatorScreenParams, useTheme } from '@react-navigation/native';
+import Nav from '../components/Nav';
 
 export type BottomTabParamList = {
 	Plants: undefined;
@@ -23,14 +24,15 @@ const Stack = createStackNavigator<MainStackParamList>();
 const Tab = createMaterialBottomTabNavigator<BottomTabParamList>();
 
 const BottomBarNavigation = () => {
+	const theme = useTheme();
 	return (
 		<>
 			<Tab.Navigator>
 				<Tab.Screen
 					name="Plants"
-					component={PlantListScreen}
+					component={MyPlantsScreen}
 					options={{
-						tabBarIcon: () => <HandPlant height={24} />,
+						tabBarIcon: () => <HandPlant height={24} color={theme.colors.text} />,
 						tabBarLabel: 'Plants',
 					}}
 				/>
@@ -42,13 +44,17 @@ const BottomBarNavigation = () => {
 const MainStackNavigation = () => {
 	return (
 		<>
-			<Stack.Navigator screenOptions={{ headerShown: false }}>
+			<Stack.Navigator
+				screenOptions={{
+					header: (props: StackHeaderProps) => <Nav title={props.route.name} />,
+				}}>
 				<Stack.Screen name="Home" component={BottomBarNavigation} />
 				<Stack.Screen
 					name="Notifications"
 					component={NotificationsScreen}
 					options={{
 						presentation: 'modal',
+						headerShown: false,
 					}}
 				/>
 				<Stack.Screen
@@ -56,6 +62,7 @@ const MainStackNavigation = () => {
 					component={PlantProfileScreen}
 					options={{
 						presentation: 'modal',
+						headerShown: false,
 					}}
 				/>
 			</Stack.Navigator>

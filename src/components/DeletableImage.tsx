@@ -1,13 +1,15 @@
 import * as React from 'react';
 import { View, StyleSheet, Image } from 'react-native';
 import { ImageType } from '../types';
-import { Badge, Icon } from 'react-native-elements';
+import { Icon, withBadge } from '@rneui/themed';
 import { useTheme } from 'react-native-paper';
 
 type DeletableImageType = {
 	image: ImageType;
 	remove: (id: string) => void;
 };
+
+const BadgedIcon = withBadge(15)(Icon);
 
 export function DeletableImage({ image, remove }: DeletableImageType) {
 	const theme = useTheme();
@@ -16,8 +18,9 @@ export function DeletableImage({ image, remove }: DeletableImageType) {
 		<View style={styles(theme).container}>
 			<Image source={{ uri: image.uri }} style={styles(theme).image} />
 			<View style={{ position: 'absolute', top: 0, right: 0 }}>
-				<Badge
-					value={<Icon name="close" size={18} color="white" testID="close badge" />}
+				<BadgedIcon
+					type="ionicon"
+					name="ios-chatbubbles"
 					containerStyle={styles(theme).badgeContainer}
 					badgeStyle={styles(theme).badge}
 					onPress={() => remove(image.id)}

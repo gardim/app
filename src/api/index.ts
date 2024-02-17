@@ -1,4 +1,4 @@
-import { setData, setError } from '../reducers';
+import { setData, setError } from '../redux/reducers';
 
 const mockPlants = [];
 

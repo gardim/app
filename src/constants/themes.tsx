@@ -4,7 +4,7 @@ import {
 	Theme,
 } from '@react-navigation/native';
 import { MD3DarkTheme, MD3LightTheme, adaptNavigationTheme } from 'react-native-paper';
-import { darkGreenColors, lightGreenColors } from '../utils/colors';
+import { darkGreenColors, lightGreenColors } from './colors';
 
 const { LightTheme, DarkTheme } = adaptNavigationTheme({
 	reactNavigationLight: NavigationDefaultTheme,

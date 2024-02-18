@@ -2,7 +2,7 @@ import * as React from 'react';
 import { View } from 'react-native';
 
 import { Text, useTheme } from 'react-native-paper';
-import LeafBug from '../../items/svgs/LeafBug';
+import LeafBug from '../resources/svgs/LeafBug';
 
 export type ErrorBannerProps = {
 	message: string;

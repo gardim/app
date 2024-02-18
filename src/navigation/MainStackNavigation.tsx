@@ -4,11 +4,11 @@ import { createMaterialBottomTabNavigator } from 'react-native-paper/react-navig
 import { StackHeaderProps, createStackNavigator } from '@react-navigation/stack';
 
 import MyPlantsScreen from '../screens/MyPlantsScreen';
-import HandPlant from '../items/svgs/HandPlant';
 import NotificationsScreen from '../screens/NotificationsScreen';
 import PlantProfileScreen from '../screens/PlantProfileScreen';
 import { NavigatorScreenParams, useTheme } from '@react-navigation/native';
 import Nav from '../components/Nav';
+import HandPlant from '../components/resources/svgs/HandPlant';
 
 export type BottomTabParamList = {
 	Plants: undefined;

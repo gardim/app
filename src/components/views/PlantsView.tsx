@@ -1,13 +1,13 @@
 import * as React from 'react';
-import { Plant } from '../types';
 import { RefreshControl, View } from 'react-native';
 
-import PlantItem from '../components/elements/PlantItem';
 import { Text } from 'react-native-paper';
 import { useEffect } from 'react';
-import SkeletonList from '../components/ui/SkeletonList';
 import { FlatList } from 'react-native';
-import AddFAB from '../components/elements/AddFAB';
+import SkeletonList from '../ui/SkeletonList';
+import PlantItem from '../elements/PlantItem';
+import AddFAB from '../elements/AddFAB';
+import { Plant } from '../../types';
 
 export type PlantViewProps = {
 	plants: Plant[];

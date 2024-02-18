@@ -11,6 +11,9 @@ export default {
 			resizeMode: 'contain',
 			backgroundColor: '#ffffff'
 		},
+		plugins: [
+			'expo-localization'
+		],
 		updates: {
 			fallbackToCacheTimeout: 0,
 			url: 'https://u.expo.dev/8d0a02e6-116c-4f13-bc9b-b72a6b07fc14'

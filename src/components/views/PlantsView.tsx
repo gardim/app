@@ -8,6 +8,7 @@ import SkeletonList from '../ui/SkeletonList';
 import PlantItem from '../elements/PlantItem';
 import AddFAB from '../elements/AddFAB';
 import { Plant } from '../../types';
+import { i18n } from '../../translations';
 
 export type PlantViewProps = {
 	plants: Plant[];
@@ -38,7 +39,7 @@ const PlantsView = ({ plants, loading, refresh }: PlantViewProps) => {
 							<View style={{ alignItems: 'center' }}>
 								<AddFAB callback={() => console.log('clicked')} />
 								<Text variant="titleSmall" style={{ margin: 20 }}>
-									Adicione sua primeira planta
+									{i18n.t('Add your first plant')}
 								</Text>
 							</View>
 						)}

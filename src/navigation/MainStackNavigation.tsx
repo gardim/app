@@ -9,6 +9,7 @@ import PlantProfileScreen from '../screens/PlantProfileScreen';
 import { NavigatorScreenParams, useTheme } from '@react-navigation/native';
 import Nav from '../components/Nav';
 import HandPlant from '../components/resources/svgs/HandPlant';
+import { i18n } from '../translations';
 
 export type BottomTabParamList = {
 	Plants: undefined;
@@ -32,8 +33,8 @@ const BottomBarNavigation = () => {
 					name="Plants"
 					component={MyPlantsScreen}
 					options={{
+						tabBarLabel: i18n.t('My Plants'),
 						tabBarIcon: () => <HandPlant height={24} color={colors.text} />,
-						tabBarLabel: 'Plants',
 					}}
 				/>
 			</Tab.Navigator>
@@ -48,7 +49,10 @@ const MainStackNavigation = () => {
 				screenOptions={{
 					header: (props: StackHeaderProps) => <Nav title={props.route.name} />,
 				}}>
-				<Stack.Screen name="Home" component={BottomBarNavigation} />
+				<Stack.Screen 
+					name="Home" 
+					component={BottomBarNavigation} 
+				/>
 				<Stack.Screen
 					name="Notifications"
 					component={NotificationsScreen}

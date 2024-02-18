@@ -1,6 +1,7 @@
 import * as React from 'react';
 
 import { FAB } from 'react-native-paper';
+import { i18n } from '../../translations';
 
 type AddFABProps = {
 	absolute?: boolean;
@@ -12,7 +13,7 @@ const AddFAB = ({ absolute, callback }: AddFABProps) => {
 	return (
 		<FAB
 			icon="plus"
-			label={visible ? 'Continuar' : ''}
+			label={visible ? i18n.t('Continue') : ''}
 			onPress={callback}
 			variant="primary"
 			style={

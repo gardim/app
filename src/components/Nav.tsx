@@ -5,6 +5,7 @@ import { Title } from 'react-native-paper';
 import {} from 'react-native-safe-area-context';
 import { MaterialCommunityIcons } from '@expo/vector-icons';
 import { useLinkTo, useTheme } from '@react-navigation/native';
+import { i18n } from '../translations';
 
 type NavProps = {
 	title: string;
@@ -17,7 +18,7 @@ function Nav({ title }: NavProps) {
 	return (
 		<SafeAreaView style={{ marginTop: StatusBar.currentHeight }}>
 			<View style={styles.headerContainer}>
-				<Title>{title}</Title>
+				<Title>{i18n.t(title)}</Title>
 				<MaterialCommunityIcons
 					onPress={() => linkTo('/notifications')}
 					name="bell-outline"

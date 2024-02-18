@@ -15,7 +15,6 @@ const PlantProfileScreen = ({ route }: PlantProfileScreenProps) => {
 			<Close position="right" />
 			<View style={{ marginBottom: 10 }}>
 				<View style={styles.headerContainer}>
-					{/* <Title>{plant.name}</Title> */}
 					<Title>{route.params?.id}</Title>
 				</View>
 			</View>

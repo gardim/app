@@ -8,8 +8,7 @@ export const getAllPlants = createAsyncThunk<Plant[], void, { rejectValue: ApiEr
 	async (_, thunkAPI) => {
 		try {
 			const response = await axios.get('https://65cc2c8fdd519126b83e1843.mockapi.io/plants');
-			// const response = { data: [] };
-			// await new Promise((resolve) => setTimeout(resolve, 2000));
+
 			return response.data;
 		} catch (error) {
 			const handledError = handleApiError(error);

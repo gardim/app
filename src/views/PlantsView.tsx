@@ -1,78 +1,52 @@
 import * as React from 'react';
 import { Plant } from '../types';
-import { RefreshControl, SafeAreaView, View } from 'react-native';
-import { ScrollView } from 'react-native';
+import { RefreshControl, View } from 'react-native';
 
 import PlantItem from '../components/elements/PlantItem';
-import { FAB, Text } from 'react-native-paper';
+import { Text } from 'react-native-paper';
 import { useEffect } from 'react';
 import SkeletonList from '../components/ui/SkeletonList';
+import { FlatList } from 'react-native';
+import AddFAB from '../components/elements/AddFAB';
 
-type CustomFABProps = {
-	absolute?: boolean;
-};
-
-const CustomFAB = ({ absolute }: CustomFABProps) => {
-	const [visible, setVisible] = React.useState<boolean>(false);
-	return (
-		<FAB
-			icon="plus"
-			label={visible ? 'Continuar' : ''}
-			onPress={() => console.log('clicked')}
-			variant="primary"
-			style={
-				absolute && {
-					position: 'absolute',
-					margin: 16,
-					right: 0,
-					bottom: 0,
-				}
-			}
-			onLongPress={() => setVisible(!visible)}
-			testID="Add Plant"
-		/>
-	);
-};
-export type PlantProps = {
+export type PlantViewProps = {
 	plants: Plant[];
 	loading: boolean;
 	refresh: () => void;
 };
 
-const PlantsView = ({ plants, loading, refresh }: PlantProps) => {
+const PlantsView = ({ plants, loading, refresh }: PlantViewProps) => {
 	useEffect(() => {}, [loading]);
 
 	return (
-		<SafeAreaView style={{ flex: 1, justifyContent: 'flex-start', paddingHorizontal: 20 }}>
-			{loading || !plants ? (
+		<View style={{ flex: 1, paddingHorizontal: 20 }}>
+			{loading ? (
 				<SkeletonList />
 			) : (
 				<>
-					<ScrollView
+					<FlatList
 						contentContainerStyle={
 							plants.length == 0 && { flexGrow: 1, justifyContent: 'center' }
 						}
-						refreshControl={<RefreshControl refreshing={loading} onRefresh={refresh} />}>
-						{plants.length ? (
-							<>
-								{plants.map((plant) => (
-									<PlantItem plant={plant} key={plant.id} />
-								))}
-							</>
-						) : (
+						data={plants}
+						keyExtractor={(item) => item.id}
+						renderItem={({ item }) => <PlantItem plant={item} />}
+						refreshControl={
+							<RefreshControl enabled refreshing={loading} onRefresh={refresh} />
+						}
+						ListEmptyComponent={() => (
 							<View style={{ alignItems: 'center' }}>
-								<CustomFAB />
+								<AddFAB callback={() => console.log('clicked')} />
 								<Text variant="titleSmall" style={{ margin: 20 }}>
 									Adicione sua primeira planta
 								</Text>
 							</View>
 						)}
-					</ScrollView>
-
-					{plants.length > 0 && <CustomFAB absolute />}
+					/>
+					{plants.length > 0 && <AddFAB callback={() => console.log('clicked')} absolute />}
 				</>
 			)}
-		</SafeAreaView>
+		</View>
 	);
 };
 

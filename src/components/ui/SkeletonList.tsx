@@ -1,14 +1,15 @@
 import * as React from 'react';
 
 import SkeletonItem from '../elements/SkeletonItem';
+import { FlatList } from 'react-native';
 
 const SkeletonList = () => {
 	return (
-		<>
-			{[...Array(5)].map((_, index) => (
-				<SkeletonItem key={index} />
-			))}
-		</>
+		<FlatList
+			data={[...Array(5)]}
+			keyExtractor={(item, index) => index.toString()}
+			renderItem={({ index }) => <SkeletonItem key={index} />}
+		/>
 	);
 };
 

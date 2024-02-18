@@ -24,7 +24,7 @@ const Stack = createStackNavigator<MainStackParamList>();
 const Tab = createMaterialBottomTabNavigator<BottomTabParamList>();
 
 const BottomBarNavigation = () => {
-	const theme = useTheme();
+	const { colors } = useTheme();
 	return (
 		<>
 			<Tab.Navigator>
@@ -32,7 +32,7 @@ const BottomBarNavigation = () => {
 					name="Plants"
 					component={MyPlantsScreen}
 					options={{
-						tabBarIcon: () => <HandPlant height={24} color={theme.colors.text} />,
+						tabBarIcon: () => <HandPlant height={24} color={colors.text} />,
 						tabBarLabel: 'Plants',
 					}}
 				/>

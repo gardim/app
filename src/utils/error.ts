@@ -63,7 +63,7 @@ export const getMessageFromStatusCode = (statusCode) => {
 	if (statusCode === 404) {
 		message = 'Não encontramos o que você está procurando';
 	} else if (statusCode === 500) {
-		message = 'Aconteceu um problema';
+		message = 'Aconteceu um problema. \nPor favor, recarregue ou tente novamente mais tarde.';
 	} else {
 		console.log(`Status Code ${statusCode} is showing a generic message to the user`, {
 			method: 'getMessageFromStatusCode',

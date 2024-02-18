@@ -5,7 +5,8 @@ import { useDispatch, useSelector } from 'react-redux';
 import { AppDispatch, RootState } from '../redux/store';
 import { getAllPlants } from '../redux/slices/actions';
 import PlantsView from '../views/PlantsView';
-import { Text } from 'react-native-paper';
+import ErrorBanner from '../components/ui/ErrorBanner';
+import { getMessageFromStatusCode } from '../utils/error';
 
 const MyPlantsScreen = () => {
 	const dispatch: AppDispatch = useDispatch();
@@ -15,10 +16,8 @@ const MyPlantsScreen = () => {
 		dispatch(getAllPlants());
 	}, []);
 
-	if (error && error?.status === 404) {
-		return <Text>erro</Text>;
-	} else if (error) {
-		return <Text>erro</Text>;
+	if (error) {
+		return <ErrorBanner message={getMessageFromStatusCode(error?.status || 500)} />;
 	}
 
 	return <PlantsView plants={plants} loading={loading} refresh={() => dispatch(getAllPlants())} />;

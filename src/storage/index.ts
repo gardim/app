@@ -1,5 +1,6 @@
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import { Plant } from '../types';
+import { User } from '@react-native-google-signin/google-signin';
 
 export const storeData = async (value: Plant) => {
 	try {
@@ -42,5 +43,20 @@ export const removeValue = async (key: string) => {
 		await AsyncStorage.removeItem(key);
 	} catch (e) {
 		throw new Error('Ocorreu um erro ao remover o objeto');
+	}
+};
+
+export const getUser = async () => {
+	const data = await AsyncStorage.getItem('@user');
+	if (!data) return null;
+	return JSON.parse(data);
+};
+
+export const storeUser = async (value: User) => {
+	try {
+		const jsonValue = JSON.stringify(value);
+		await AsyncStorage.setItem('@user', jsonValue);
+	} catch (e) {
+		throw new Error('Ocorreu um erro ao salvar o objeto');
 	}
 };

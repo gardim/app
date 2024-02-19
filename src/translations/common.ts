@@ -7,7 +7,7 @@ const common = {
 		Home: 'Início',
 		'Plant Profile': 'Perfil da Planta',
 		Login: 'Login',
-		'Login with Google': 'Login com Google'
+		'Login with Google': 'Login com Google',
 	},
 	en: {
 		Notifications: 'Notifications',
@@ -17,7 +17,7 @@ const common = {
 		Home: 'Home',
 		'Plant Profile': 'Plant Profile',
 		Login: 'Login',
-		'Login with Google': 'Login with Google'
+		'Login with Google': 'Login with Google',
 	},
 };
 

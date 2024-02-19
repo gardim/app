@@ -34,3 +34,10 @@ export type Range = {
 	min: number;
 	max: number;
 };
+
+export type User = {
+	name: string;
+	picture: string;
+	email: string;
+	verifiedEmail: boolean;
+};

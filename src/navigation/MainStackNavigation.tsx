@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useContext } from 'react';
 
 import { createMaterialBottomTabNavigator } from 'react-native-paper/react-navigation';
 import { StackHeaderProps, createStackNavigator } from '@react-navigation/stack';
@@ -11,6 +11,7 @@ import Nav from '../components/ui/Nav';
 import HandPlant from '../components/resources/svgs/HandPlant';
 import { i18n } from '../translations';
 import LoginScreen from '../screens/LoginScreen';
+import { AuthContext } from '../contexts/auth';
 
 export type BottomTabParamList = {
 	Plants: undefined;
@@ -20,7 +21,7 @@ export type MainStackParamList = {
 	Home: NavigatorScreenParams<BottomTabParamList>;
 	Notifications: undefined;
 	'Plant Profile': { id: number };
-	Login: undefined;
+	Login: StackHeaderProps;
 };
 
 const Stack = createStackNavigator<MainStackParamList>();
@@ -45,7 +46,7 @@ const BottomBarNavigation = () => {
 };
 
 const MainStackNavigation = () => {
-	const isSignedIn = false;
+	const { isLoggedIn } = useContext(AuthContext);
 
 	return (
 		<>
@@ -53,7 +54,7 @@ const MainStackNavigation = () => {
 				screenOptions={{
 					header: (props: StackHeaderProps) => <Nav title={props.route.name} />,
 				}}>
-				{isSignedIn ? (
+				{isLoggedIn ? (
 					<>
 						<Stack.Screen name="Home" component={BottomBarNavigation} />
 						<Stack.Screen

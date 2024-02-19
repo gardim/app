@@ -5,6 +5,7 @@ import themes from './constants/themes';
 import { Provider } from 'react-redux';
 import store from './redux/store';
 import Navigation from './navigation';
+import AuthenticationProvider from './contexts/auth';
 
 const Main = () => {
 	const theme = 'light';
@@ -12,9 +13,11 @@ const Main = () => {
 
 	return (
 		<PaperProvider theme={_theme}>
-			<Provider store={store}>
-				<Navigation theme={_theme} />
-			</Provider>
+			<AuthenticationProvider>
+				<Provider store={store}>
+					<Navigation theme={_theme} />
+				</Provider>
+			</AuthenticationProvider>
 		</PaperProvider>
 	);
 };

@@ -13,6 +13,7 @@ export default {
 		},
 		plugins: [
 			'expo-localization',
+			'expo-router'
 		],
 		updates: {
 			fallbackToCacheTimeout: 0,
@@ -36,6 +37,7 @@ export default {
 			package: 'com.gardim'
 		},
 		web: {
+			bundler: 'metro',
 			favicon: './assets/favicon.png'
 		},
 		extra: {

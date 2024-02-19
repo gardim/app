@@ -4,9 +4,12 @@ import { Button, useTheme } from 'react-native-paper';
 import Logo from '../resources/svgs/Logo';
 import { i18n } from '../../translations';
 
-// export type LoginViewProps = {};
+export type LoginViewProps = {
+	disabled: boolean;
+	handleLogin: () => void;
+};
 
-const LoginView = () => {
+const LoginView = ({ disabled, handleLogin }: LoginViewProps) => {
 	const { colors } = useTheme();
 	return (
 		<SafeAreaView
@@ -22,7 +25,7 @@ const LoginView = () => {
 				style={{ fontFamily: 'Baloo2', fontSize: 52, alignSelf: 'center' }}>
 				Gardim
 			</Text>
-			<Button icon="google" mode="contained" onPress={() => console.log('Pressed')}>
+			<Button icon="google" mode="contained" disabled={disabled} onPress={handleLogin}>
 				{i18n.t('Login with Google')}
 			</Button>
 		</SafeAreaView>

@@ -2,7 +2,7 @@ import * as React from 'react';
 import { View, StyleSheet } from 'react-native';
 import { Title } from 'react-native-paper';
 import { SafeAreaView } from 'react-native-safe-area-context';
-import Close from '../components/Close';
+import Close from '../components/elements/Close';
 import { i18n } from '../translations';
 
 const NotificationsScreen = () => {

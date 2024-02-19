@@ -3,7 +3,7 @@ import * as React from 'react';
 import { useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { AppDispatch, RootState } from '../redux/store';
-import { getAllPlants } from '../redux/slices/actions';
+import { getAllPlants } from '../redux/actions';
 import ErrorBanner from '../components/ui/ErrorBanner';
 import { getMessageFromStatusCode } from '../utils/error';
 import PlantsView from '../components/views/PlantsView';

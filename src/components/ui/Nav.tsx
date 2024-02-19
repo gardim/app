@@ -5,7 +5,7 @@ import { Title } from 'react-native-paper';
 import {} from 'react-native-safe-area-context';
 import { MaterialCommunityIcons } from '@expo/vector-icons';
 import { useLinkTo, useTheme } from '@react-navigation/native';
-import { i18n } from '../translations';
+import { i18n } from '../../translations';
 
 type NavProps = {
 	title: string;

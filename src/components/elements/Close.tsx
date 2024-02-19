@@ -4,7 +4,7 @@ import { MaterialCommunityIcons } from '@expo/vector-icons';
 import { useNavigation } from '@react-navigation/core';
 import { StyleSheet, View } from 'react-native';
 import { useTheme } from 'react-native-paper';
-import PlatformUtils from '../utils/platform';
+import PlatformUtils from '../../utils/platform';
 
 type CloseProps = {
 	position: 'left' | 'right';

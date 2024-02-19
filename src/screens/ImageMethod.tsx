@@ -3,7 +3,7 @@ import { useState, useContext } from 'react';
 import * as React from 'react';
 import { StyleSheet, View, Dimensions } from 'react-native';
 import { ImageMethodProps, ImageType } from '../types/stack';
-import { DeletableImage } from '../components/DeletableImage';
+import { DeletableImage } from '../components/elements/DeletableImage';
 import { FAB, Text, Snackbar } from 'react-native-paper';
 import Carousel from 'react-native-reanimated-carousel';
 import { identifyPlant } from '../api/plant_id';

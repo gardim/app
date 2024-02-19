@@ -13,7 +13,7 @@ const AddFAB = ({ absolute, callback }: AddFABProps) => {
 	return (
 		<FAB
 			icon="plus"
-			label={visible ? i18n.t('Continue') : ''}
+			label={visible ? i18n.t('Add') : ''}
 			onPress={callback}
 			variant="primary"
 			style={

@@ -13,7 +13,7 @@ const Main = () => {
 	return (
 		<PaperProvider theme={_theme}>
 			<Provider store={store}>
-				<Navigation theme={_theme} session={true} />
+				<Navigation theme={_theme} />
 			</Provider>
 		</PaperProvider>
 	);

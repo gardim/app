@@ -16,19 +16,21 @@ const linking: LinkingOptions<MainStackParamList> = {
 			'Plant Profile': {
 				path: 'plants/:id',
 			},
+			Login: {
+				path: 'login',
+			},
 		},
 	},
 };
 
 type NavigationProps = {
 	theme: Theme;
-	session: boolean;
 };
 
-const Navigation = ({ theme, session }: NavigationProps) => {
+const Navigation = ({ theme }: NavigationProps) => {
 	return (
 		<NavigationContainer linking={linking} theme={theme}>
-			{session ? <MainStackNavigation /> : <></>}
+			<MainStackNavigation />
 		</NavigationContainer>
 	);
 };

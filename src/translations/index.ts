@@ -11,7 +11,6 @@ const Translations = {
 	},
 };
 
-
 export const i18n = new I18n(Translations);
 i18n.locale = Localization.getLocales()[0].languageCode;
 i18n.enableFallback = true;

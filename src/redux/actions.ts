@@ -1,7 +1,7 @@
 import { createAsyncThunk } from '@reduxjs/toolkit';
 import axios from 'axios';
-import { ApiError, handleApiError } from '../../utils/error';
-import { Plant } from '../../types';
+import { ApiError, handleApiError } from '../utils/error';
+import { Plant } from '../types';
 
 export const getAllPlants = createAsyncThunk<Plant[], void, { rejectValue: ApiError }>(
 	'plants/getAll',

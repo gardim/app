@@ -9,10 +9,10 @@ export default {
 		splash: {
 			image: './assets/splash.png',
 			resizeMode: 'contain',
-			backgroundColor: '#ffffff'
+			backgroundColor: '#191C1B'
 		},
 		plugins: [
-			'expo-localization'
+			'expo-localization',
 		],
 		updates: {
 			fallbackToCacheTimeout: 0,

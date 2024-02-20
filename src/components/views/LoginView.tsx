@@ -25,7 +25,7 @@ const LoginView = ({ disabled, handleLogin }: LoginViewProps) => {
 				style={{ fontFamily: 'Baloo2', fontSize: 52, alignSelf: 'center' }}>
 				Gardim
 			</Text>
-			<Button icon="google" mode="contained" disabled={disabled} onPress={handleLogin}>
+			<Button icon="google" mode="contained" disabled={disabled} onPress={()=>handleLogin()}>
 				{i18n.t('Login with Google')}
 			</Button>
 		</SafeAreaView>

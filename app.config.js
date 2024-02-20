@@ -6,6 +6,7 @@ export default {
 		orientation: 'portrait',
 		icon: './assets/icon.png',
 		userInterfaceStyle: 'light',
+		scheme: "app.gardim",
 		splash: {
 			image: './assets/splash.png',
 			resizeMode: 'contain',
@@ -27,14 +28,14 @@ export default {
 		},
 		ios: {
 			supportsTablet: true,
-			bundleIdentifier: 'com.gardim'
+			bundleIdentifier: 'app.gardim'
 		},
 		android: {
 			adaptiveIcon: {
 				foregroundImage: './assets/adaptive-icon.png',
 				backgroundColor: '#FFFFFF'
 			},
-			package: 'com.gardim'
+			package: 'app.gardim'
 		},
 		web: {
 			bundler: 'metro',

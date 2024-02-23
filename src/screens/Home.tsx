@@ -1,48 +1,18 @@
-import { useState, useEffect, useContext } from 'react';
 import * as React from 'react';
 import { View, StyleSheet } from 'react-native';
 import { Text, FAB, List, Avatar, Snackbar } from 'react-native-paper';
 import { Plant } from '../types';
-import { HomeProps } from '../types/stack';
-import { getAllKeys, getMultiple } from '../storage';
-import { PlantContext } from '../context';
 
-export function Home({ navigation, route }: HomeProps) {
-	const [visibleAlert, setVisiblAlert] = React.useState(route.params?.success ? true : false);
+export function Home() {
 	const [visible, setVisible] = React.useState<boolean>(false);
-
-	const onDismissSnackBar = () => setVisiblAlert(false);
-
-	const [plants, setPlants] = useState([]);
-
-	const plantContext = useContext(PlantContext);
-
-	useEffect(() => {
-		setVisiblAlert(route.params?.success ? true : false);
-	}, [route.params?.success]);
-
-	useEffect(() => {
-		const loadPlants = async () => {
-			const keys = await getAllKeys();
-			const result = await getMultiple(keys);
-			setPlants(result);
-		};
-
-		loadPlants();
-	}, [visibleAlert, plantContext]);
-
-	const handleOnPress = (plant: Plant) => {
-		plantContext.updatePlant(plant);
-		navigation.navigate('RootTabNavigation');
-	};
 
 	return (
 		<>
 			<View style={styles.container}>
-				{plants.length > 0 ? (
+				{[].length > 0 ? (
 					<>
 						<View style={{ flex: 1, justifyContent: 'flex-start' }}>
-							{plants.map((it: [string, string]) => {
+							{[].map((it: [string, string]) => {
 								const plant = JSON.parse(it[1]) as Plant;
 								return (
 									<List.Item
@@ -50,7 +20,6 @@ export function Home({ navigation, route }: HomeProps) {
 										title={plant.name}
 										titleStyle={{ fontSize: 18, fontWeight: 'bold' }}
 										description={plant.scientific_name}
-										onPress={() => handleOnPress(plant)}
 										left={() => <Avatar.Text label={plant.name[0]} size={40} />}
 									/>
 								);
@@ -59,7 +28,6 @@ export function Home({ navigation, route }: HomeProps) {
 						<FAB
 							icon="plus"
 							label={visible ? 'Continuar' : ''}
-							onPress={() => navigation.navigate('IdentificationMethod')}
 							style={[styles.compressedFabStyle]}
 							variant="primary"
 							onLongPress={() => setVisible(!visible)}
@@ -68,23 +36,17 @@ export function Home({ navigation, route }: HomeProps) {
 					</>
 				) : (
 					<View style={styles.row}>
-						<FAB
-							icon="plus"
-							onPress={() => navigation.navigate('IdentificationMethod')}
-							visible
-							style={[styles.fabStyle]}
-							testID="Add Plant"
-						/>
+						<FAB icon="plus" visible style={[styles.fabStyle]} testID="Add Plant" />
 						<Text variant="titleSmall">Adicione sua primeira planta</Text>
 					</View>
 				)}
 			</View>
 			<Snackbar
-				visible={visibleAlert}
+				visible={false}
 				action={{
 					label: 'OK',
 				}}
-				onDismiss={onDismissSnackBar}
+				onDismiss={() => console.log('false')}
 				style={{
 					marginBottom: 30,
 				}}>

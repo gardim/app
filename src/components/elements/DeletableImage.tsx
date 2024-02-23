@@ -1,8 +1,8 @@
 import * as React from 'react';
 import { View, StyleSheet, Image } from 'react-native';
-import { ImageType } from '../../types';
 import { Icon, withBadge } from '@rneui/themed';
 import { useTheme } from 'react-native-paper';
+import { ImageType } from '@/src/types';
 
 type DeletableImageType = {
 	image: ImageType;

@@ -1,7 +1,7 @@
+import { i18n } from '@/src/translations';
 import * as React from 'react';
 
 import { FAB } from 'react-native-paper';
-import { i18n } from '../../translations';
 
 type AddFABProps = {
 	absolute?: boolean;

@@ -1,51 +1,16 @@
-import * as ImagePicker from 'expo-image-picker';
-import { useState, useContext } from 'react';
+import { useState } from 'react';
 import * as React from 'react';
 import { StyleSheet, View, Dimensions } from 'react-native';
-import { ImageMethodProps, ImageType } from '../types/stack';
 import { DeletableImage } from '../components/elements/DeletableImage';
-import { FAB, Text, Snackbar } from 'react-native-paper';
+import { FAB, Text } from 'react-native-paper';
 import Carousel from 'react-native-reanimated-carousel';
-import { identifyPlant } from '../api/plant_id';
-import { LocationContext } from '../api/location';
+import { ImageType } from '../types';
 
-export function ImageMethod({ navigation }: ImageMethodProps) {
+export function ImageMethod() {
 	const [images, setImages] = useState<ImageType[]>([]);
 	const [visible, setVisible] = React.useState<boolean>(false);
 	const [buttonOnHold, setButtonOnHold] = React.useState<boolean>(false);
-	const [visibleAlert, setVisiblAlert] = React.useState(false);
-	const [errorMessage, setErrorMessage] = React.useState('');
-	const locationContext = useContext(LocationContext);
 
-	const onDismissSnackBar = () => setVisiblAlert(false);
-
-	const pickImage = async (method) => {
-		const options = {
-			mediaTypes: ImagePicker.MediaTypeOptions.Images,
-			allowsEditing: false,
-		};
-
-		let result: ImagePicker.ImagePickerResult = null;
-
-		if (method == 'camera') {
-			result = await ImagePicker.launchCameraAsync(options);
-		} else {
-			result = await ImagePicker.launchImageLibraryAsync(options);
-		}
-
-		if (!result.canceled) {
-			const newImage = {
-				id: result.assets[0].assetId ? result.assets[0].assetId : images.length.toString(),
-				uri: result.assets[0].uri,
-			};
-			if (!images.some((image) => image.id === newImage.id)) {
-				setImages([...images, newImage]);
-			}
-		} else {
-			setErrorMessage('Você não adicionou nenhuma imagem.');
-			setVisiblAlert(true);
-		}
-	};
 	const removeImage = (id: string) => {
 		const newImages = [...images];
 		const index = newImages.findIndex((image) => image.id === id);
@@ -58,23 +23,7 @@ export function ImageMethod({ navigation }: ImageMethodProps) {
 	const searchPlants = async () => {
 		if (!buttonOnHold) {
 			setButtonOnHold(true);
-			try {
-				const result = await identifyPlant(
-					images,
-					locationContext.latitude,
-					locationContext.longitude
-				);
-				if (result.is_plant) {
-					navigation.navigate('Result', result);
-				} else {
-					throw new Error('Nenhuma planta foi encontrada');
-				}
-			} catch (error) {
-				setErrorMessage(error.message);
-				setVisiblAlert(true);
-			} finally {
-				setButtonOnHold(false);
-			}
+			console.log('');
 		}
 	};
 
@@ -90,7 +39,6 @@ export function ImageMethod({ navigation }: ImageMethodProps) {
 					<FAB
 						icon="camera"
 						label="Tirar foto"
-						onPress={() => pickImage('camera')}
 						visible
 						style={[styles.fabStyle]}
 						variant="secondary"
@@ -99,7 +47,6 @@ export function ImageMethod({ navigation }: ImageMethodProps) {
 					<FAB
 						icon="image"
 						label="Adicionar da galeria"
-						onPress={() => pickImage('gallery')}
 						visible
 						style={[styles.fabStyle]}
 						variant="secondary"
@@ -140,17 +87,6 @@ export function ImageMethod({ navigation }: ImageMethodProps) {
 					</View>
 				)}
 			</View>
-			<Snackbar
-				visible={visibleAlert}
-				action={{
-					label: 'OK',
-				}}
-				onDismiss={onDismissSnackBar}
-				style={{
-					marginBottom: 30,
-				}}>
-				{errorMessage}
-			</Snackbar>
 		</>
 	);
 }

@@ -1,9 +1,7 @@
-import { Slider } from '@miblanchard/react-native-slider';
 import { useRef, useEffect, useState } from 'react';
 import * as React from 'react';
 import { View, StyleSheet } from 'react-native';
 import { Range } from '../types';
-import { scaleRange } from '../utils';
 
 type LinearGaugeChartProps = {
 	min: number;

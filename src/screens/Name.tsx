@@ -1,20 +1,11 @@
-import { useContext } from 'react';
 import * as React from 'react';
 import { StyleSheet, View } from 'react-native';
 import { Text, TextInput, FAB } from 'react-native-paper';
-import { NameProps } from '../types/stack';
-import { PlantContext } from '../context';
 
-export function Name({ navigation }: NameProps) {
+export function Name() {
 	const [text, setText] = React.useState('');
 	const [visible, setVisible] = React.useState<boolean>(false);
 
-	const plantContext = useContext(PlantContext);
-
-	const handleSubmit = () => {
-		plantContext.updatePlantName(text);
-		navigation.navigate('Code');
-	};
 	return (
 		<View style={styles.container}>
 			<View style={styles.row}>
@@ -27,7 +18,6 @@ export function Name({ navigation }: NameProps) {
 					value={text}
 					onChangeText={(text) => setText(text)}
 					style={styles.fabVariant}
-					onSubmitEditing={() => handleSubmit()}
 					testID="input-nome"
 				/>
 			</View>
@@ -35,7 +25,6 @@ export function Name({ navigation }: NameProps) {
 				<FAB
 					icon="arrow-right"
 					label={visible ? 'Continuar' : ''}
-					onPress={() => handleSubmit()}
 					style={[styles.compressedFabStyle]}
 					variant="primary"
 					onLongPress={() => setVisible(!visible)}

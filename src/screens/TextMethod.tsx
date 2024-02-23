@@ -1,41 +1,28 @@
 import * as React from 'react';
 import { View, StyleSheet } from 'react-native';
-import { Text, Searchbar, Chip, FAB, HelperText, Snackbar } from 'react-native-paper';
-import { TextMethodProps } from '../types/stack';
-import { identifyPlant } from '../api/trefle';
+import { Text, Searchbar, Chip, FAB, HelperText } from 'react-native-paper';
 
-export function TextMethod({ navigation }: TextMethodProps) {
+
+export function TextMethod() {
 	const [searchQuery, setSearchQuery] = React.useState('');
 	const [chips, setChips] = React.useState([]);
 	const [visible, setVisible] = React.useState<boolean>(false);
 	const [buttonOnHold, setButtonOnHold] = React.useState<boolean>(false);
-	const [visibleAlert, setVisiblAlert] = React.useState(false);
-	const [errorMessage, setErrorMessage] = React.useState('');
 
 	const addChip = () => {
-		const queryString = searchQuery.trim();
 
-		if (!chips.includes(queryString) && queryString) {
-			setChips((prevChips) => [...new Set([...prevChips, queryString])]);
-		}
+
+
 		setSearchQuery('');
 	};
 
-	const onDismissSnackBar = () => setVisiblAlert(false);
 
-	const removeChip = (chipToDelete) => {
+	const removeChip = (chipToDelete: never) => {
 		setChips((prevChips) => prevChips.filter((currentChip) => currentChip !== chipToDelete));
 	};
 
-	const onChangeSearch = (query) => {
-		setSearchQuery(query);
-		if (query.endsWith(' ')) {
-			addChip();
-		}
-	};
 
-	const onSubmit = (query) => {
-		setSearchQuery(query);
+	const onSubmit = () => {
 		addChip();
 	};
 
@@ -43,15 +30,9 @@ export function TextMethod({ navigation }: TextMethodProps) {
 		if (!buttonOnHold) {
 			setButtonOnHold(true);
 			try {
-				const result = await identifyPlant(chips);
-				if (result.data.length) {
-					navigation.navigate('Result', result);
-				} else {
-					throw new Error('Nenhuma planta foi encontrada');
-				}
+				console.log('');
 			} catch (error) {
-				setErrorMessage(error.message);
-				setVisiblAlert(true);
+				console.log('');
 			} finally {
 				setButtonOnHold(false);
 			}
@@ -69,7 +50,6 @@ export function TextMethod({ navigation }: TextMethodProps) {
 					<Searchbar
 						placeholder="Search"
 						value={searchQuery}
-						onChangeText={onChangeSearch}
 						style={styles.fabVariant}
 						onSubmitEditing={onSubmit}
 					/>
@@ -99,17 +79,6 @@ export function TextMethod({ navigation }: TextMethodProps) {
 					)}
 				</View>
 			</View>
-			<Snackbar
-				visible={visibleAlert}
-				action={{
-					label: 'OK',
-				}}
-				onDismiss={onDismissSnackBar}
-				style={{
-					marginBottom: 30,
-				}}>
-				{errorMessage}
-			</Snackbar>
 		</>
 	);
 }

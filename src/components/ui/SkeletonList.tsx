@@ -1,6 +1,6 @@
 import * as React from 'react';
 
-import SkeletonItem from '../elements/SkeletonItem';
+import SkeletonItem from '@/src/components/elements/SkeletonItem';
 import { FlatList } from 'react-native';
 
 const SkeletonList = () => {

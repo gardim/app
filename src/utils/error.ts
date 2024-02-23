@@ -57,8 +57,8 @@ export const handleApiError = (receivedError: RequestError): ApiError => {
 	}
 };
 
-export const getMessageFromStatusCode = (statusCode) => {
-	let message = 'Aconteceu um problema'; // Default message
+export const getMessageFromStatusCode = (statusCode: number) => {
+	let message = 'Aconteceu um problema';
 
 	if (statusCode === 404) {
 		message = 'Não encontramos o que você está procurando';

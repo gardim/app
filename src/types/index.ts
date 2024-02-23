@@ -1,6 +1,6 @@
 export type Plant = {
 	id: string;
-	name: string | null;
+	name: string;
 	code: string | null;
 	common_name: string;
 	scientific_name: string;

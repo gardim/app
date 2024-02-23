@@ -1,22 +1,11 @@
-import { useContext, useEffect } from 'react';
 import * as React from 'react';
 import { View, StyleSheet } from 'react-native';
-import { PlantContext } from '../context';
 import { List, Dialog, Portal, Text, Button, TextInput } from 'react-native-paper';
-import { storeData, removeValue } from '../storage/index';
-import { ConfigurationsProps } from '../types/tab';
 
-export function Configurations({ navigation }: ConfigurationsProps) {
+export function Configurations() {
 	const [editVisible, setEditVisible] = React.useState(false);
 	const [deleteVisible, setDeleteVisible] = React.useState(false);
 	const [text, setText] = React.useState('');
-	const plantContext = useContext(PlantContext);
-
-	useEffect(() => {
-		if (plantContext.plant) {
-			storeData(plantContext.plant);
-		}
-	}, [plantContext.plant?.name]);
 
 	const showEditDialog = () => setEditVisible(true);
 	const hideEditDialog = () => setEditVisible(false);
@@ -25,14 +14,9 @@ export function Configurations({ navigation }: ConfigurationsProps) {
 	const hideDeleteDialog = () => setDeleteVisible(false);
 
 	const handleOnEdit = async () => {
-		plantContext.updatePlantName(text);
 		hideEditDialog();
 	};
-	const handleOnDelete = () => {
-		removeValue(`@${plantContext.plant.id}`);
-		plantContext.resetPlant();
-		navigation.navigate('Home');
-	};
+	const handleOnDelete = () => {};
 
 	return (
 		<View style={{ flex: 1 }}>

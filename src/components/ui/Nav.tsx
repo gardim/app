@@ -2,17 +2,17 @@ import React from 'react';
 
 import { StyleSheet, View, SafeAreaView, StatusBar } from 'react-native';
 import { Title } from 'react-native-paper';
-import {} from 'react-native-safe-area-context';
 import { MaterialCommunityIcons } from '@expo/vector-icons';
-import { useLinkTo, useTheme } from '@react-navigation/native';
-import { i18n } from '../../translations';
+import { useTheme } from 'react-native-paper';
+import { useRouter } from 'expo-router';
+import { i18n } from '@/src/translations';
 
 type NavProps = {
 	title: string;
 };
 
 function Nav({ title }: NavProps) {
-	const linkTo = useLinkTo();
+	const router = useRouter();
 	const { colors } = useTheme();
 
 	return (
@@ -20,7 +20,7 @@ function Nav({ title }: NavProps) {
 			<View style={styles.headerContainer}>
 				<Title>{i18n.t(title)}</Title>
 				<MaterialCommunityIcons
-					onPress={() => linkTo('/notifications')}
+					onPress={() => router.push('/notifications')}
 					name="bell-outline"
 					color={colors.primary}
 					size={24}

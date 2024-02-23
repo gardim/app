@@ -1,17 +1,17 @@
 import * as React from 'react';
-import { Plant } from '../../types';
 import { Avatar, List } from 'react-native-paper';
-import { useLinkTo } from '@react-navigation/native';
+import { useRouter } from 'expo-router';
+import { Plant } from '@/src/types';
 
 export type PlantItemProps = {
 	plant: Plant;
 };
 
 const PlantItem = ({ plant }: PlantItemProps) => {
-	const linkTo = useLinkTo();
+	const router = useRouter();
 
 	const handleOnPress = (id: string) => {
-		linkTo(`/plants/${id}`);
+		router.push(`/plant/${id}`);
 	};
 
 	return (

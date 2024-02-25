@@ -3,10 +3,10 @@ import { Tabs } from 'expo-router';
 import { useTheme } from 'react-native-paper';
 import { BottomTabHeaderProps } from '@react-navigation/bottom-tabs';
 import { useAuth } from '@clerk/clerk-expo';
-import HandPlant from '@/assets/svgs/HandPlant';
-import Nav from '@/src/components/ui/Nav';
-import { i18n } from '@/src/translations';
-
+import HandPlant from '@svgs/HandPlant';
+import Nav from '@components/ui/Nav';
+import { Feather } from '@expo/vector-icons';
+import { i18n } from '@lang/index';
 
 const TabsLayout = () => {
 	const { colors } = useTheme();
@@ -20,8 +20,18 @@ const TabsLayout = () => {
 			<Tabs.Screen
 				name="myPlants"
 				options={{
-					tabBarLabel: i18n.t('My Plants'),
+					tabBarLabel: i18n.t('routes.myPlants'),
 					tabBarIcon: ({ size, color }) => <HandPlant height={size} color={color} />,
+				}}
+				redirect={!isSignedIn}
+			/>
+			<Tabs.Screen
+				name="configurations"
+				options={{
+					tabBarLabel: i18n.t('routes.configurations'),
+					tabBarIcon: ({ size, color }) => (
+						<Feather name="settings" size={size} color={color} />
+					),
 				}}
 				redirect={!isSignedIn}
 			/>

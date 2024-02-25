@@ -21,19 +21,22 @@
     ],
     "ios": {
       "supportsTablet": true,
-      "bundleIdentifier": "app.gardim"
+      "bundleIdentifier": "app.gardim",
+      "userInterfaceStyle": "automatic"
     },
     "android": {
       "adaptiveIcon": {
         "foregroundImage": "./assets/adaptive-icon.png",
         "backgroundColor": "#FFFFFF"
       },
-      "package": "app.gardim"
+      "package": "app.gardim",
+      "userInterfaceStyle": "automatic"
     },
     "web": {
       "bundler": "metro",
       "output": "static",
-      "favicon": "./assets/favicon.png"
+      "favicon": "./assets/favicon.png",
+      "userInterfaceStyle": "automatic"
     },
     "extra": {
       "eas": {

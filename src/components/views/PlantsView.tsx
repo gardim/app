@@ -4,12 +4,11 @@ import { RefreshControl, View } from 'react-native';
 import { Text } from 'react-native-paper';
 import { useEffect } from 'react';
 import { FlatList } from 'react-native';
-import SkeletonList from '@/src/components/elements/SkeletonItem';
-import PlantItem from '@/src/components/elements/PlantItem';
-import AddFAB from '../elements/AddFAB';
-import { Plant } from '@/src/types';
-import { i18n } from '@/src/translations';
-
+import SkeletonList from '@components/elements/SkeletonItem';
+import PlantItem from '@components/elements/PlantItem';
+import AddFAB from '@components/elements/AddFAB';
+import { i18n } from '@lang/index';
+import { Plant } from 'src/@types';
 
 export type PlantViewProps = {
 	plants: Plant[];

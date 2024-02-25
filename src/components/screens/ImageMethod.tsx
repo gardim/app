@@ -1,10 +1,10 @@
 import { useState } from 'react';
 import * as React from 'react';
 import { StyleSheet, View, Dimensions } from 'react-native';
-import { DeletableImage } from '../components/elements/DeletableImage';
+import { DeletableImage } from '../elements/DeletableImage';
 import { FAB, Text } from 'react-native-paper';
 import Carousel from 'react-native-reanimated-carousel';
-import { ImageType } from '../types';
+import { ImageType } from '../../@types';
 
 export function ImageMethod() {
 	const [images, setImages] = useState<ImageType[]>([]);

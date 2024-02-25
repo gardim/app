@@ -1,16 +1,16 @@
 import * as React from 'react';
 import { View, ScrollView } from 'react-native';
 import { Text, Card, Avatar } from 'react-native-paper';
-import { LinearGaugeChart } from '../components/LinearGaugeChart';
+import { LinearGaugeChart } from '../LinearGaugeChart';
 
 export function Status() {
 	return (
 		<View style={{ flex: 1 }}>
 			<ScrollView>
-				<SoilCard/>
-				<SoilCard/>
-				<SoilCard/>
-				<SoilCard/>
+				<SoilCard />
+				<SoilCard />
+				<SoilCard />
+				<SoilCard />
 			</ScrollView>
 		</View>
 	);

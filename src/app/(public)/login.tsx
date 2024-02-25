@@ -1,9 +1,9 @@
 import * as React from 'react';
 import * as WebBrowser from 'expo-web-browser';
-import LoginView from '@/src/components/views/LoginView';
+import LoginView from '@components/views/LoginView';
 import { useOAuth } from '@clerk/clerk-expo';
 import { useRouter } from 'expo-router';
-import { useWarmUpBrowser } from '@/src/hooks/useWarmUpBrowser';
+import { useWarmUpBrowser } from '@hooks/useWarmUpBrowser';
 
 WebBrowser.maybeCompleteAuthSession();
 

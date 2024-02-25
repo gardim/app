@@ -2,7 +2,7 @@ import React, { createContext, useContext, useEffect, useState, ReactNode, useMe
 import * as Notifications from 'expo-notifications';
 import { NotificationContentInput, TimeIntervalTriggerInput } from 'expo-notifications';
 import { getAllKeys, getMultiple } from '../../storage';
-import { Plant } from '../../types';
+import { Plant } from '../../@types';
 import { rangeToSeconds } from '../../utils';
 import * as Device from 'expo-device';
 import { Platform } from 'react-native';

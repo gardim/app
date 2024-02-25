@@ -1,7 +1,7 @@
 import * as React from 'react';
 import { View, StyleSheet } from 'react-native';
 import { Text, FAB, List, Avatar, Snackbar } from 'react-native-paper';
-import { Plant } from '../types';
+import { Plant } from '../../@types';
 
 export function Home() {
 	const [visible, setVisible] = React.useState<boolean>(false);

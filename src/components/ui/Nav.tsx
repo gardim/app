@@ -5,7 +5,7 @@ import { Title } from 'react-native-paper';
 import { MaterialCommunityIcons } from '@expo/vector-icons';
 import { useTheme } from 'react-native-paper';
 import { useRouter } from 'expo-router';
-import { i18n } from '@/src/translations';
+import { i18n } from '@lang/index';
 
 type NavProps = {
 	title: string;
@@ -18,7 +18,7 @@ function Nav({ title }: NavProps) {
 	return (
 		<SafeAreaView style={{ marginTop: StatusBar.currentHeight }}>
 			<View style={styles.headerContainer}>
-				<Title>{i18n.t(title)}</Title>
+				<Title>{i18n.t('routes.' + title)}</Title>
 				<MaterialCommunityIcons
 					onPress={() => router.push('/notifications')}
 					name="bell-outline"

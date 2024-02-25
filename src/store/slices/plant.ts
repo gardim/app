@@ -1,5 +1,5 @@
 import { createSlice } from '@reduxjs/toolkit';
-import { Plant } from '../../types';
+import { Plant } from '../../@types';
 import { getAllPlants } from '../actions';
 import { ApiError } from '../../utils/error';
 

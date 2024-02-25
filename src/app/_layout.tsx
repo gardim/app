@@ -4,34 +4,17 @@ import { ClerkProvider, useAuth } from '@clerk/clerk-expo';
 import { SplashScreen, Stack, useRouter, useSegments } from 'expo-router';
 import { PaperProvider } from 'react-native-paper';
 import { Provider } from 'react-redux';
-
 import { useFonts } from 'expo-font';
-import * as SecureStore from 'expo-secure-store';
 import themes from '../constants/themes';
-import store from '../redux/store';
+import store from '@store/index';
+import { useColorScheme } from 'react-native';
+import { themeCache, tokenCache } from '../storage';
 
 const CLERK_PUBLISHABLE_KEY = process.env.EXPO_PUBLIC_CLERK_PUBLISHABLE_KEY;
 
 SplashScreen.preventAutoHideAsync();
 
-const tokenCache = {
-	async getToken(key: string) {
-		try {
-			return SecureStore.getItemAsync(key);
-		} catch (err) {
-			return null;
-		}
-	},
-	async saveToken(key: string, value: string) {
-		try {
-			return SecureStore.setItemAsync(key, value);
-		} catch (err) {
-			return;
-		}
-	},
-};
-
-const RootLayout = () => {
+const loadFont = () => {
 	const [isFontLoaded, fontError] = useFonts({
 		Baloo2: require('../../assets/fonts/Baloo2.ttf'),
 	});
@@ -49,18 +32,21 @@ const RootLayout = () => {
 	if (!isFontLoaded) {
 		return null;
 	}
+};
 
-	const theme = 'light';
-	const _theme = themes[theme];
+const RootLayout = () => {
+	loadFont();
+
+	const _theme = themes[themeCache.getTheme(useColorScheme())];
 
 	return (
-		<ClerkProvider publishableKey={CLERK_PUBLISHABLE_KEY!} tokenCache={tokenCache}>
-			<Provider store={store}>
-				<PaperProvider theme={_theme}>
+		<PaperProvider theme={_theme}>
+			<ClerkProvider publishableKey={CLERK_PUBLISHABLE_KEY!} tokenCache={tokenCache}>
+				<Provider store={store}>
 					<InitialLayout />
-				</PaperProvider>
-			</Provider>
-		</ClerkProvider>
+				</Provider>
+			</ClerkProvider>
+		</PaperProvider>
 	);
 };
 

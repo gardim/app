@@ -2,11 +2,11 @@ import * as React from 'react';
 
 import { useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
-import { AppDispatch, RootState } from '../../redux/store';
-import { getAllPlants } from '../../redux/actions';
-import { getMessageFromStatusCode } from '../../utils/error';
-import PlantsView from '../../components/views/PlantsView';
-import ErrorBanner from '@/src/components/ui/ErrorBanner';
+import { AppDispatch, RootState } from '@store/index';
+import { getAllPlants } from 'src/store/actions';
+import { getMessageFromStatusCode } from '@utils/error';
+import PlantsView from '@components/views/PlantsView';
+import ErrorBanner from '@components/ui/ErrorBanner';
 
 const MyPlants = () => {
 	const dispatch: AppDispatch = useDispatch();

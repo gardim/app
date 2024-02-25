@@ -4,7 +4,14 @@
     "strict": true,
     "baseUrl": ".",
     "paths": {
-      "@/*": ["./*"],
+      "@svgs/*": ["./assets/svgs/*"],
+      "@components/*": ["./src/components/*"],
+      "@constants/*": ["./src/constants/*"],
+      "@hooks/*": ["./src/hooks/*"],
+      "@lang/*": ["./src/lang/*"],
+      "@storage/*": ["src/storage/*"],
+      "@utils/*": ["./src/utils/*"],
+      "@store/*": ["src/store/*"],
     }
   },
   "include": ["**/*.ts", "**/*.tsx", ".expo/types/**/*.ts", "expo-env.d.ts", "assets/svgs/Logo.js", "assets/svgs/LeafBug.js", "assets/svgs/HandPlant.js"]

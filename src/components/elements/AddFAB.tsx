@@ -1,4 +1,4 @@
-import { i18n } from '@/src/translations';
+import { i18n } from '@lang/index';
 import * as React from 'react';
 
 import { FAB } from 'react-native-paper';

@@ -1,7 +1,7 @@
 import * as React from 'react';
 import { Avatar, List } from 'react-native-paper';
 import { useRouter } from 'expo-router';
-import { Plant } from '@/src/types';
+import { Plant } from 'src/@types';
 
 export type PlantItemProps = {
 	plant: Plant;

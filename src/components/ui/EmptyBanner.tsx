@@ -2,18 +2,18 @@ import * as React from 'react';
 import { View } from 'react-native';
 
 import { Text, useTheme } from 'react-native-paper';
-import LeafBug from '@svgs/LeafBug';
+import Dandelion from '@svgs/Dandelion';
 
-export type ErrorBannerProps = {
+export type EmptyBannerProps = {
 	message: string;
 };
 
-const ErrorBanner = ({ message }: ErrorBannerProps) => {
+const EmptyBanner = ({ message }: EmptyBannerProps) => {
 	const { colors } = useTheme();
 
 	return (
 		<View style={{ alignItems: 'center', flex: 1, justifyContent: 'center' }}>
-			<LeafBug height={64} color={colors.primary} />
+			<Dandelion height={64} color={colors.primary} />
 			<Text variant="titleSmall" style={{ margin: 20, textAlign: 'center' }}>
 				{message}
 			</Text>
@@ -21,4 +21,4 @@ const ErrorBanner = ({ message }: ErrorBannerProps) => {
 	);
 };
 
-export default ErrorBanner;
+export default EmptyBanner;

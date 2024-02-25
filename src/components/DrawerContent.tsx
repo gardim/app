@@ -4,7 +4,7 @@ import { Drawer, Switch, Text, TouchableRipple, useTheme } from 'react-native-pa
 import { useSafeAreaInsets } from 'react-native-safe-area-context';
 
 import { PreferencesContext } from './PreferencesContext';
-import { useNotifications } from '../api/notification';
+import { useNotifications } from '../services/notification';
 
 export default function DrawerContent() {
 	const insets = useSafeAreaInsets();

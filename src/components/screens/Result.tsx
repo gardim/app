@@ -1,6 +1,6 @@
 import * as React from 'react';
 import { View, StyleSheet, ScrollView, Dimensions, Platform } from 'react-native';
-import { PlantOptionsList } from '../components/PlantOptionsList';
+import { PlantOptionsList } from '../PlantOptionsList';
 import { Text } from 'react-native-paper';
 
 export function Result() {

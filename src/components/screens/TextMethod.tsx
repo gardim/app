@@ -2,7 +2,6 @@ import * as React from 'react';
 import { View, StyleSheet } from 'react-native';
 import { Text, Searchbar, Chip, FAB, HelperText } from 'react-native-paper';
 
-
 export function TextMethod() {
 	const [searchQuery, setSearchQuery] = React.useState('');
 	const [chips, setChips] = React.useState([]);
@@ -10,17 +9,12 @@ export function TextMethod() {
 	const [buttonOnHold, setButtonOnHold] = React.useState<boolean>(false);
 
 	const addChip = () => {
-
-
-
 		setSearchQuery('');
 	};
-
 
 	const removeChip = (chipToDelete: never) => {
 		setChips((prevChips) => prevChips.filter((currentChip) => currentChip !== chipToDelete));
 	};
-
 
 	const onSubmit = () => {
 		addChip();

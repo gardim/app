@@ -3,7 +3,7 @@ import { View, StyleSheet, StatusBar } from 'react-native';
 import { Title } from 'react-native-paper';
 import { SafeAreaView } from 'react-native-safe-area-context';
 import { useGlobalSearchParams } from 'expo-router';
-import Close from '@/src/components/elements/Close';
+import Close from '@components/elements/Close';
 
 const Plant = () => {
 	const { id } = useGlobalSearchParams();
@@ -22,7 +22,7 @@ const Plant = () => {
 const styles = StyleSheet.create({
 	container: {
 		flex: 1,
-		marginTop:StatusBar.currentHeight
+		marginTop: StatusBar.currentHeight,
 	},
 	headerContainer: {
 		alignItems: 'flex-start',

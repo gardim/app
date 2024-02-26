@@ -1,17 +1,17 @@
 import React from 'react';
 
 import { MaterialCommunityIcons } from '@expo/vector-icons';
-import { useNavigation } from '@react-navigation/core';
-import { StyleSheet, View } from 'react-native';
+import { StatusBar, StyleSheet, View } from 'react-native';
 import { useTheme } from 'react-native-paper';
 import PlatformUtils from '@utils/platform';
+import { useRouter } from 'expo-router';
 
 type CloseProps = {
 	position: 'left' | 'right';
 };
 
 function Close({ position }: CloseProps) {
-	const navigation = useNavigation();
+	const router = useRouter();
 	const { colors } = useTheme();
 	const innerPosition = position === 'left' ? { left: 20 } : { right: 20 };
 	return PlatformUtils.isIos ? (
@@ -27,7 +27,7 @@ function Close({ position }: CloseProps) {
 		</View>
 	) : (
 		<MaterialCommunityIcons
-			onPress={() => navigation.goBack()}
+			onPress={() => router.back()}
 			style={[styles.container, innerPosition]}
 			name="close"
 			color={colors.onSurface}
@@ -42,6 +42,7 @@ const styles = StyleSheet.create({
 		top: 20,
 		opacity: 0.5,
 		zIndex: 10,
+		marginTop: StatusBar.currentHeight,
 	},
 	iosBarContainer: {
 		height: 5,

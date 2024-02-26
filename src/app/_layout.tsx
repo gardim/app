@@ -1,52 +1,23 @@
 import React, { useEffect } from 'react';
 
 import { ClerkProvider, useAuth } from '@clerk/clerk-expo';
-import { SplashScreen, Stack, useRouter, useSegments } from 'expo-router';
-import { PaperProvider } from 'react-native-paper';
+import { Stack, useRouter, useSegments } from 'expo-router';
 import { Provider } from 'react-redux';
-import { useFonts } from 'expo-font';
-import themes from '../constants/themes';
 import store from '@store/index';
-import { useColorScheme } from 'react-native';
-import { themeCache, tokenCache } from '../storage';
+import { tokenCache } from '@storage/index';
+import { StyledProvider } from 'src/context/StyledProvider';
 
 const CLERK_PUBLISHABLE_KEY = process.env.EXPO_PUBLIC_CLERK_PUBLISHABLE_KEY;
 
-SplashScreen.preventAutoHideAsync();
-
-const loadFont = () => {
-	const [isFontLoaded, fontError] = useFonts({
-		Baloo2: require('../../assets/fonts/Baloo2.ttf'),
-	});
-
-	useEffect(() => {
-		if (fontError) throw fontError;
-	}, [fontError]);
-
-	useEffect(() => {
-		if (isFontLoaded) {
-			SplashScreen.hideAsync();
-		}
-	}, [isFontLoaded]);
-
-	if (!isFontLoaded) {
-		return null;
-	}
-};
-
 const RootLayout = () => {
-	loadFont();
-
-	const _theme = themes[themeCache.getTheme(useColorScheme())];
-
 	return (
-		<PaperProvider theme={_theme}>
+		<StyledProvider>
 			<ClerkProvider publishableKey={CLERK_PUBLISHABLE_KEY!} tokenCache={tokenCache}>
 				<Provider store={store}>
 					<InitialLayout />
 				</Provider>
 			</ClerkProvider>
-		</PaperProvider>
+		</StyledProvider>
 	);
 };
 
@@ -59,8 +30,6 @@ const InitialLayout = () => {
 		if (!isLoaded) return;
 
 		const inTabsGroup = segments[0] === '(auth)';
-
-		console.log('User changed: ', isSignedIn);
 
 		if (isSignedIn && !inTabsGroup) {
 			router.replace('/myPlants');

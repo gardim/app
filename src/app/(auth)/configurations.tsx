@@ -5,11 +5,14 @@ import { View } from 'react-native';
 import { Avatar, Card, List, Switch, useTheme } from 'react-native-paper';
 import { Entypo, MaterialCommunityIcons } from '@expo/vector-icons';
 import Laurel from '@svgs/Laurel';
+import { useStyledContext } from 'src/context/StyledProvider';
+import { i18n } from '@lang/index';
 
 const Configurations = () => {
 	const { signOut } = useAuth();
 	const { user } = useUser();
 	const { colors } = useTheme();
+	const { toggleTheme, isThemeDark } = useStyledContext();
 
 	useEffect(() => {
 		if (!user) throw Error('Could not find user details');
@@ -25,40 +28,69 @@ const Configurations = () => {
 				/>
 			</Card>
 			<List.Section style={{ marginHorizontal: 20 }}>
-				<List.Subheader>General</List.Subheader>
+				<List.Subheader>{i18n.t('configurations.General')}</List.Subheader>
 				<List.Item
-					title="Tema"
-					description="claro"
-					left={() => <Entypo name="light-up" size={24} color={colors.onBackground} />}
-					right={() => <Switch value={true} onValueChange={() => console.log('')} />}
+					title={i18n.t('configurations.theme.title')}
+					description={i18n.t('configurations.theme.' + isThemeDark)}
+					left={() => (
+						<Entypo
+							name={isThemeDark ? 'moon' : 'light-up'}
+							size={24}
+							color={colors.onBackground}
+							style={{ marginTop: 8 }}
+						/>
+					)}
+					right={() => <Switch value={isThemeDark} onValueChange={toggleTheme} />}
 				/>
 				<List.Item
-					title="Notificações"
-					description="ligado"
+					title={i18n.t('configurations.notifications.title')}
+					description={i18n.t('configurations.notifications.' + false)}
 					left={() => (
 						<MaterialCommunityIcons
 							name="bell-outline"
 							size={24}
 							color={colors.onBackground}
+							style={{ marginTop: 8 }}
 						/>
 					)}
-					right={() => <Switch value={true} onValueChange={() => console.log('')} />}
+					right={() => <Switch value={false} onValueChange={() => console.log('')} />}
 				/>
-				<List.Subheader>Conta</List.Subheader>
+				<List.Subheader>{i18n.t('configurations.Account')}</List.Subheader>
 				<List.Item
-					title="Gardim Pro"
-					description="Os melhores benefícios para o cuidado com plantas"
-					left={() => <Laurel height={24} width={24} color={colors.onBackground} />}
+					title={i18n.t('configurations.pro.title')}
+					description={i18n.t('configurations.pro.description')}
+					left={() => (
+						<Laurel
+							height={24}
+							width={24}
+							color={colors.onBackground}
+							style={{ marginTop: 8 }}
+						/>
+					)}
 				/>
 				<List.Item
-					title="Termos de uso"
-					description="Entenda os termos de uso do Gardim"
-					left={() => <Entypo name="list" size={24} color={colors.onBackground} />}
+					title={i18n.t('configurations.terms.title')}
+					description={i18n.t('configurations.terms.description')}
+					left={() => (
+						<Entypo
+							name="list"
+							size={24}
+							color={colors.onBackground}
+							style={{ marginTop: 8 }}
+						/>
+					)}
 				/>
 				<List.Item
-					title="Logout"
-					description="Entre com outra conta"
-					left={() => <Entypo name="log-out" size={24} color={colors.onBackground} />}
+					title={i18n.t('configurations.logout.title')}
+					description={i18n.t('configurations.logout.description')}
+					left={() => (
+						<Entypo
+							name="log-out"
+							size={24}
+							color={colors.onBackground}
+							style={{ marginTop: 8 }}
+						/>
+					)}
 					onPress={signOut}
 				/>
 			</List.Section>

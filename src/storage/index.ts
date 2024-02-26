@@ -18,25 +18,28 @@ export const tokenCache = {
 };
 
 export const themeCache = {
-	getTheme: (systemTheme: 'light' | 'dark' | undefined | null) => {
-		let cachedTheme = systemTheme ?? 'light';
-		SecureStore.getItemAsync('theme')
-			.then((theme) => {
-				if (!theme) {
-					SecureStore.setItemAsync('theme', cachedTheme).catch((error) =>
-						console.error('Error setting theme:', error)
-					);
-				} else {
-					cachedTheme = theme == 'dark' ? 'dark' : 'light';
-				}
-			})
-			.catch((error) => {
-				console.error('Error getting theme:', error);
-			});
-
-		return cachedTheme;
+	getTheme: async (
+		systemTheme: 'light' | 'dark' | undefined | null
+	): Promise<'light' | 'dark'> => {
+		const cachedTheme = systemTheme ?? 'light';
+		try {
+			const theme = await SecureStore.getItemAsync('theme');
+			if (!theme) {
+				await SecureStore.setItemAsync('theme', cachedTheme);
+				return cachedTheme;
+			}
+			return theme === 'dark' ? 'dark' : 'light';
+		} catch (error) {
+			console.error('Error getting theme:', error);
+			return cachedTheme;
+		}
 	},
-	saveTheme(value: 'light' | 'dark') {
-		SecureStore.setItemAsync('theme', value).catch();
+	saveTheme: async (value: 'light' | 'dark') => {
+		try {
+			await SecureStore.setItemAsync('theme', value);
+			return value;
+		} catch (error) {
+			console.error('Error saving theme:', error);
+		}
 	},
 };

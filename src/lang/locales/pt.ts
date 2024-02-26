@@ -1,6 +1,8 @@
 export default {
 	Notifications: 'Notificações',
+	Plans: 'Planos',
 	'Add your first plant': 'Adicione sua primeira planta',
+	'Add your first device': 'Adicione seu primeiro dispositivo',
 	Add: 'Adicionar',
 	'My Plants': 'Minhas Plantas',
 	'Login with Google': 'Login com Google',
@@ -9,6 +11,7 @@ export default {
 	routes: {
 		notifications: 'Notificações',
 		myPlants: 'Minhas Plantas',
+		myDevices: 'Meus Dispositivos',
 		home: 'Início',
 		login: 'Login',
 		configurations: 'Configurações',
@@ -25,7 +28,7 @@ export default {
 		notifications: {
 			title: 'Notificações',
 			true: 'ligado',
-			false: 'desligado'
+			false: 'desligado',
 		},
 		pro: {
 			title: 'Gardim Pro',
@@ -33,11 +36,11 @@ export default {
 		},
 		terms: {
 			title: 'Termos de Uso',
-			description: 'Entenda para que usamos os seus dados'
+			description: 'Entenda para que usamos os seus dados',
 		},
 		logout: {
 			title: 'Sair',
-			description: 'Entre com outra conta'
-		}
-	},	
+			description: 'Entre com outra conta',
+		},
+	},
 };

@@ -5,7 +5,7 @@ import { BottomTabHeaderProps } from '@react-navigation/bottom-tabs';
 import { useAuth } from '@clerk/clerk-expo';
 import HandPlant from '@svgs/HandPlant';
 import Nav from '@components/ui/Nav';
-import { Feather } from '@expo/vector-icons';
+import { Feather, MaterialCommunityIcons } from '@expo/vector-icons';
 import { i18n } from '@lang/index';
 
 const TabsLayout = () => {
@@ -22,6 +22,20 @@ const TabsLayout = () => {
 				options={{
 					tabBarLabel: i18n.t('routes.myPlants'),
 					tabBarIcon: ({ size, color }) => <HandPlant height={size} color={color} />,
+				}}
+				redirect={!isSignedIn}
+			/>
+			<Tabs.Screen
+				name="myDevices"
+				options={{
+					tabBarLabel: i18n.t('routes.myDevices'),
+					tabBarIcon: ({ size, color }) => (
+						<MaterialCommunityIcons
+							name="usb-flash-drive-outline"
+							size={size}
+							color={color}
+						/>
+					),
 				}}
 				redirect={!isSignedIn}
 			/>

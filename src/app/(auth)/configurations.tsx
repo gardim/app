@@ -7,11 +7,13 @@ import { Entypo, MaterialCommunityIcons } from '@expo/vector-icons';
 import Laurel from '@svgs/Laurel';
 import { useStyledContext } from 'src/context/StyledProvider';
 import { i18n } from '@lang/index';
+import { useRouter } from 'expo-router';
 
 const Configurations = () => {
 	const { signOut } = useAuth();
 	const { user } = useUser();
 	const { colors } = useTheme();
+	const router = useRouter();
 	const { toggleTheme, isThemeDark } = useStyledContext();
 
 	useEffect(() => {
@@ -57,6 +59,7 @@ const Configurations = () => {
 				/>
 				<List.Subheader>{i18n.t('configurations.Account')}</List.Subheader>
 				<List.Item
+					onPress={() => router.push('/(modals)/plans')}
 					title={i18n.t('configurations.pro.title')}
 					description={i18n.t('configurations.pro.description')}
 					left={() => (

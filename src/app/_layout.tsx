@@ -52,6 +52,12 @@ const InitialLayout = () => {
 					presentation: 'modal',
 				}}
 			/>
+			<Stack.Screen
+				name="(modals)/plans"
+				options={{
+					presentation: 'modal',
+				}}
+			/>
 		</Stack>
 	);
 };

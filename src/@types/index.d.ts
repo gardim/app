@@ -17,6 +17,11 @@ export type Plant = {
 	soil_humidity_maximum: number | null;
 };
 
+export type Device = {
+	id: string;
+	code: string;
+};
+
 export interface PlantContextType {
 	plant: Plant;
 	updatePlant: (plant: Plant) => void;

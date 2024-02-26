@@ -70,7 +70,7 @@ export const StyledProvider = ({ children }: Props) => {
 	return (
 		<StyledContext.Provider value={contextValue}>
 			<PaperProvider theme={themes[theme]}>
-				<StatusBar style={isThemeDark ? 'light' : 'dark'}/>
+				<StatusBar style={isThemeDark ? 'light' : 'dark'} />
 				<ThemeProvider value={themes[theme]}>{children}</ThemeProvider>
 			</PaperProvider>
 		</StyledContext.Provider>

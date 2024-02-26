@@ -12,4 +12,5 @@ export const i18n = new I18n(Translations);
 
 i18n.locale = Localization.getLocales()[0]?.languageCode ?? 'en';
 i18n.defaultLocale = 'en';
+
 i18n.enableFallback = true;

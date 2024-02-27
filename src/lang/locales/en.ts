@@ -7,6 +7,7 @@ export default {
 	'My Plants': 'My Plants',
 	'Login with Google': 'Login with Google',
 	'nothing to show': 'Looks like there is nothing to be shown here...',
+	Continue: 'Continue',
 
 	routes: {
 		notifications: 'Notifications',
@@ -15,6 +16,14 @@ export default {
 		home: 'Home',
 		login: 'Login',
 		configurations: 'Configurations',
+	},
+
+	reset: {
+		title: 'Add a device',
+		subtitle: 'Pair initialization',
+		explanation: 'Turn the device on and hold the power button. Check if the light indicador is blinking.',
+		checkbox: 'The light indicator is blinking',
+
 	},
 
 	configurations: {

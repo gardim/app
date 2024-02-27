@@ -7,6 +7,7 @@ export default {
 	'My Plants': 'Minhas Plantas',
 	'Login with Google': 'Login com Google',
 	'nothing to show': 'Parece que não temos nada para mostrar aqui...',
+	Continue: 'Continuar',
 
 	routes: {
 		notifications: 'Notificações',
@@ -15,6 +16,14 @@ export default {
 		home: 'Início',
 		login: 'Login',
 		configurations: 'Configurações',
+	},
+
+	reset: {
+		title: 'Adicione um dispositivo',
+		subtitle: 'Iniciar pareamento',
+		explanation: 'Ligue o dispositivo e segure o botão de ligar. Confirme que a luz está piscando.',
+		checkbox: 'A luz está piscando',
+
 	},
 
 	configurations: {

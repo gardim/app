@@ -45,18 +45,21 @@ const InitialLayout = () => {
 				options={{
 					presentation: 'modal',
 				}}
+				redirect={!isSignedIn}
 			/>
 			<Stack.Screen
 				name="(modals)/plant/[id]"
 				options={{
 					presentation: 'modal',
 				}}
+				redirect={!isSignedIn}
 			/>
 			<Stack.Screen
 				name="(modals)/plans"
 				options={{
 					presentation: 'modal',
 				}}
+				redirect={!isSignedIn}
 			/>
 		</Stack>
 	);

@@ -9,6 +9,7 @@ import AddFAB from '@components/elements/AddFAB';
 import { i18n } from '@lang/index';
 import { Device } from 'src/@types';
 import DeviceItem from '@components/elements/DeviceItem';
+import { useRouter } from 'expo-router';
 
 export type DeviceViewProps = {
 	devices: Device[];
@@ -17,6 +18,7 @@ export type DeviceViewProps = {
 };
 
 const DevicesView = ({ devices, loading, refresh }: DeviceViewProps) => {
+	const router = useRouter();
 	useEffect(() => {}, [loading]);
 
 	return (
@@ -37,14 +39,14 @@ const DevicesView = ({ devices, loading, refresh }: DeviceViewProps) => {
 						}
 						ListEmptyComponent={() => (
 							<View style={{ alignItems: 'center' }}>
-								<AddFAB callback={() => console.log('clicked')} />
+								<AddFAB callback={() => router.push('/reset')} />
 								<Text variant="titleSmall" style={{ margin: 20 }}>
 									{i18n.t('Add your first device')}
 								</Text>
 							</View>
 						)}
 					/>
-					{devices.length > 0 && <AddFAB callback={() => console.log('clicked')} absolute />}
+					{devices.length > 0 && <AddFAB callback={() => router.push('/reset')} absolute />}
 				</>
 			)}
 		</View>

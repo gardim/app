@@ -36,7 +36,6 @@ export const StyledProvider = ({ children }: Props) => {
 	useEffect(() => {
 		setIsLoading(true);
 		const fetchTheme = async () => {
-			console.log(color);
 			await themeCache
 				.getTheme(color)
 				.then((storedTheme) => {
@@ -44,7 +43,7 @@ export const StyledProvider = ({ children }: Props) => {
 					setTheme(storedTheme);
 				})
 				.catch((error) => {
-					console.log(error);
+					console.error(error);
 				})
 				.finally(() => {
 					setIsLoading(false);

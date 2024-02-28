@@ -16,6 +16,19 @@ export const getAllPlants = createAsyncThunk<Plant[], void, { rejectValue: ApiEr
 	}
 );
 
+export const getOnePlant = createAsyncThunk<Plant, string, { rejectValue: ApiError }>(
+	'plants/getOne',
+	async (id, thunkAPI) => {
+		try {
+			const response = await API.get(`/plants/${id}`);
+			return response.data;
+		} catch (error) {
+			const handledError = handleApiError(error);
+			return thunkAPI.rejectWithValue(handledError);
+		}
+	}
+);
+
 export const getAllDevices = createAsyncThunk<Device[], void, { rejectValue: ApiError }>(
 	'devices/getAll',
 	async (_, thunkAPI) => {

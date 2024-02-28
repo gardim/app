@@ -1,19 +1,15 @@
 import React from 'react';
 import { Stack } from 'expo-router';
 import { useAuth } from '@clerk/clerk-expo';
-const DevicesLayout = () => {
+
+const RegisterDevicesLayout = () => {
 	const { isSignedIn } = useAuth();
+
 	return (
 		<Stack screenOptions={{ headerShown: false }}>
-			<Stack.Screen
-				name="reset"
-				options={{
-					presentation: 'modal',
-				}}
-				redirect={!isSignedIn}
-			/>
+			<Stack.Screen name="reset" redirect={!isSignedIn} />
 		</Stack>
 	);
 };
 
-export default DevicesLayout;
+export default RegisterDevicesLayout;

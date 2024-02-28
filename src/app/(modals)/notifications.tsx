@@ -1,4 +1,4 @@
-import Close from '@components/elements/Close';
+import Close from '@components/ui/Close';
 import EmptyBanner from '@components/ui/EmptyBanner';
 import { i18n } from '@lang/index';
 import * as React from 'react';

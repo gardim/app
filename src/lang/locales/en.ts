@@ -8,6 +8,14 @@ export default {
 	'Login with Google': 'Login with Google',
 	'nothing to show': 'Looks like there is nothing to be shown here...',
 	Continue: 'Continue',
+	Cancel: 'Cancel',
+	or: 'or',
+
+	components: {
+		return: {
+			confirmation: 'Are you sure you want to leave? All data will be lost.',
+		},
+	},
 
 	routes: {
 		notifications: 'Notifications',
@@ -21,9 +29,41 @@ export default {
 	reset: {
 		title: 'Add a device',
 		subtitle: 'Pair initialization',
-		explanation: 'Turn the device on and hold the power button. Check if the light indicador is blinking.',
+		explanation:
+			'Turn the device on and hold the power button. Check if the light indicador is blinking.',
 		checkbox: 'The light indicator is blinking',
+	},
 
+	identificationMethod: {
+		title: 'Add a plant',
+		subtitle: 'Identification method',
+		explanation: 'Select the method you want to follow to identify your plant',
+		image: 'Identify by image',
+		text: 'Identify by text',
+	},
+
+	textMethod: {
+		title: 'Add a plant',
+		subtitle: 'Text identification',
+		explanation: 'Write some keywords that will help us find your plant',
+		tip: 'Press enter or space to divide the words',
+	},
+
+	imageMethod: {
+		title: 'Add a plant',
+		subtitle: 'Image identification',
+		explanation: 'Add some pictures so we can identify your plant.',
+		camera: 'Take picture',
+		gallery: 'Add from gallery	',
+	},
+
+	stats: {
+		humidity: {
+			soil: 'Soil Humidity',
+			atmosphere: 'Atmospheric Humidity',
+		},
+		temperature: 'Temperature',
+		luminosity: 'Luminosity',
 	},
 
 	configurations: {

@@ -1,40 +1,47 @@
 import * as React from 'react';
-import { View, StyleSheet, ScrollView, Dimensions, Platform } from 'react-native';
-import { PlantOptionsList } from '../PlantOptionsList';
+import { View, StyleSheet, ScrollView } from 'react-native';
 import { Text } from 'react-native-paper';
+import Return from '@components/ui/Return';
+import { i18n } from '@lang/index';
+import { useRouter } from 'expo-router';
 
-export function Result() {
-	let height = Dimensions.get('window').height;
+const Result = () => {
+	const router = useRouter();
 
-	if (Platform.OS === 'web') {
-		height -= 100;
-	}
+	const handleReturn = () => {
+		router.push('/(auth)/(tabs)/myPlants');
+	};
 
 	return (
 		<View style={styles.container}>
+			<Return
+				title={i18n.t('textMethod.title')}
+				subTitle={i18n.t('textMethod.subtitle')}
+				handleReturn={handleReturn}
+				confirmation
+			/>
 			<View style={styles.row}>
 				<Text variant="titleMedium" style={{ textAlign: 'center' }}>
 					Selecione o resultado da busca
 				</Text>
-				<ScrollView style={{ maxHeight: height }}>
-					<PlantOptionsList
+				<ScrollView>
+					{/* <PlantOptionsList
 						info={[].map(() => ({
 							id: 1,
 							name: 'a',
 							probability: 8,
 						}))}
 						onOptionSelect={() => console.log('')}
-					/>
+					/> */}
 				</ScrollView>
 			</View>
 		</View>
 	);
-}
+};
 
 const styles = StyleSheet.create({
 	container: {
 		flexGrow: 1,
-		justifyContent: 'flex-start',
 	},
 	row: {
 		flexDirection: 'column',
@@ -48,3 +55,5 @@ const styles = StyleSheet.create({
 		margin: 40,
 	},
 });
+
+export default Result;

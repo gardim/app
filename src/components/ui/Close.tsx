@@ -8,9 +8,10 @@ import { useRouter } from 'expo-router';
 
 type CloseProps = {
 	position: 'left' | 'right';
+	color?: string;
 };
 
-function Close({ position }: CloseProps) {
+const Close = ({ position, color }: CloseProps) => {
 	const router = useRouter();
 	const { colors } = useTheme();
 	const innerPosition = position === 'left' ? { left: 20 } : { right: 20 };
@@ -30,11 +31,11 @@ function Close({ position }: CloseProps) {
 			onPress={() => router.back()}
 			style={[styles.container, innerPosition]}
 			name="close"
-			color={colors.onSurface}
+			color={color ? color : colors.onSurface}
 			size={24}
 		/>
 	);
-}
+};
 
 const styles = StyleSheet.create({
 	container: {

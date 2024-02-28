@@ -1,7 +1,7 @@
 import * as React from 'react';
 import { View, ScrollView } from 'react-native';
 import { Text, Card, Avatar } from 'react-native-paper';
-import { LinearGaugeChart } from '../LinearGaugeChart';
+import { LinearGaugeChart } from '../elements/LinearGaugeChart';
 
 export function Status() {
 	return (

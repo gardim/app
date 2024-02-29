@@ -1,6 +1,5 @@
 import * as React from 'react';
 
-import { useRouter } from 'expo-router';
 import { View } from 'react-native';
 import { Avatar, Card, Text } from 'react-native-paper';
 import { LinearGaugeChart } from '@components/elements/LinearGaugeChart';
@@ -8,8 +7,6 @@ import { i18n } from '@lang/index';
 import { StatsRange } from 'src/@types';
 
 const StatusView = () => {
-	const router = useRouter();
-
 	return (
 		<View style={{ justifyContent: 'space-around', marginHorizontal: 20, alignItems: 'center' }}>
 			<StatusCard

@@ -68,6 +68,8 @@ const styles = StyleSheet.create({
 	icon: {
 		marginLeft: 20,
 		flexGrow: 2,
+		height: 30,
+		justifyContent: 'center'
 	},
 	headerContainer: {
 		alignItems: 'center',

@@ -39,7 +39,6 @@ const Configurations = () => {
 							name={isThemeDark ? 'moon' : 'light-up'}
 							size={24}
 							color={colors.onBackground}
-							style={{ marginTop: 8 }}
 						/>
 					)}
 					right={() => <Switch value={isThemeDark} onValueChange={toggleTheme} />}
@@ -52,7 +51,6 @@ const Configurations = () => {
 							name="bell-outline"
 							size={24}
 							color={colors.onBackground}
-							style={{ marginTop: 8 }}
 						/>
 					)}
 					right={() => <Switch value={false} onValueChange={() => console.log('')} />}
@@ -67,7 +65,6 @@ const Configurations = () => {
 							height={24}
 							width={24}
 							color={colors.onBackground}
-							style={{ marginTop: 8 }}
 						/>
 					)}
 				/>
@@ -79,7 +76,6 @@ const Configurations = () => {
 							name="list"
 							size={24}
 							color={colors.onBackground}
-							style={{ marginTop: 8 }}
 						/>
 					)}
 				/>
@@ -89,9 +85,8 @@ const Configurations = () => {
 					left={() => (
 						<Entypo
 							name="log-out"
-							size={24}
+							size={22}
 							color={colors.onBackground}
-							style={{ marginTop: 8 }}
 						/>
 					)}
 					onPress={signOut}

@@ -28,7 +28,7 @@ const ScrollTab = ({ onCategoryChanged }: ScrollTabProps) => {
 	};
 
 	return (
-		<View style={{ justifyContent: 'flex-start', flexDirection: 'row'}}>
+		<View style={{ justifyContent: 'flex-start', flexDirection: 'row' }}>
 			<ScrollView
 				horizontal
 				ref={scrollRef}
@@ -45,10 +45,7 @@ const ScrollTab = ({ onCategoryChanged }: ScrollTabProps) => {
 						key={index}
 						style={activeIndex === index ? styles.categoriesBtnActive : styles.categoriesBtn}
 						onPress={() => selectCategory(index)}>
-						<Text
-							variant={'titleMedium'}>
-							{item.name}
-						</Text>
+						<Text variant={'titleMedium'}>{item.name}</Text>
 					</TouchableOpacity>
 				))}
 			</ScrollView>
@@ -57,7 +54,6 @@ const ScrollTab = ({ onCategoryChanged }: ScrollTabProps) => {
 };
 
 const styles = StyleSheet.create({
-
 	categoriesBtn: {
 		flex: 1,
 		alignItems: 'center',

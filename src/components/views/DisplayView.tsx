@@ -4,36 +4,34 @@ import { RefreshControl, View, FlatList } from 'react-native';
 import { Button, Text, useTheme } from 'react-native-paper';
 import { useEffect, useState } from 'react';
 import SkeletonList from '@components/elements/SkeletonItem';
-import PlantItem from '@components/elements/PlantItem';
 import AddFAB from '@components/elements/AddFAB';
-import { i18n } from '@lang/index';
-import { Plant } from 'src/@types';
-import { useRouter } from 'expo-router';
 import { MaterialCommunityIcons } from '@expo/vector-icons';
-import PlantGridItem from '@components/elements/PlantGridItem';
+import GridItem from '@components/elements/GridItem';
+import ListItem from '@components/elements/ListItem';
+import { Item } from 'src/@types';
+import { sortItemsByTitle } from '@utils/index';
 
-export type PlantViewProps = {
-	plants: Plant[];
+export type DisplayViewProps = {
+	items: Item[];
 	loading: boolean;
 	refresh: () => void;
+	handleOnAddItem: () => void;
+	handleOnPressItem: (id: string) => void;
+	addMessage: string;
+	fallbackIcon: string;
 };
 
-const sortPlantsByName = (plants: Plant[], sort: 'asc' | 'desc'): Plant[] => {
-	const sortedPlants = [...plants].sort((a, b) => {
-		if (sort === 'asc') {
-			return a.name.localeCompare(b.name);
-		} else {
-			return b.name.localeCompare(a.name);
-		}
-	});
-
-	return sortedPlants;
-};
-
-const PlantsView = ({ plants, loading, refresh }: PlantViewProps) => {
-	const router = useRouter();
-	const {colors} = useTheme();
-	const [key, setKey] = useState<'grid' | 'list'>('grid');
+const DisplayView = ({
+	items,
+	loading,
+	refresh,
+	handleOnAddItem: handleOnAddItem,
+	handleOnPressItem,
+	addMessage,
+	fallbackIcon,
+}: DisplayViewProps) => {
+	const { colors } = useTheme();
+	const [key, setKey] = useState<'grid' | 'list'>('list');
 	const [sort, setSort] = useState<'asc' | 'desc'>('asc');
 
 	useEffect(() => {}, [loading]);
@@ -49,7 +47,7 @@ const PlantsView = ({ plants, loading, refresh }: PlantViewProps) => {
 							justifyContent: 'space-between',
 							marginHorizontal: 12,
 							marginVertical: 20,
-							flexDirection: 'row'
+							flexDirection: 'row',
 						}}>
 						<Button
 							icon={
@@ -74,41 +72,44 @@ const PlantsView = ({ plants, loading, refresh }: PlantViewProps) => {
 					</View>
 					<FlatList
 						contentContainerStyle={
-							plants.length == 0 && { flexGrow: 1, justifyContent: 'center' }
+							items.length == 0 && { flexGrow: 1, justifyContent: 'center' }
 						}
 						numColumns={key == 'grid' ? 2 : 1}
-						data={sortPlantsByName(plants, sort)}
-						keyExtractor={(item) => item.id}
+						data={sortItemsByTitle(items, sort)}
+						keyExtractor={(item) => item.id ?? item.title}
 						key={key}
 						renderItem={({ item }) =>
-							key == 'grid' ? <PlantGridItem plant={item} /> : <PlantItem plant={item} />
+							key == 'grid' ? (
+								<GridItem
+									item={item}
+									handleOnPress={() => handleOnPressItem(item.id ?? item.title)}
+									fallbackIcon={fallbackIcon}
+								/>
+							) : (
+								<ListItem
+									item={item}
+									handleOnPress={() => handleOnPressItem(item.id ?? item.title)}
+									fallbackIcon={fallbackIcon}
+								/>
+							)
 						}
 						refreshControl={
 							<RefreshControl enabled refreshing={loading} onRefresh={refresh} />
 						}
 						ListEmptyComponent={() => (
 							<View style={{ alignItems: 'center' }}>
-								<AddFAB
-									callback={() =>
-										router.push('/(auth)/(register_plants)/identificationMethod')
-									}
-								/>
+								<AddFAB callback={handleOnAddItem} />
 								<Text variant="titleSmall" style={{ margin: 20 }}>
-									{i18n.t('Add your first plant')}
+									{addMessage}
 								</Text>
 							</View>
 						)}
 					/>
-					{plants.length > 0 && (
-						<AddFAB
-							callback={() => router.push('/(auth)/(register_plants)/identificationMethod')}
-							absolute
-						/>
-					)}
+					{items.length > 0 && <AddFAB callback={handleOnAddItem} absolute />}
 				</>
 			)}
 		</View>
 	);
 };
 
-export default PlantsView;
+export default DisplayView;

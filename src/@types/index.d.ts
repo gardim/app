@@ -15,6 +15,13 @@ export type Plant = {
 	};
 };
 
+export type Item = {
+	id?: string;
+	image: string | null;
+	title: string;
+	subtitle: string;
+};
+
 export type StatsRange = {
 	max: number | null;
 	min: number | null;

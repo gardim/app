@@ -69,7 +69,7 @@ const styles = StyleSheet.create({
 		marginLeft: 20,
 		flexGrow: 2,
 		height: 30,
-		justifyContent: 'center'
+		justifyContent: 'center',
 	},
 	headerContainer: {
 		alignItems: 'center',

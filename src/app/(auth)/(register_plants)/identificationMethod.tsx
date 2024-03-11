@@ -16,7 +16,7 @@ export default function IdentificationMethod() {
 	return (
 		<View style={styles.container}>
 			<Return
-				title={i18n.t('identificationMethod.title')}
+				title={i18n.t('register_plants')}
 				subTitle={i18n.t('identificationMethod.subtitle')}
 				handleReturn={handleReturn}
 				confirmation={true}

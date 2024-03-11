@@ -30,7 +30,7 @@ const Reset = () => {
 	return (
 		<View style={{ flex: 1 }}>
 			<Return
-				title={i18n.t('reset.title')}
+				title={i18n.t('register_devices')}
 				subTitle={i18n.t('reset.subtitle')}
 				handleReturn={handleReturn}
 			/>

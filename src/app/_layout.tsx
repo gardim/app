@@ -41,21 +41,21 @@ const InitialLayout = () => {
 	return (
 		<Stack screenOptions={{ headerShown: false }}>
 			<Stack.Screen
-				name="(modals)/notifications"
+				name="(auth)/(modals)/notifications"
 				options={{
 					presentation: 'modal',
 				}}
 				redirect={!isSignedIn}
 			/>
 			<Stack.Screen
-				name="(modals)/plant/[id]"
+				name="(auth)/(modals)/plant/[id]"
 				options={{
 					presentation: 'modal',
 				}}
 				redirect={!isSignedIn}
 			/>
 			<Stack.Screen
-				name="(modals)/plans"
+				name="(auth)/(modals)/plans"
 				options={{
 					presentation: 'modal',
 				}}

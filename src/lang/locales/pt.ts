@@ -10,6 +10,7 @@ export default {
 	Continue: 'Continuar',
 	or: 'ou',
 	Search: 'Search',
+	'Try Again': 'Tentar Novamente',
 
 	components: {
 		return: {
@@ -26,8 +27,9 @@ export default {
 		configurations: 'Configurações',
 	},
 
+	register_plants: 'Adicione uma planta',
+
 	identificationMethod: {
-		title: 'Adicione uma planta',
 		subtitle: 'Método de identificação',
 		explanation: 'Selecione o método que deseja seguir para identificar sua planta',
 		image: 'Identificar por imagem',
@@ -35,22 +37,28 @@ export default {
 	},
 
 	textMethod: {
-		title: 'Adicione uma planta',
 		subtitle: 'Identificação por texto',
 		explanation: 'Digite algumas palavras que irão nos ajudar a encontrar sua planta',
 		tip: 'Pressione enter ou espaço para dividir as palavras',
 	},
 
 	imageMethod: {
-		title: 'Adicione uma planta',
 		subtitle: 'Identificação por imagem',
 		explanation: 'Adicione algumas imagens para podermos identificar sua planta.',
 		camera: 'Tire uma foto',
 		gallery: 'Adicione da galeria',
 	},
 
+	result: {
+		subtitle: 'Resultado',
+		explanation: 'Escolha a opção que melhor se adequa a sua planta.',
+		empty: 'Não encontramos nenhum resultado para sua busca. Por favor revise seus parâmetros de pesquisa, ou tente novamente com outro método de identificação.',
+		probability: 'Probabilidade de Acerto',
+	},
+
+	register_devices: 'Adicione um dispositivo',
+
 	reset: {
-		title: 'Adicione um dispositivo',
 		subtitle: 'Iniciar pareamento',
 		explanation:
 			'Ligue o dispositivo e segure o botão de ligar. Confirme que a luz está piscando.',

@@ -13,7 +13,7 @@ interface PlantState {
 const initialState: PlantState = {
 	plants: [],
 	currentPlant: undefined,
-	error: null,
+	error: undefined,
 	loading: false,
 };
 
@@ -24,12 +24,12 @@ export const plantSlice = createSlice({
 	extraReducers: (builder) => {
 		builder.addCase(getAllPlants.pending, (state) => {
 			state.loading = true;
-			state.error = null;
+			state.error = undefined;
 		});
 		builder.addCase(getAllPlants.fulfilled, (state, action) => {
 			state.loading = false;
 			state.plants = action.payload;
-			state.error = null;
+			state.error = undefined;
 		});
 		builder.addCase(getAllPlants.rejected, (state, action) => {
 			state.loading = false;
@@ -38,12 +38,12 @@ export const plantSlice = createSlice({
 
 		builder.addCase(getOnePlant.pending, (state) => {
 			state.loading = true;
-			state.error = null;
+			state.error = undefined;
 		});
 		builder.addCase(getOnePlant.fulfilled, (state, action) => {
 			state.loading = false;
 			state.currentPlant = action.payload;
-			state.error = null;
+			state.error = undefined;
 		});
 		builder.addCase(getOnePlant.rejected, (state, action) => {
 			state.loading = false;

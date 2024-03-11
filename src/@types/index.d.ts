@@ -27,6 +27,7 @@ export type StatsRange = {
 	min: number | null;
 	tolerance: number | null;
 };
+
 export type PlantStats = {
 	humidity: {
 		soil: number | null;
@@ -54,14 +55,8 @@ export type ImageType = {
 	uri: string;
 };
 
-export type Range = {
-	min: number;
-	max: number;
-};
-
-export type User = {
+export type Response = {
+	id?: number;
 	name: string;
-	picture: string;
-	email: string;
-	verifiedEmail: boolean;
+	probability?: number;
 };

@@ -10,6 +10,7 @@ export default {
 	Continue: 'Continue',
 	Cancel: 'Cancel',
 	or: 'or',
+	'Try Again': 'Try Again',
 
 	components: {
 		return: {
@@ -34,8 +35,9 @@ export default {
 		checkbox: 'The light indicator is blinking',
 	},
 
+	register_plants: 'Add a plant',
+
 	identificationMethod: {
-		title: 'Add a plant',
 		subtitle: 'Identification method',
 		explanation: 'Select the method you want to follow to identify your plant',
 		image: 'Identify by image',
@@ -43,18 +45,23 @@ export default {
 	},
 
 	textMethod: {
-		title: 'Add a plant',
 		subtitle: 'Text identification',
 		explanation: 'Write some keywords that will help us find your plant',
 		tip: 'Press enter or space to divide the words',
 	},
 
 	imageMethod: {
-		title: 'Add a plant',
 		subtitle: 'Image identification',
 		explanation: 'Add some pictures so we can identify your plant.',
 		camera: 'Take picture',
 		gallery: 'Add from gallery	',
+	},
+
+	result: {
+		subtitle: 'Result',
+		explanation: 'Choose the best fit for your plant.',
+		empty: 'We did not find any results for your query. Please review your search parameters, or try with another identification method.',
+		probability: 'Success Probability',
 	},
 
 	stats: {

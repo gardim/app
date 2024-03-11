@@ -9,6 +9,9 @@ import DeletableImage from '@components/ui/DeletableImage';
 import Return from '@components/ui/Return';
 import { i18n } from '@lang/index';
 import { useRouter } from 'expo-router';
+import { AppDispatch } from '@store/index';
+import { useDispatch } from 'react-redux';
+import { queryImage } from '@store/actions';
 
 const ImageMethod = () => {
 	const router = useRouter();
@@ -16,6 +19,8 @@ const ImageMethod = () => {
 	const [images, setImages] = useState<ImageType[]>([]);
 	const [visible, setVisible] = useState<boolean>(false);
 	const [allowContinue, setAllowContinue] = useState<boolean>(false);
+
+	const dispatch: AppDispatch = useDispatch();
 
 	useEffect(() => {
 		if (images.length) {
@@ -63,12 +68,17 @@ const ImageMethod = () => {
 		router.push('/(auth)/(tabs)/myPlants');
 	};
 
+	const handleContinue = () => {
+		dispatch(queryImage());
+		router.push('/result');
+	};
+
 	const width = Dimensions.get('window').width;
 
 	return (
 		<View style={styles.container}>
 			<Return
-				title={i18n.t('imageMethod.title')}
+				title={i18n.t('register_plants')}
 				subTitle={i18n.t('imageMethod.subtitle')}
 				handleReturn={handleReturn}
 				confirmation
@@ -131,7 +141,7 @@ const ImageMethod = () => {
 			<FAB
 				icon="arrow-right"
 				label={visible ? i18n.t('Continue') : ''}
-				onPress={() => router.push('/result')}
+				onPress={handleContinue}
 				style={[styles.compressedFabStyle]}
 				variant="primary"
 				onLongPress={() => setVisible(!visible)}

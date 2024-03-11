@@ -1,10 +1,13 @@
 import Return from '@components/ui/Return';
 import { i18n } from '@lang/index';
+import { queryText } from '@store/actions';
+import { AppDispatch } from '@store/index';
 import { useRouter } from 'expo-router';
 import * as React from 'react';
 import { useEffect, useState } from 'react';
 import { View, StyleSheet } from 'react-native';
 import { Text, Searchbar, Chip, FAB, HelperText } from 'react-native-paper';
+import { useDispatch } from 'react-redux';
 
 const TextMethod = () => {
 	const router = useRouter();
@@ -13,6 +16,8 @@ const TextMethod = () => {
 	const [chips, setChips] = useState<Array<string>>([]);
 	const [visible, setVisible] = useState<boolean>(false);
 	const [allowContinue, setAllowContinue] = useState<boolean>(false);
+
+	const dispatch: AppDispatch = useDispatch();
 
 	useEffect(() => {
 		if (chips.length) {
@@ -24,6 +29,11 @@ const TextMethod = () => {
 
 	const handleReturn = () => {
 		router.push('/(auth)/(tabs)/myPlants');
+	};
+
+	const handleContinue = () => {
+		dispatch(queryText());
+		router.push('/result');
 	};
 
 	const removeChip = (chipToDelete: string) => {
@@ -49,7 +59,7 @@ const TextMethod = () => {
 	return (
 		<View style={styles.container}>
 			<Return
-				title={i18n.t('textMethod.title')}
+				title={i18n.t('register_plants')}
 				subTitle={i18n.t('textMethod.subtitle')}
 				handleReturn={handleReturn}
 				confirmation
@@ -89,7 +99,7 @@ const TextMethod = () => {
 			<FAB
 				icon="arrow-right"
 				label={visible ? i18n.t('Continue') : ''}
-				onPress={() => router.push('/result')}
+				onPress={handleContinue}
 				style={[styles.compressedFabStyle]}
 				variant="primary"
 				onLongPress={() => setVisible(!visible)}

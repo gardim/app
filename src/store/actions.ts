@@ -1,6 +1,6 @@
 import { createAsyncThunk } from '@reduxjs/toolkit';
-import { ApiError, handleApiError } from '../utils/error';
-import { Device, Plant } from '../@types';
+import { ApiError, RequestError, handleApiError } from '../utils/error';
+import { Device, Plant, Response } from '../@types';
 import { API } from '../services';
 
 export const getAllPlants = createAsyncThunk<Plant[], void, { rejectValue: ApiError }>(
@@ -10,7 +10,8 @@ export const getAllPlants = createAsyncThunk<Plant[], void, { rejectValue: ApiEr
 			const response = await API.get('/plants');
 			return response.data;
 		} catch (error) {
-			const handledError = handleApiError(error);
+			const requestError = error as RequestError;
+			const handledError = handleApiError(requestError);
 			return thunkAPI.rejectWithValue(handledError);
 		}
 	}
@@ -23,7 +24,8 @@ export const getOnePlant = createAsyncThunk<Plant, string, { rejectValue: ApiErr
 			const response = await API.get(`/plants/${id}`);
 			return response.data;
 		} catch (error) {
-			const handledError = handleApiError(error);
+			const requestError = error as RequestError;
+			const handledError = handleApiError(requestError);
 			return thunkAPI.rejectWithValue(handledError);
 		}
 	}
@@ -36,7 +38,36 @@ export const getAllDevices = createAsyncThunk<Device[], void, { rejectValue: Api
 			const response = await API.get('/devices');
 			return response.data;
 		} catch (error) {
-			const handledError = handleApiError(error);
+			const requestError = error as RequestError;
+			const handledError = handleApiError(requestError);
+			return thunkAPI.rejectWithValue(handledError);
+		}
+	}
+);
+
+export const queryImage = createAsyncThunk<Response[], void, { rejectValue: ApiError }>(
+	'query/image',
+	async (_, thunkAPI) => {
+		try {
+			const response = await API.post('/plants/query/image');
+			return response.data;
+		} catch (error) {
+			const requestError = error as RequestError;
+			const handledError = handleApiError(requestError);
+			return thunkAPI.rejectWithValue(handledError);
+		}
+	}
+);
+
+export const queryText = createAsyncThunk<Response[], void, { rejectValue: ApiError }>(
+	'query/text',
+	async (_, thunkAPI) => {
+		try {
+			const response = await API.post('/plants/query/text');
+			return response.data;
+		} catch (error) {
+			const requestError = error as RequestError;
+			const handledError = handleApiError(requestError);
 			return thunkAPI.rejectWithValue(handledError);
 		}
 	}

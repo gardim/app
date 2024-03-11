@@ -60,35 +60,17 @@ const Configurations = () => {
 					onPress={() => router.push('/(modals)/plans')}
 					title={i18n.t('configurations.pro.title')}
 					description={i18n.t('configurations.pro.description')}
-					left={() => (
-						<Laurel
-							height={24}
-							width={24}
-							color={colors.onBackground}
-						/>
-					)}
+					left={() => <Laurel height={24} width={24} color={colors.onBackground} />}
 				/>
 				<List.Item
 					title={i18n.t('configurations.terms.title')}
 					description={i18n.t('configurations.terms.description')}
-					left={() => (
-						<Entypo
-							name="list"
-							size={24}
-							color={colors.onBackground}
-						/>
-					)}
+					left={() => <Entypo name="list" size={24} color={colors.onBackground} />}
 				/>
 				<List.Item
 					title={i18n.t('configurations.logout.title')}
 					description={i18n.t('configurations.logout.description')}
-					left={() => (
-						<Entypo
-							name="log-out"
-							size={22}
-							color={colors.onBackground}
-						/>
-					)}
+					left={() => <Entypo name="log-out" size={22} color={colors.onBackground} />}
 					onPress={signOut}
 				/>
 			</List.Section>

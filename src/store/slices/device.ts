@@ -11,7 +11,7 @@ interface DeviceState {
 
 const initialState: DeviceState = {
 	devices: [],
-	error: null,
+	error: undefined,
 	loading: false,
 };
 
@@ -22,12 +22,12 @@ export const deviceSlice = createSlice({
 	extraReducers: (builder) => {
 		builder.addCase(getAllDevices.pending, (state) => {
 			state.loading = true;
-			state.error = null;
+			state.error = undefined;
 		});
 		builder.addCase(getAllDevices.fulfilled, (state, action) => {
 			state.loading = false;
 			state.devices = action.payload;
-			state.error = null;
+			state.error = undefined;
 		});
 		builder.addCase(getAllDevices.rejected, (state, action) => {
 			state.loading = false;

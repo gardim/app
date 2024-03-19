@@ -57,7 +57,7 @@
   "devDependencies": {
     "@babel/core": "^7.12.9",
     "@babel/preset-env": "^7.0.0",
-    "@cypress/code-coverage": "^3.10.0",
+    "@cypress/code-coverage": "^3.12.30",
     "@react-native/babel-preset": "^0.73.21",
     "@types/node": "^20.11.17",
     "@typescript-eslint/eslint-plugin": "^6.21.0",
